@@ -1,0 +1,170 @@
+
+@charset "ISO-8859-1";
+*{
+	margin:0%;
+	padding:0%;
+}
+
+@font-face {
+   font-family: 'Snell Roundhand';
+	  src: url('SnellRoundhand-Bold.ttf') format('truetype');
+ }
+
+html, body {
+  font-family: sans-serif;
+
+}
+
+/****************************************************/
+/*styles pour le conteneur                             */
+/****************************************************/
+.conteneur{
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+
+}
+
+/****************************************************/
+/*styles pour le header                             */
+/****************************************************/
+header {
+  height: 90px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+/****************************************************/
+/*styles pour la zone centrale de la page           */
+/****************************************************/
+main {
+	margin-top: 0px;
+	padding-top: 0px;
+	min-height: 600px;
+ 	font-size: 0px;
+ 	margin-top:79px;
+}
+/***************************Gauche menus***********************************/
+.gauche {
+	display: inline-block;
+	background-color: #fff0f0;
+	width: 25%;
+	vertical-align: top;
+	font-size: 15px;
+
+}
+
+.sidenav{
+	position: fixed;
+ 	margin-top: 20px;
+ 	left: 0px;
+}
+
+.sidenav .titreListe{
+	color: black;
+	padding: 30px;
+	font-weight: bold;
+ 	font-size: 22px;
+}
+
+.sidenav ul{
+  list-style: none;
+  padding-left: 40px;
+  font-size: 16px;
+  line-height: 35px;
+}
+
+.sidenav li a {
+  text-decoration: none;
+  color: grey;
+}
+
+.sidenav li a:hover {
+  color: blue;
+}
+
+/**********************************************************************/
+/*styles pour la zone droite de la zone centrale de la page           */
+/**********************************************************************/
+.droite {
+	display: inline-block;
+	width: 75%;
+	font-size: 15px;
+	vertical-align: top;
+}
+
+
+/****************************************************/
+/*styles pour le footer                             */
+/****************************************************/
+footer {
+	background-color: green;
+	height: 120px;
+	color: white;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+footer p{
+	padding: 15px;
+	padding-top: 25px;
+}
+
+
+/****************************************************/
+/*styles pour le menu principal                     */
+/****************************************************/
+nav.menuPrincipal{
+	background-color: #FAFAFA;
+	font-size: 0px;
+	text-align: right;
+	height: 75px;
+	padding: 0px;
+
+
+}
+
+nav.menuPrincipal ul {
+	display: inline-block;
+	list-style: none;
+	margin-top:5px;
+
+
+}
+
+
+nav.menuPrincipal ul li {
+	display: inline-block;
+	font-size: 20px;
+	font-weight: bold;
+	font-family: Helvetica;
+}
+
+
+nav.menuPrincipal ul li a {
+	display: table-cell;
+    text-decoration: none;
+  	color: black;
+  	text-align: center;
+  	vertical-align: middle;
+  	height: 50px;
+  	width: 140px;
+}
+
+nav.menuPrincipal ul li a:hover {
+  color: grey;
+	transition:0.5s;
+}
+
+nav.menuPrincipal ul li .actif {
+		display: table-cell;
+  	background-color: ivory;
+  	color: black;
+  	text-align: center;
+  	vertical-align: middle;
+  	height: 50px;
+  	width: 140px;
+}
