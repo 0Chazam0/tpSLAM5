@@ -185,12 +185,34 @@ CREATE  INDEX I_FK_VENDRE_PRODUIT
 
 CREATE  INDEX I_FK_VENDRE_SEMAINE
      ON VENDRE (NUMSEMAINE ASC);
+	 
+# -----------------------------------------------------------------------------
+#       TABLE : TYPEPRODUIT
+# -----------------------------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS TYPEPRODUIT
+ (
+   CODE CHAR(32) NOT NULL  ,
+   LIBELLE CHAR(32) NULL
+   , PRIMARY KEY (CODE) 
+ ) 
+ comment = "";
+# -----------------------------------------------------------------------------
+#       INDEX DE LA TABLE TYPEPRODUIT
+# -----------------------------------------------------------------------------
+
+
+CREATE  INDEX I_FK_TYPE_PRODUIT
+     ON TYPEPRODUIT (CODE ASC);
 
 
 # -----------------------------------------------------------------------------
 #       CREATION DES REFERENCES DE TABLE
 # -----------------------------------------------------------------------------
 
+ALTER TABLE TYPEPRODUIT 
+  ADD FOREIGN KEY FK_TYPEPRODUIT_PRODUIT (CODE)
+      REFERENCES PRODUIT (CODE) ;
 
 ALTER TABLE COMMANDE 
   ADD FOREIGN KEY FK_COMMANDE_CLIENT (EMAIL)
@@ -216,7 +238,7 @@ ALTER TABLE CLIENT
   ADD FOREIGN KEY FK_CLIENT_USER (EMAIL)
       REFERENCES USER (EMAIL) ;
 
-
+	  
 ALTER TABLE PRODUIT 
   ADD FOREIGN KEY FK_PRODUIT_PRODUCTEUR (EMAIL)
       REFERENCES PRODUCTEUR (EMAIL) ;
@@ -241,6 +263,15 @@ ALTER TABLE VENDRE
   ADD FOREIGN KEY FK_VENDRE_SEMAINE (NUMSEMAINE)
       REFERENCES SEMAINE (NUMSEMAINE) ;
 	  
+INSERT INTO `biorelaisbdd`.`user` (`EMAIL`, `NOM`, `PRENOM`, `MDP`) VALUES ('beuquila.jeremy@gmail.com', '', '', ''), 
+('romain.daros@gmail.com', '', '', ''),
+('samuel.belondrade@gmail.com', '', '', '');
+	  
+INSERT INTO `biorelaisbdd`.`client` (`EMAIL`, `NOM`, `PRENOM`, `MDP`) VALUES ('beuquila.jeremy@gmail.com', 'beuquila', 'jeremy', 'beuquila'), 
+('romain.daros@gmail.com', 'Da ros', 'Romain', 'daros'),
+('samuel.belondrade@gmail.com', 'belondrade', 'Samuel', 'belondrade');
+
+
 	  
 CREATE USER 'biobio'@'%' IDENTIFIED BY 'bio';GRANT SELECT, INSERT, UPDATE, DELETE ON *.* TO 'biobio'@'%' IDENTIFIED BY 'bio' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;GRANT ALL PRIVILEGES ON `BiorelaisBDD`.* TO 'biobio'@'%';
 
