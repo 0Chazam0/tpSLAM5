@@ -29,12 +29,13 @@ html, body {
 /*styles pour le header                             */
 /****************************************************/
 header {
-  height: 90px;
+  height: 27%;
   position: fixed;
   width: 100%;
   top: 0;
   left: 0;
   z-index: 10;
+	background-color: #92d70b;
 }
 
 /****************************************************/
@@ -101,8 +102,8 @@ main {
 /*styles pour le footer                             */
 /****************************************************/
 footer {
-	background-color: green;
-	height: 120px;
+	background-color: #96bf0d;
+	height: 200px;
 	color: white;
 	font-weight: bold;
 	font-size: 15px;
@@ -118,10 +119,10 @@ footer p{
 /*styles pour le menu principal                     */
 /****************************************************/
 nav.menuPrincipal{
-	background-color: #FAFAFA;
+	background-color: #699c04;
 	font-size: 0px;
 	text-align: right;
-	height: 75px;
+	height: 75%;
 	padding: 0px;
 
 
@@ -167,4 +168,44 @@ nav.menuPrincipal ul li .actif {
   	vertical-align: middle;
   	height: 50px;
   	width: 140px;
+}
+
+/****************************************************/
+/*styles pour la vue accueil                     */
+/****************************************************/
+
+
+#baniere{
+	margin-top: 12.3%;
+	height: 400px;
+	width: 100%;
+	background-image: url(../image/banniereAccueil.jpeg);
+	background-size: 100% 100%;
+	background-repeat:no-repeat;
+	box-shadow: 5px 5px 5px 5px white inset;
+}
+
+.menuAccueil{
+	margin-top: 2%;
+	margin-left: 22%;
+	width:75%;
+
+}
+.menuAccueil ul {
+	list-style: none;
+	text-decoration: none;
+	display: inline-block;
+}
+.menuAccueil li {
+	display: inline;
+	margin-right: 18%;
+
+}
+.menuAccueil li a{
+	text-decoration: none;
+}
+
+
+#corpsAccueil{
+	height: 300px;
 }

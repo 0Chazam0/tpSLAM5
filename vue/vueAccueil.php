@@ -1,12 +1,17 @@
 <div class="conteneur">
-<header>
+  <header>
       <?php include 'haut.php' ;?>
   </header>
-  <?php
+    <div id="baniere">
 
-
+    </div>
+    <?php
+      echo $leMenu;
     ?>
+    <div id='corpsAccueil'>
 
+    </div>
+    <footer>
+        <?php include 'bas.php' ;?>
+    </footer>
   </div>
-
-</div>
