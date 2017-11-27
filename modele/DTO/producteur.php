@@ -1,5 +1,38 @@
 <?php
 
+class Producteurs
+{
+  private   $lesProducteurs;
+
+  function __construct($lesProducteurs)
+  {
+    $this->lesProducteurs = $lesProducteurs;
+  }
+
+  public function getLesProducteurs()
+  {
+    return $this->lesProducteurs;
+  }
+
+  public function setLesProducteurs($value)
+  {
+    $this->lesProducteurs = $value;
+  }
+
+  public function chercher($TheEmail)
+  {
+    foreach ($this->lesProducteurs as $unProducteur)
+    {
+      if ($unProducteur->getEmail() == $TheEmail)
+      {
+        return $unProducteur;
+      }
+    }
+    return null;
+  }
+
+}
+
 /**
  * Producteur
  */
@@ -71,6 +104,5 @@ class Producteur extends AnotherClass
     $this->descriptif = $value;
   }
 }
-//
 
  ?>
