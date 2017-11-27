@@ -1,31 +1,31 @@
 <?php
 
-class Responsables
+class Users
 {
-  private   $lesResponsables;
+  private   $lesUsers;
 
-  function __construct($lesResponsables)
+  function __construct($lesUsers)
   {
-    $this->lesResponsables = $lesResponsables;
+    $this->lesUsers = $lesUsers;
   }
 
-  public function getLesResponsables()
+  public function getLesUsers()
   {
-    return $this->lesResponsables;
+    return $this->lesUsers;
   }
 
-  public function setLesResponsables($value)
+  public function setLesUsers($value)
   {
-    $this->lesResponsables = $value;
+    $this->lesUsers = $value;
   }
 
   public function chercher($TheEmail)
   {
-    foreach ($this->lesResponsables as $unResponsable)
+    foreach ($this->lesUsers as $unUser)
     {
-      if ($unResponsable->getEmail() == $TheEmail)
+      if ($unUser->getEmail() == $TheEmail)
       {
-        return $unResponsable;
+        return $unUser;
       }
     }
     return null;
@@ -35,9 +35,9 @@ class Responsables
 
 
 /**
- * Responsable
+ * User
  */
-class Responsable
+class User
 {
   private   $email;
   private   $nom;
