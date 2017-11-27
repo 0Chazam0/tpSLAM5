@@ -109,20 +109,11 @@ CREATE TABLE IF NOT EXISTS CLIENT
 CREATE TABLE IF NOT EXISTS PRODUIT
  (
    CODE CHAR(32) NOT NULL  ,
-   EMAIL CHAR(25) NOT NULL  ,
    NOM CHAR(32) NULL  ,
-   DESCRIPTIF CHAR(32) NULL
+   TYPEPRODUIT CHAR(32) NOT NULL
    , PRIMARY KEY (CODE)
  )
  comment = "";
-
-# -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE PRODUIT
-# -----------------------------------------------------------------------------
-
-
-CREATE  INDEX I_FK_PRODUIT_PRODUCTEUR
-     ON PRODUIT (EMAIL ASC);
 
 # -----------------------------------------------------------------------------
 #       TABLE : SEMAINE
@@ -237,12 +228,6 @@ ALTER TABLE RESPONSABLE
 ALTER TABLE CLIENT
   ADD FOREIGN KEY FK_CLIENT_USER (EMAIL)
       REFERENCES USER (EMAIL) ;
-
-
-ALTER TABLE PRODUIT
-  ADD FOREIGN KEY FK_PRODUIT_PRODUCTEUR (EMAIL)
-      REFERENCES PRODUCTEUR (EMAIL) ;
-
 
 ALTER TABLE COMMANDER
   ADD FOREIGN KEY FK_COMMANDER_PRODUIT (CODE)
