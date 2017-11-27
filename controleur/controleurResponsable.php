@@ -1,5 +1,8 @@
 <?php
 // -->modif compte
+<table>
+  <>
+</table>
 
 
 // -->Enregistrer un nouveau producteur.

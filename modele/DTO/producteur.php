@@ -36,7 +36,7 @@ class Producteurs
 /**
  * Producteur
  */
-class Producteur extends AnotherClass
+class Producteur
 {
 
   private   $email;
