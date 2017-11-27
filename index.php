@@ -7,6 +7,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>BioRelai</title>
+		<link rel="icon" type="image/png" href="image\logo3.png" />
 		<style type="text/css">
 			@import url(style/BioRelai.css);
 		</style>

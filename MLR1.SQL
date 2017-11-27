@@ -11,9 +11,9 @@ CREATE TABLE IF NOT EXISTS USER
    EMAIL CHAR(25) NOT NULL  ,
    NOM CHAR(15) NULL  ,
    PRENOM CHAR(15) NULL  ,
-   MDP CHAR(24) NULL  
-   , PRIMARY KEY (EMAIL) 
- ) 
+   MDP CHAR(24) NULL
+   , PRIMARY KEY (EMAIL)
+ )
  comment = "";
 
 # -----------------------------------------------------------------------------
@@ -25,9 +25,9 @@ CREATE TABLE IF NOT EXISTS COMMANDE
    NUMCOMMANDE CHAR(32) NOT NULL  ,
    EMAIL CHAR(25) NOT NULL  ,
    DATECOMMANDE DATE NULL  ,
-   ETAT CHAR(32) NULL  
-   , PRIMARY KEY (NUMCOMMANDE) 
- ) 
+   ETAT CHAR(32) NULL
+   , PRIMARY KEY (NUMCOMMANDE)
+ )
  comment = "";
 
 # -----------------------------------------------------------------------------
@@ -49,9 +49,9 @@ CREATE TABLE IF NOT EXISTS PRODUCTEUR
    ADRESSE CHAR(32) NULL  ,
    DESCRIPTIF CHAR(32) NULL  ,
    PRENOM TEXT NULL  ,
-   MDP TEXT NULL  
-   , PRIMARY KEY (EMAIL) 
- ) 
+   MDP TEXT NULL
+   , PRIMARY KEY (EMAIL)
+ )
  comment = "";
 
 # -----------------------------------------------------------------------------
@@ -71,9 +71,9 @@ CREATE TABLE IF NOT EXISTS RESPONSABLE
    EMAIL CHAR(25) NOT NULL  ,
    NOM TEXT NULL  ,
    PRENOM TEXT NULL  ,
-   MDP TEXT NULL  
-   , PRIMARY KEY (EMAIL) 
- ) 
+   MDP TEXT NULL
+   , PRIMARY KEY (EMAIL)
+ )
  comment = "";
 
 # -----------------------------------------------------------------------------
@@ -83,9 +83,9 @@ CREATE TABLE IF NOT EXISTS RESPONSABLE
 CREATE TABLE IF NOT EXISTS VILLE
  (
    NOM CHAR(32) NOT NULL  ,
-   CODEPOSTAL CHAR(5) NULL  
-   , PRIMARY KEY (NOM) 
- ) 
+   CODEPOSTAL CHAR(5) NULL
+   , PRIMARY KEY (NOM)
+ )
  comment = "";
 
 # -----------------------------------------------------------------------------
@@ -97,9 +97,9 @@ CREATE TABLE IF NOT EXISTS CLIENT
    EMAIL CHAR(25) NOT NULL  ,
    NOM TEXT NULL  ,
    PRENOM TEXT NULL  ,
-   MDP TEXT NULL  
-   , PRIMARY KEY (EMAIL) 
- ) 
+   MDP TEXT NULL
+   , PRIMARY KEY (EMAIL)
+ )
  comment = "";
 
 # -----------------------------------------------------------------------------
@@ -109,20 +109,11 @@ CREATE TABLE IF NOT EXISTS CLIENT
 CREATE TABLE IF NOT EXISTS PRODUIT
  (
    CODE CHAR(32) NOT NULL  ,
-   EMAIL CHAR(25) NOT NULL  ,
    NOM CHAR(32) NULL  ,
-   DESCRIPTIF CHAR(32) NULL  
-   , PRIMARY KEY (CODE) 
- ) 
+   TYPEPRODUIT CHAR(32) NOT NULL
+   , PRIMARY KEY (CODE)
+ )
  comment = "";
-
-# -----------------------------------------------------------------------------
-#       INDEX DE LA TABLE PRODUIT
-# -----------------------------------------------------------------------------
-
-
-CREATE  INDEX I_FK_PRODUIT_PRODUCTEUR
-     ON PRODUIT (EMAIL ASC);
 
 # -----------------------------------------------------------------------------
 #       TABLE : SEMAINE
@@ -132,9 +123,9 @@ CREATE TABLE IF NOT EXISTS SEMAINE
  (
    NUMSEMAINE CHAR(32) NOT NULL  ,
    DATED DATE NULL  ,
-   DATEF DATE NULL  
-   , PRIMARY KEY (NUMSEMAINE) 
- ) 
+   DATEF DATE NULL
+   , PRIMARY KEY (NUMSEMAINE)
+ )
  comment = "";
 
 # -----------------------------------------------------------------------------
@@ -145,9 +136,9 @@ CREATE TABLE IF NOT EXISTS COMMANDER
  (
    CODE CHAR(32) NOT NULL  ,
    NUMCOMMANDE CHAR(32) NOT NULL  ,
-   QUANTITE CHAR(32) NULL  
-   , PRIMARY KEY (CODE,NUMCOMMANDE) 
- ) 
+   QUANTITE CHAR(32) NULL
+   , PRIMARY KEY (CODE,NUMCOMMANDE)
+ )
  comment = "";
 
 # -----------------------------------------------------------------------------
@@ -170,9 +161,9 @@ CREATE TABLE IF NOT EXISTS VENDRE
    CODE CHAR(32) NOT NULL  ,
    NUMSEMAINE CHAR(32) NOT NULL  ,
    PRIX CHAR(32) NULL  ,
-   QUANTITE CHAR(32) NULL  
-   , PRIMARY KEY (CODE,NUMSEMAINE) 
- ) 
+   QUANTITE CHAR(32) NULL
+   , PRIMARY KEY (CODE,NUMSEMAINE)
+ )
  comment = "";
 
 # -----------------------------------------------------------------------------
@@ -185,7 +176,7 @@ CREATE  INDEX I_FK_VENDRE_PRODUIT
 
 CREATE  INDEX I_FK_VENDRE_SEMAINE
      ON VENDRE (NUMSEMAINE ASC);
-	 
+
 # -----------------------------------------------------------------------------
 #       TABLE : TYPEPRODUIT
 # -----------------------------------------------------------------------------
@@ -194,8 +185,8 @@ CREATE TABLE IF NOT EXISTS TYPEPRODUIT
  (
    CODE CHAR(32) NOT NULL  ,
    LIBELLE CHAR(32) NULL
-   , PRIMARY KEY (CODE) 
- ) 
+   , PRIMARY KEY (CODE)
+ )
  comment = "";
 # -----------------------------------------------------------------------------
 #       INDEX DE LA TABLE TYPEPRODUIT
@@ -210,68 +201,93 @@ CREATE  INDEX I_FK_TYPE_PRODUIT
 #       CREATION DES REFERENCES DE TABLE
 # -----------------------------------------------------------------------------
 
-ALTER TABLE TYPEPRODUIT 
+ALTER TABLE TYPEPRODUIT
   ADD FOREIGN KEY FK_TYPEPRODUIT_PRODUIT (CODE)
       REFERENCES PRODUIT (CODE) ;
 
-ALTER TABLE COMMANDE 
+ALTER TABLE COMMANDE
   ADD FOREIGN KEY FK_COMMANDE_CLIENT (EMAIL)
       REFERENCES CLIENT (EMAIL) ;
 
 
-ALTER TABLE PRODUCTEUR 
+ALTER TABLE PRODUCTEUR
   ADD FOREIGN KEY FK_PRODUCTEUR_VILLE (NOM)
       REFERENCES VILLE (NOM) ;
 
 
-ALTER TABLE PRODUCTEUR 
+ALTER TABLE PRODUCTEUR
   ADD FOREIGN KEY FK_PRODUCTEUR_USER (EMAIL)
       REFERENCES USER (EMAIL) ;
 
 
-ALTER TABLE RESPONSABLE 
+ALTER TABLE RESPONSABLE
   ADD FOREIGN KEY FK_RESPONSABLE_USER (EMAIL)
       REFERENCES USER (EMAIL) ;
 
 
-ALTER TABLE CLIENT 
+ALTER TABLE CLIENT
   ADD FOREIGN KEY FK_CLIENT_USER (EMAIL)
       REFERENCES USER (EMAIL) ;
 
-	  
-ALTER TABLE PRODUIT 
-  ADD FOREIGN KEY FK_PRODUIT_PRODUCTEUR (EMAIL)
-      REFERENCES PRODUCTEUR (EMAIL) ;
-
-
-ALTER TABLE COMMANDER 
+ALTER TABLE COMMANDER
   ADD FOREIGN KEY FK_COMMANDER_PRODUIT (CODE)
       REFERENCES PRODUIT (CODE) ;
 
 
-ALTER TABLE COMMANDER 
+ALTER TABLE COMMANDER
   ADD FOREIGN KEY FK_COMMANDER_COMMANDE (NUMCOMMANDE)
       REFERENCES COMMANDE (NUMCOMMANDE) ;
 
 
-ALTER TABLE VENDRE 
+ALTER TABLE VENDRE
   ADD FOREIGN KEY FK_VENDRE_PRODUIT (CODE)
       REFERENCES PRODUIT (CODE) ;
 
 
-ALTER TABLE VENDRE 
+ALTER TABLE VENDRE
   ADD FOREIGN KEY FK_VENDRE_SEMAINE (NUMSEMAINE)
       REFERENCES SEMAINE (NUMSEMAINE) ;
-	  
-INSERT INTO `biorelaisbdd`.`user` (`EMAIL`, `NOM`, `PRENOM`, `MDP`) VALUES ('beuquila.jeremy@gmail.com', '', '', ''), 
+
+INSERT INTO `biorelaisbdd`.`user` (`EMAIL`, `NOM`, `PRENOM`, `MDP`) VALUES ('beuquila.jeremy@gmail.com', '', '', ''),
 ('romain.daros@gmail.com', '', '', ''),
-('samuel.belondrade@gmail.com', '', '', '');
-	  
-INSERT INTO `biorelaisbdd`.`client` (`EMAIL`, `NOM`, `PRENOM`, `MDP`) VALUES ('beuquila.jeremy@gmail.com', 'beuquila', 'jeremy', 'beuquila'), 
+('samuel.belondrade@gmail.com', '', '', ''),
+('Jean.Eude@carotte.fr', NULL, NULL, NULL),
+('Admin@modo.com', NULL, NULL, NULL);
+
+INSERT INTO `biorelaisbdd`.`client` (`EMAIL`, `NOM`, `PRENOM`, `MDP`) VALUES
+('beuquila.jeremy@gmail.com', 'beuquila', 'jeremy', 'beuquila'),
 ('romain.daros@gmail.com', 'Da ros', 'Romain', 'daros'),
 ('samuel.belondrade@gmail.com', 'belondrade', 'Samuel', 'belondrade');
 
+INSERT INTO `biorelaisbdd`.`producteur` (`EMAIL`, `NOM`, `ADRESSE`,`DESCRIPTIF`, `PRENOM`, `MDP`) VALUES
+('Jean.Eude@carotte.fr', 'Mouton', 'Jean-Eude','5 lieu dit des abricots','J\'ai des moutons', 'Mouton');
 
-	  
+INSERT INTO `biorelaisbdd`.`responsable` (`EMAIL`, `NOM`, `PRENOM`, `MDP`) VALUES
+('Admin@modo.com', 'modo', 'admin', 'admin');
+
+
+INSERT INTO `ville` (`NOM`, `CODEPOSTAL`) VALUES
+('Bordeaux','33000'),
+('Talence','33000'),
+('Pessac','33000'),
+('Lormont','33000'),
+('Cenon','33000'),
+('Merignac','33000');
+
+INSERT INTO `typeproduit` (`CODE`, `LIBELLE`) VALUES
+('LEG', 'légumes'),
+('FRT', 'fruits'),
+('POI', 'poisson'),
+('VAD', 'viande'),
+('BOU', 'boulangerie'),
+('PAT', 'pâtisserie');
+
+INSERT INTO `produit` (`CODE`, `NOM`, `TYPEPRODUIT`) VALUES
+('TOM', 'tomate', 'LEG'),
+('COURG', 'courgette', 'LEG'),
+('CAR', 'carotte', 'LEG'),
+('ABR', 'abricot', 'FRT'),
+('POM', 'pomme', 'FRT'),
+('FRI', 'fraise', 'FRT');
+
 CREATE USER 'biobio'@'%' IDENTIFIED BY 'bio';GRANT SELECT, INSERT, UPDATE, DELETE ON *.* TO 'biobio'@'%' IDENTIFIED BY 'bio' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;GRANT ALL PRIVILEGES ON `BiorelaisBDD`.* TO 'biobio'@'%';
-
