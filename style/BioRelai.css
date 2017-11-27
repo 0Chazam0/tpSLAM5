@@ -38,6 +38,22 @@ header {
 	background-color: #92d70b;
 }
 
+
+.formLogo{
+	height: 90px;
+	position: fixed;
+	width: 100px;
+	top: 0;
+	left: 0;
+	z-index: 10;
+}
+
+#logo {
+	margin-top: 10px;
+	width:90px;
+	margin-left:50px;
+
+}
 /****************************************************/
 /*styles pour la zone centrale de la page           */
 /****************************************************/
