@@ -282,5 +282,12 @@ INSERT INTO `typeproduit` (`CODE`, `LIBELLE`) VALUES
 ('BOU', 'boulangerie'),
 ('PAT', 'pâtisserie');
 
+INSERT INTO `produit` (`CODE`, `NOM`, `TYPEPRODUIT`) VALUES
+('TOM', 'tomate', 'LEG'),
+('COURG', 'courgette', 'LEG'),
+('CAR', 'carotte', 'LEG'),
+('ABR', 'abricot', 'FRT'),
+('POM', 'pomme', 'FRT'),
+('FRI', 'fraise', 'FRT');
 
 CREATE USER 'biobio'@'%' IDENTIFIED BY 'bio';GRANT SELECT, INSERT, UPDATE, DELETE ON *.* TO 'biobio'@'%' IDENTIFIED BY 'bio' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;GRANT ALL PRIVILEGES ON `BiorelaisBDD`.* TO 'biobio'@'%';
