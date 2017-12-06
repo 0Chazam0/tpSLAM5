@@ -4,10 +4,10 @@ $_SESSION['dernierePage'] = "Accueil";
 
 
 $menuAccueil = new menu("menuAccueil");
-$menuAccueil->ajouterComposant($menuAccueil->creerItemLien('','Livraison à un point relais'));
-$menuAccueil->ajouterComposant($menuAccueil->creerItemLien('','Des promotions à gagner'));
-$menuAccueil->ajouterComposant($menuAccueil->creerItemLien('','Des produits de qualité'));
-$leMenu = $menuAccueil->creerMenu("menuAccueil");
+$menuAccueil->ajouterComposant($menuAccueil->creerItemLien('liv','Livraison à un point relais'));
+$menuAccueil->ajouterComposant($menuAccueil->creerItemLien('promo','Des promotions à gagner'));
+$menuAccueil->ajouterComposant($menuAccueil->creerItemLien('prod','Des produits de qualité'));
+$leMenu = $menuAccueil->creerMenuSwag("menuAccueil");
 
 
 

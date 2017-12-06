@@ -26,6 +26,16 @@ class Menu{
 		$composant[1] = $uneValeur ;
 		return $composant;
 	}
+	public function creerMenuSwag($nomMenu){
+		$menu = "<ul class = '" .  $this->style . "'>";
+		foreach($this->composants as $composant){
+				$menu .= "<li id=" . $composant[0] . " >";
+				$menu .= "<span>" . $composant[1] ."</span>";
+			$menu .= "</li>";
+		}
+		$menu .= "</ul>";
+		return $menu ;
+	}
 
 	public function creerMenu($nomMenu){
 		$menu = "<ul class = '" .  $this->style . "'>";

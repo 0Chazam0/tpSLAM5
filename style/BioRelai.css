@@ -266,27 +266,33 @@ nav.menuTypeProduit ul li a:hover {
 
 }
 
+
 .menuAccueil{
 	margin-top: 2%;
-	margin-left: 22%;
-	width:75%;
+	width:99%;
+	margin-bottom: 5%;
 
 }
-.menuAccueil ul {
-	list-style: none;
-	text-decoration: none;
-	display: inline-block;
-}
+
 .menuAccueil li {
-	display: inline;
-	margin-right: 18%;
-
+	display: inline-block;
+	margin-left:  10%;
+	border: 2px solid black;
+	width: 18%;
+	text-align: center;
+	padding:3% 1.5% 3% 1.5%;
+	border-radius: 10px;
 }
-.menuAccueil li a{
-	text-decoration: none;
+
+li#liv{
+	background-color: #F49F16;
 }
-
-
+li#promo{
+ background-color: #1FC1E1;
+}
+li#prod{
+ background-color: #8746E3;
+}
 #corpsAccueil{
 	height: 300px;
 }
