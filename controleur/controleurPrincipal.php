@@ -18,12 +18,50 @@ require_once 'modele/dao.php';
 /*----------------------------------------------------------*/
 /*--------inclut les fichiers DTO----------*/
 /*----------------------------------------------------------*/
+require_once 'modele\DTO\commande.php';
+require_once 'modele\DTO\producteur.php';
+require_once 'modele\DTO\produit.php';
+require_once 'modele\DTO\typeProduit.php';
+require_once 'modele\DTO\user.php';
+
+/*----------------------------------------------------------*/
+/*--------Header-----------------------------------------*/
+/*----------------------------------------------------------*/
+$_SESSION['TypeProduit']= null;
+$theMenuType=null;
+	if(isset($_GET['TypeProduit'])){
+		$_SESSION['TypeProduit']= $_GET['TypeProduit'];
+		$_SESSION['typeProduitSelected'] = $_GET['TypeProduit'];
+	}
+	else
+	{
+		if(!isset($_SESSION['TypeProduit'])){
+			if(isset($_SESSION['typeProduitSelected'])){
+				unset($_SESSION['typeProduitSelected']);
+			}
+		}
+
+	}
+
+	$_SESSION['ListeTypeProduit'] = new TypeProduits(TypeProduitDAO::selectListeTypeProduit());
+
+	foreach ($_SESSION['ListeTypeProduit']->getLesTypes() as $OBJ){
+	$menuTypeProduit = new menu("menuTypeProd");
+	$menuTypeProduit->ajouterComposant($menuTypeProduit->creerItemLien($OBJ->getCode(),ucfirst($OBJ->getLibelle())));
+	$theMenuType .= $menuTypeProduit->creerMenuType("TypeProduit",$_SESSION['TypeProduit']);
+
+	}
 
 
 
 
 
-
+/*----------------------------------------------------------*/
+/*--------session du menu principal avec produit si le menu a été selectionné-------*/
+/*----------------------------------------------------------*/
+if (isset($_SESSION['typeProduitSelected'])) {
+	$_SESSION['menuPrincipal'] = 'Produit';
+}
 
 /*----------------------------------------------------------*/
 /*--------session du menu principal avec accueil par defaut-------*/

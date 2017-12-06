@@ -54,18 +54,13 @@ class Produit
 {
   private   $code;
   private   $nom;
-  private   $descriptif;
   private   $codeTypeProduit;
-  private   $libelleTypeProduit;
 
-  function __construct($pcode, $pnom, $pdescriptif, $pcodeTypeProduit,
-                      $plibelleTypeProduit)
+  function __construct($pcode, $pnom, $pcodeTypeProduit)
   {
     $this->code = $pcode;
     $this->nom = $pnom;
-    $this->descriptif = $pdescriptif;
     $this->codeTypeProduit = $pcodeTypeProduit;
-    $this->libelleTypeProduit = $plibelleTypeProduit;
   }
 
   public function getCode(){
@@ -84,13 +79,6 @@ class Produit
     $this->nom = $value;
   }
 
-  public function getDescriptif(){
-    return $this->descriptif;
-  }
-
-  public function setDescriptif($value){
-    $this->descriptif = $value;
-  }
 
   public function getCodeTypeProduit(){
     return $this->codeTypeProduit;
@@ -100,13 +88,7 @@ class Produit
     $this->codeTypeProduit = $value;
   }
 
-  public function getLibelleTypeProduit(){
-    return $this->libelleTypeProduit;
-  }
 
-  public function setLibelleTypeProduit($value){
-    $this->libelleTypeProduit = $value;
-  }
 }
 
  ?>

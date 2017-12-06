@@ -9,6 +9,13 @@
 	echo $formLogo->afficherFormulaire();
 
 
+
+
 	?>
 
+</nav>
+<nav class="menuTypeProduit">
+	<?php
+		echo $theMenuType;
+	?>
 </nav>

@@ -205,7 +205,6 @@ class Formulaire{
 	/**********Creation et affichage du formulaire   *************/
 	/****************************************************/
 	public function creerFormulaire(){
-
 		$this->formulaireToPrint = "<form method = '" .  $this->method . "' ";
 		$this->formulaireToPrint .= "action = '" .  $this->action . "' enctype='multipart/form-data' ";
 		$this->formulaireToPrint .= "name = '" .  $this->nom . "' ";

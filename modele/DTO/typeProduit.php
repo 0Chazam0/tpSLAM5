@@ -36,7 +36,7 @@ class TypeProduits
 /**
  * Type
  */
-class Type
+class TypeProduit
 {
   private   $code;
   private   $libelle;
@@ -50,24 +50,24 @@ class Type
 
   public function getCode()
   {
-    return $this->idType;
+    return $this->code;
   }
 
   public function setCode($value)
   {
      $this->code = $value;
   }
-  
+
   public function getLibelle()
   {
-    return $this->idType;
+    return $this->libelle;
   }
 
   public function setLibelle($value)
   {
      $this->libelle = $value;
   }
-  
+
 }
 
 

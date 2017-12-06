@@ -35,7 +35,7 @@ header {
   top: 0;
   left: 0;
   z-index: 10;
-	background-color: #92d70b;
+
 }
 
 
@@ -186,6 +186,71 @@ nav.menuPrincipal ul li .actif {
   	width: 140px;
 }
 
+
+
+/*************************************************/
+nav.menuTypeProduit{
+	text-align: CENTER;
+	height: 35%;
+	background-color: #92d70b;
+
+
+}
+
+nav.menuTypeProduit ul {
+	display: inline-block;
+	list-style: none;
+	margin-top:5px;
+
+
+}
+
+
+nav.menuTypeProduit ul li {
+	display: inline-block;
+	font-size: 20px;
+	font-weight: bold;
+	font-family: Helvetica;
+	background-color: #F3F781;
+	margin-left: 3%;
+	margin-right:  3%;
+	margin-top: 1%;
+}
+
+nav.menuTypeProduit ul li.actif {
+		display: table-cell;
+    text-decoration: none;
+  	color: black;
+  	text-align: center;
+  	vertical-align: middle;
+  	height: 50px;
+  	width: 140px;
+		font-size: 20px;
+		font-weight: bold;
+		font-family: Helvetica;
+		background-color: #04B404;
+		margin-left: 3%;
+		margin-right:  3%;
+
+}
+nav.menuTypeProduit ul li a {
+	display: table-cell;
+    text-decoration: none;
+  	color: black;
+  	text-align: center;
+  	vertical-align: middle;
+  	height: 50px;
+  	width: 140px;
+		margin-top: 1%;
+}
+
+nav.menuTypeProduit ul li a:hover {
+  color: grey;
+	transition:0.5s;
+}
+
+
+
 /****************************************************/
 /*styles pour la vue accueil                     */
 /****************************************************/
@@ -198,7 +263,7 @@ nav.menuPrincipal ul li .actif {
 	background-image: url(../image/banniereAccueil.jpeg);
 	background-size: 100% 100%;
 	background-repeat:no-repeat;
-	box-shadow: 5px 5px 5px 5px white inset;
+
 }
 
 .menuAccueil{

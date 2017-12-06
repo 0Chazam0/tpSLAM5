@@ -94,5 +94,42 @@ class UserDAO{
 
 	}
 }
+class TypeProduitDAO{
 
+	public static function selectListeTypeProduit()
+  {
+    $result = array();
+    $sql = "SELECT * FROM  	typeproduit;";
+    $liste = DBConnex::getInstance()->queryFetchAll($sql);
+    if (count($liste) > 0)
+    {
+      foreach ($liste as $typeproduit)
+      {
+        $typeproduit = new TypeProduit($typeproduit['CODE'], $typeproduit['LIBELLE']);
+        $result[] = $typeproduit;
+      }
+    }
+    return $result;
+  }
+
+}
+class ProduitDAO{
+
+	public static function selectListeProduit($typeProduit)
+  {
+    $result = array();
+    $sql = "SELECT * FROM  	produit where typeproduit='" . $typeProduit . "';";
+    $liste = DBConnex::getInstance()->queryFetchAll($sql);
+    if (count($liste) > 0)
+    {
+      foreach ($liste as $produit)
+      {
+        $produit = new Produit($produit['CODE'], $produit['NOM'],$produit['TYPEPRODUIT']);
+        $result[] = $produit;
+      }
+    }
+    return $result;
+  }
+
+}
  ?>
