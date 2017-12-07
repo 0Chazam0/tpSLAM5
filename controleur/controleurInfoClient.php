@@ -2,12 +2,6 @@
 
 $menuProfil = new menu("menuProfil");
 $menuProfil->ajouterComposant($menuProfil->creerItemLien('Profil','Profil'));
-if ($_SESSION['typeIdentite'] == 'R') {
-	$menuProfil->ajouterComposant($menuProfil->creerItemLien('Responsable','Responsable'));
-}
-if ($_SESSION['typeIdentite'] == 'P') {
-	$menuProfil->ajouterComposant($menuProfil->creerItemLien('Producteur','Producteur'));
-}
 if ($_SESSION['typeIdentite'] == 'C') {
 	$menuProfil->ajouterComposant($menuProfil->creerItemLien('Historique','Historique'));
 }

@@ -79,6 +79,21 @@ else
 
 $menuPrincipal = new Menu("menuP");
 
+if (isset($_SESSION['typeIdentite'])) {
+	if ($_SESSION['typeIdentite'] == 'R') {
+		$menuPrincipal->ajouterComposant($menuPrincipal->creerItemLien('Responsable','Espace Responsable'));
+	}
+}
+if (isset($_SESSION['typeIdentite'] )) {
+	if ($_SESSION['typeIdentite'] == 'P') {
+		$menuPrincipal->ajouterComposant($menuPrincipal->creerItemLien('Producteur','Espace Producteur'));
+	}
+}
+if (isset($_SESSION['typeIdentite'] )) {
+	if ($_SESSION['typeIdentite'] == 'C') {
+
+	}
+}
 
 if (!isset($_SESSION['identite']))
 {
@@ -88,6 +103,7 @@ else
 {
 	$menuPrincipal->ajouterComposant($menuPrincipal->creerItemLien('InfoClient',"Bienvenue : " . $_SESSION['identite'][3]));
 }
+
 
 $leMenuP = $menuPrincipal->creerMenu('menuPrincipal');
 

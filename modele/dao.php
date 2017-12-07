@@ -67,18 +67,19 @@ class UserDAO{
   }
 
 	public static function ajouterUnClient($unClient){
-		$sql="Insert into user(IDU,NOMU,PRENOMU,MAIL,MDP,ADRESSEU) VALUES ('";
-		$sql .= $unClient->getId() . "',NULL,NULL,NULL,NULL,NULL)";
+		$sql="Insert into user(EMAIL,NOM,PRENOM,MDP) VALUES ('";
+		$sql .= $unClient->getEmail() . "',NULL,NULL,NULL)";
+		echo $sql;
 		DBConnex::getInstance()->queryFetchFirstRow($sql);
-		$sql = "Insert into client (IDU,NOMU,PRENOMU,MAIL,MDP,ADRESSEU) VALUES ('";
-		$sql .= $unClient->getId() . "','";
+		$sql = "Insert into client (EMAIL,NOM,PRENOM,MDP) VALUES ('";
+		$sql .= $unClient->getEmail() . "','";
 		$sql.= $unClient->getNom() . "','";
 		$sql.= $unClient->getPrenom() . "','";
-		$sql.= $unClient->getMail() . "','";
-		$sql.= $unClient->getMdp() . "','";
-		$sql.= $unClient->getAdresse() . "')";
+		$sql.= $unClient->getMdp() . "')";
+		echo $sql;
 		DBConnex::getInstance()->queryFetchFirstRow($sql);
 	}
+
 	public function delUser($table, $IDU)
 	{
 	  $sql = "DELETE FROM " . $table . " WHERE IDU = '" . $IDU . "';";
