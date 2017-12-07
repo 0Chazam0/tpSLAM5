@@ -1,21 +1,15 @@
 <?php //définition du formulaire
-
-if (isset($_POST['id']) && isset($_POST['mdp'])) {
-  $unUserC = UserDAO::unUserC($_POST['id']);
-  $unUserA = UserDAO::unUserA($_POST['id']);
-  $unUserM = UserDAO::unUserM($_POST['id']);
-  $unUserR = UserDAO::unUserR($_POST['id']);
-  if ($unUserA != NULL) {
-    $unUser = $unUserA;
-    $unUserType = 'A';
-  }
-  elseif ($unUserC != NULL) {
+if (isset($_POST['Email']) && isset($_POST['mdp'])) {
+  $unUserC = UserDAO::unUserC($_POST['Email']);
+  $unUserP = UserDAO::unUserP($_POST['Email']);
+  $unUserR = UserDAO::unUserR($_POST['Email']);
+  if ($unUserC != NULL) {
     $unUser = $unUserC;
     $unUserType = 'C';
   }
-  elseif ($unUserM != NULL) {
-    $unUser = $unUserM;
-    $unUserType = 'M';
+  elseif ($unUserP != NULL) {
+    $unUser = $unUserP;
+    $unUserType = 'P';
   }
   elseif ($unUserR != NULL) {
     $unUser = $unUserR;
@@ -25,37 +19,39 @@ if (isset($_POST['id']) && isset($_POST['mdp'])) {
     $unUser ='';
   }
   if ($unUser != '') {
-    if ($unUser[4]==$_POST['mdp'] ) {
+    if ($unUser[1]==$_POST['mdp'] ) {
       $_SESSION['identite'] = $unUser;
       $_SESSION['typeIdentite'] = $unUserType;
       $_SESSION['menuPrincipal']=$_SESSION['dernierePage'];
-      include_once dispatcher::dispatch($_SESSION['menuPrincipal']);
+      $_SESSION['menuPrincipal']="Accueil";
+      echo '<script type="text/javascript">';
+      echo 'window.location.href = "index.php?menuPrincipal='.$_SESSION['dernierePage'].'";';
+      echo '</script>';
     }
   }
 }
+if (isset($_POST['Email'])) {
+  $ident = $_POST['Email'];
+}
+else {
+  $ident = '';
+}
 
-$contentConnex="
-  <form method='post' action='index.php'>
-    <div class='contentConnexion'>
-      <div class='btn'>
-            <input id ='id' type = 'text' placeholder='Saisir votre identifiant' name='id' value=''/>
-            <br/>
-            <br/>
-            <input id='mdp' type = 'password' placeholder='Saisir votre code' name='mdp' value=''/><br/><br/>
-            <input id = 'validCo' type = 'submit' value = 'Valider'/>
-            <input type = 'reset' value ='Annuler'/><br>
-      </div>
-    </div>
-  </form>
-  <form action='index.php' method='post'>
-    <div class='contentConnexion'>
-      <div class='btn'>
-            <input name ='inscr' type = 'hidden'/>
-            <input id = 'inscription' type = 'submit' value ='Pas encore de compte ?'/>
-      </div>
-    </div>
-  </form>
-  ";
+$formConnexion = new Formulaire('post','index.php','formConnexion','formConnexion');
+$formConnexion->ajouterComposantLigne($formConnexion->creerInputTextePattern('Email', 'Email', '',$ident,1,'saisir votre mail', '[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([_\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})' ));
+$formConnexion->ajouterComposantTab();
+$formConnexion->ajouterComposantLigne($formConnexion->creerInputPassPattern('mdp', 'mdp', '','',1,'saisir votre mot de passe','[a-zA-Z0-9]{4,20}' ));
+$formConnexion->ajouterComposantTab();
+$formConnexion->ajouterComposantLigne($formConnexion->creerInputSubmit('Valconnexion', 'Valconnexion', "Connexion"));
+$formConnexion->ajouterComposantTab();
+$contentConnex=$formConnexion->ajouterComposantTab();
+$contentConnex=$formConnexion->creerFormulaire();
+
+$formInscriptionV = new Formulaire('post','index.php','formInscriptionV','formInscriptionV');
+$formInscriptionV->ajouterComposantLigne($formInscriptionV->creerInputSubmit('inscrValid', 'inscrValid', "Pas encore de compte ?"));
+$formInscriptionV->ajouterComposantTab();
+$contentInscrV=$formInscriptionV->ajouterComposantTab();
+$contentInscrV=$formInscriptionV->creerFormulaire();
 
 include "vue/vueConnexion.php";
 ?>

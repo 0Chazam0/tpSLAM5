@@ -296,3 +296,253 @@ li#prod{
 #corpsAccueil{
 	height: 300px;
 }
+
+/****************************************************/
+/*styles pour le formulaire connexion               */
+/****************************************************/
+.formInscriptionV{
+		margin-top: 10%;
+		margin-left:35%;
+		height: 100px;
+		z-index: 10;
+		display: inline-block;
+}
+.formInscriptionV input{
+	background-color: #FAFAFA;
+	border-style: solid;
+	margin-top: 10px;
+	margin-left: 20px;
+	border-width: 2px;
+	border-color: #92d70b;
+	text-align: center;
+	font-size: 16px;
+	letter-spacing: 2px;
+	color: BLACK;
+	border-radius: 10px;
+	width: 400px;
+	height: 40px;
+}
+
+.formInscriptionV input[type='submit']:hover{
+	background-color: #F3F781;
+	transition:0.5s;
+}
+
+.formConnexion{
+	margin-top: 15%;
+	margin-left:35%;
+	height: 100px;
+	z-index: 10;
+	display: inline-block;
+}
+
+.formConnexion input[type='text']:valid{
+	border-color: green;
+}
+
+.formConnexion input[type='password']:valid{
+	border-color: green;
+}
+.formConnexion input[type='text']:invalid{
+	border-color: red;
+}
+
+.formConnexion input[type='password']:invalid{
+	border-color: red;
+}
+
+.formConnexion input{
+	background-color: #FAFAFA;
+	border-style: solid;
+	margin-top: 10px;
+	margin-left: 20px;
+	border-width: 2px;
+	border-color: #92d70b;
+	text-align: center;
+	font-size: 16px;
+	letter-spacing: 2px;
+	color: BLACK;
+	border-radius: 10px;
+	width: 400px;
+	height: 40px;
+}
+
+.formConnexion input[type='submit']:hover{
+	background-color: #F3F781;
+	transition:0.5s;
+}
+/****************************************************/
+/*styles pour le menu du profil du connecté         */
+/****************************************************/
+
+nav.menuProfil {
+	margin-top: 15%;
+	background-color: white;
+	font-size: 16px;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #92d70b;
+}
+
+nav.menuProfil ul {
+	display: inline-block;
+	list-style: none;
+	margin-top:5px;
+}
+
+nav.menuProfil ul li {
+	display: inline-block;
+	font-size: 20px;
+	font-weight: bold;
+	font-family: Helvetica;
+}
+
+nav.menuProfil ul li a {
+	display: table-cell;
+    text-decoration: none;
+  	color: black;
+  	text-align: center;
+  	vertical-align: middle;
+  	height: 50px;
+  	width: 140px;
+		border-style: solid;
+		border-bottom: 0px;
+		border-left: 0px;
+		border-width: 2px;
+		border-color: #92d70b;
+}
+
+nav.menuProfil ul li a:hover {
+  color: grey;
+}
+
+nav.menuProfil ul li .actif {
+	display: table-cell;
+  	background-color: ivory;
+  	color: black;
+  	text-align: center;
+  	vertical-align: middle;
+  	height: 50px;
+  	width: 140px;
+}
+
+nav.menuProfil .photoProfil input{
+	width: 240px;
+	height: 240px;
+}
+
+nav.conteneurProfil{
+	margin-top: 0.5%;
+	background-color: white;
+	font-size: 16px;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #92d70b;
+	margin-left: 5%;
+	margin-right: 5%;
+	padding-left: 2%;
+}
+
+nav.menuProfil input[type='submit']{
+		margin-left: 65%;
+		background-color: #FAFAFA;
+	  border-style: solid;
+		margin-top: 10px;
+	  border-width: 2px;
+	  border-color:  #92d70b;
+		text-align: center;
+	  font-size: 16px;
+	  letter-spacing: 2px;
+	  color: BLACK;
+		border-radius: 10px;
+		width: 400px;
+		height: 80px;
+		display: inline-block;
+	}
+
+nav.menuProfil input[type='submit']:hover{
+		margin-left: 66%;
+		background-color:  #F3F781;
+		border-style: solid;
+		border-width: 2px;
+		border-color:  #92d70b;
+		font-size: 16px;
+		letter-spacing: 2px;
+		color: BLACK;
+		transition:0.7s;
+	}
+
+
+nav.conteneurProfil input[type='submit']{
+		background-color: #FAFAFA;
+	  border-style: solid;
+		margin-top: 10px;
+		margin-left: 20px;
+	  border-width: 2px;
+	  border-color:  #92d70b;
+		text-align: center;
+	  font-size: 16px;
+	  letter-spacing: 2px;
+	  color: BLACK;
+		border-radius: 10px;
+		width: 400px;
+		height: 40px;
+	}
+nav.conteneurProfil input[type='submit']:hover{
+		background-color: #F3F781;
+		border-style: solid;
+		border-width: 2px;
+		border-color:  #92d70b;
+		font-size: 16px;
+		letter-spacing: 2px;
+		color: BLACK;
+		transition:0.5s;
+	}
+
+	/****************************************************/
+	/*styles pour l'inscription                         */
+	/****************************************************/
+
+	.formInscription{
+		margin-top: 15%;
+		margin-left:35%;
+		height: 100px;
+		z-index: 10;
+		display: inline-block;
+	}
+
+	.formInscription input[type='text']:valid{
+		border-color: green;
+	}
+
+	.formInscription input[type='password']:valid{
+		border-color: green;
+	}
+	.formInscription input[type='text']:invalid{
+		border-color: red;
+	}
+
+	.formInscription input[type='password']:invalid{
+		border-color: red;
+	}
+
+	.formInscription input{
+		background-color: #FAFAFA;
+		border-style: solid;
+		margin-top: 10px;
+		margin-left: 20px;
+		border-width: 2px;
+		border-color: #92d70b;
+		text-align: center;
+		font-size: 16px;
+		letter-spacing: 2px;
+		color: BLACK;
+		border-radius: 10px;
+		width: 400px;
+		height: 40px;
+	}
+
+	.formInscription input[type='submit']:hover{
+		background-color: #F3F781;
+		transition:0.5s;
+	}

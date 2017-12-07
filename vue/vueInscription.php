@@ -4,7 +4,7 @@
   </header>
 
   <main>
-      <?php echo $formInscription->afficherFormulaire(); ?>
+      <?php echo $contentInscr; ?>
   </main>
 
 </div>

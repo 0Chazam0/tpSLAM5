@@ -1,5 +1,5 @@
 <?php
-if (isset($_POST['deco'])) {
+if (isset($_POST['deconnexion'])) {
 	session_destroy();
 	session_start();
 }
@@ -86,7 +86,7 @@ if (!isset($_SESSION['identite']))
 }
 else
 {
-	$menuPrincipal->ajouterComposant($menuPrincipal->creerItemLien('InfoClient',"Bienvenue : " . $_SESSION['identite'][2]));
+	$menuPrincipal->ajouterComposant($menuPrincipal->creerItemLien('InfoClient',"Bienvenue : " . $_SESSION['identite'][3]));
 }
 
 $leMenuP = $menuPrincipal->creerMenu('menuPrincipal');
@@ -95,7 +95,7 @@ $leMenuP = $menuPrincipal->creerMenu('menuPrincipal');
 /*----------------------------------------------------------*/
 /*--------Récupère le controleur Inscription (si la condition est respectée)----------*/
 /*----------------------------------------------------------*/
-if (isset($_POST['inscr'])) {
+if (isset($_POST['inscrValid'])) {
 	$_SESSION['menuPrincipal'] = 'Inscription';
 }
 
