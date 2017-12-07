@@ -298,6 +298,25 @@ li#prod{
 }
 
 /****************************************************/
+<<<<<<< HEAD
+/*styles pour la vue produit                     */
+/****************************************************/
+#corpsProduit{
+	min-height: 600px;
+}
+.produitthis{
+	margin-left: 2%;
+	margin-top: 15%;
+	margin-right: 5px;
+	height: 320px;
+	width: 310px;
+	display: inline-block;
+}
+.imgProduit{
+	max-width: 100%;
+	height: 215px;
+	border-radius: 7px;
+=======
 /*styles pour le formulaire connexion               */
 /****************************************************/
 .formInscriptionV{
@@ -571,4 +590,5 @@ nav.conteneurProfil input[type='submit']:hover{
 
 #corpsResponsable tr:nth-child(even) {
     background-color: #dddddd;
+>>>>>>> eed5e92df4f309fc5d359f08d47421e6a014a19b
 }
