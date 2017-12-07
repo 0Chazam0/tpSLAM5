@@ -296,3 +296,23 @@ li#prod{
 #corpsAccueil{
 	height: 300px;
 }
+
+/****************************************************/
+/*styles pour la vue produit                     */
+/****************************************************/
+#corpsProduit{
+	min-height: 600px;
+}
+.produitthis{
+	margin-left: 2%;
+	margin-top: 15%;
+	margin-right: 5px;
+	height: 320px;
+	width: 310px;
+	display: inline-block;
+}
+.imgProduit{
+	max-width: 100%;
+	height: 215px;
+	border-radius: 7px;
+}

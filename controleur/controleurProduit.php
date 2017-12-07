@@ -15,7 +15,12 @@ foreach ($_SESSION['ListeProduit']->getLesProduits() as $OBJ){
   $formProduit->ajouterComposantTab();
   $formProduit->ajouterComposantLigne($formProduit->creerLabelFor(ucfirst($OBJ->getNom()),"nomProduit"));
   $formProduit->ajouterComposantTab();
-  $formProduit->ajouterComposantLigne($formProduit->creerInputSubmitPanier($OBJ->getCode(),"ajoutCommande-btn"," Ajouter au panier "));
+  if(ProduitDAO::estEnVente($OBJ,date("Y-m-d"))){
+    $formProduit->ajouterComposantLigne($formProduit->creerInputSubmitPanier($OBJ->getCode(),"ajoutCommande-btn"," Ajouter au panier "));
+  }
+  else{
+    $formProduit->ajouterComposantLigne($formProduit->creerLabelFor("/!\ Rupture de stock /!\ ","lblRupture"));
+  }
   $formProduit->ajouterComposantTab();
   $formProduit->creerFormulaire();
   $_SESSION['lesFormsProduit'] .= $formProduit->afficherFormulaire();

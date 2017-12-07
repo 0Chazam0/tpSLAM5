@@ -3,8 +3,8 @@
       <?php include 'haut.php' ;?>
   </header>
     <div id='corpsProduit'>
-        <?php
-      echo $_SESSION['lesFormsProduit'];
+      <?php
+        echo $_SESSION['lesFormsProduit'];
       ?>
     </div>
     <footer>
