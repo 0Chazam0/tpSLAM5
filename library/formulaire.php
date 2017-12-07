@@ -19,6 +19,24 @@ class Formulaire{
 	/********************************************************************/
 	/*ajout ligne/ retour / concatenation des obj  formulaire   *************/
 	/***********************************************************************/
+	public function creerInputPassPattern($unNom, $unId, $unLabel, $uneValue , $required , $placeholder, $unPattern){
+		$composant = "<input type = 'password' name = '" . $unNom . "' id = '" . $unId . "' ";
+		if (!empty($uneValue)){
+			$composant .= "value = '" . $uneValue . "' ";
+		}
+		if (!empty($placeholder)){
+			$composant .= "placeholder = '" . $placeholder . "' ";
+		}
+		if (!empty($unPattern)){
+			$composant .= "pattern = '" . $unPattern . "' ";
+		}
+		if ( $required == 1){
+			$composant .= "required";
+		}
+		$composant .= " autocomplete='off'/>";
+		return $composant;
+	}
+	
 	public function concactComposants($unComposant , $autreComposant ,$nbRetourLigne){
 		for ($i=0; $i < $nbRetourLigne ; $i++) {
 			$unComposant .= '<br>';
@@ -65,7 +83,23 @@ class Formulaire{
 	/****************************************************/
 	/***************fonction qui crée les input    *********************/
 	/****************************************************/
-
+	public function creerInputTextePattern($unNom, $unId, $unLabel, $uneValue , $required , $placeholder, $unPattern){
+		$composant = "<input type = 'text' name = '" . $unNom . "' id = '" . $unId . "' ";
+		if (!empty($uneValue)){
+			$composant .= "value = '" . $uneValue . "' ";
+		}
+		if (!empty($placeholder)){
+			$composant .= "placeholder = '" . $placeholder . "' ";
+		}
+		if (!empty($unPattern)){
+			$composant .= "pattern = '" . $unPattern . "' ";
+		}
+		if ( $required == 1){
+			$composant .= "required";
+		}
+		$composant .= " autocomplete='off'/>";
+		return $composant;
+	}
 
 	public function creerSelect($type,$id,$selected){
 		$composant = "<select  name = '" . $id . "' id = '" . $id . "' >";

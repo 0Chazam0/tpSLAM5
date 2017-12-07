@@ -50,31 +50,22 @@ class DBConnex extends PDO{
 /*----------------------------------------------------------*/
 
 class UserDAO{
-	public static function unUserC($unIdUser){
-		$sql = "select DISTINCT * from client where MAIL = '".$unIdUser."'";
+	public static function unUserC($unEmailUser){
+		$sql = "select EMAIL, MDP, NOM, PRENOM from client where EMAIL = '".$unEmailUser."'";
 		$user = DBConnex::getInstance()->queryFetchFirstRow($sql);
 		return $user;
 	}
-  public static function unUserA($unIdUser){
-    $sql = "select DISTINCT * from administrateur where MAIL = '".$unIdUser."'";
+  public static function unUserP($unEmailUser){
+    $sql = "select EMAIL, MDP, NOM, PRENOM, ADRESSE, DESCRIPTIF from producteur where EMAIL = '".$unEmailUser."'";
     $user = DBConnex::getInstance()->queryFetchFirstRow($sql);
     return $user;
   }
-  public static function unUserM($unIdUser){
-    $sql = "select DISTINCT * from moderateur where MAIL = '".$unIdUser."'";
+  public static function unUserR($unEmailUser){
+    $sql = "select EMAIL, MDP, NOM, PRENOM from responsable where EMAIL = '".$unEmailUser."'";
     $user = DBConnex::getInstance()->queryFetchFirstRow($sql);
     return $user;
   }
-  public static function unUserR($unIdUser){
-    $sql = "select DISTINCT * from restaurateur where MAIL = '".$unIdUser."'";
-    $user = DBConnex::getInstance()->queryFetchFirstRow($sql);
-    return $user;
-  }
-	public static function definirIDU(){
-		$sql = "select count(IDU) from client";
-		$resu = DBConnex::getInstance()->queryFetchFirstRow($sql);
-		return $resu;
-	}
+
 	public static function ajouterUnClient($unClient){
 		$sql="Insert into user(IDU,NOMU,PRENOMU,MAIL,MDP,ADRESSEU) VALUES ('";
 		$sql .= $unClient->getId() . "',NULL,NULL,NULL,NULL,NULL)";
