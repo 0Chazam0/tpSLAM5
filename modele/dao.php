@@ -141,6 +141,21 @@ class ProduitDAO{
     return $end;
 
   }
+	public static function LePrixProduit($produit,$date)
+  {
+    $result = array();
+		$sql = "SELECT v.prix FROM vendre as v, semaine as s where s.numsemaine = v.numsemaine and s.dated<= '$date' and s.datef>='$date' and  v.code='" . $produit->getCode() . "';";
+    $liste = DBConnex::getInstance()->queryFetchAll($sql);
+		if (count($liste) > 0)
+		{
+			foreach ($liste as $leproduit)
+			{
+				return $leproduit['prix'];
+			}
+		}
+		return null;
+	}
+
 
 }
  ?>

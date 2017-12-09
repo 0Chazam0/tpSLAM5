@@ -295,18 +295,21 @@ li#prod{
 }
 #corpsAccueil{
 	height: 300px;
+		width: 100%;
 }
 
 /****************************************************/
 /*styles pour la vue produit                     */
 /****************************************************/
 #corpsProduit{
-	min-height: 600px;
+	min-height: 300px;
+	height: auto;
+	overflow:hidden;
+	width: 100%;
 }
 .produitthis{
 	margin-left: 2%;
 	margin-top: 15%;
-	margin-right: 5px;
 	height: 320px;
 	width: 310px;
 	display: inline-block;
@@ -315,6 +318,86 @@ li#prod{
 	max-width: 100%;
 	height: 215px;
 	border-radius: 7px;}
+
+	/****************************************************/
+	/*styles pour le formulaire du panier           */
+	/****************************************************/
+	#panier{
+	display: inline-block;
+	width: 300px;
+	font-size: 15px;
+	margin-top: -24%;
+	height: inherit;
+	float: right;
+	margin-right: 1%;
+	}
+	.panierthis{
+	padding: 2% 2% 2% 2%;
+	border: 2px solid #92d70b;
+	}
+	.lblPanier{
+	font-size: 20px;
+	text-decoration: bold;
+	margin-left: 80px;
+	}
+	.panierthis .nomP{
+	margin-left: 3px;
+	margin-right: 25px;
+	}
+	.panierthis .nbPlat{
+	margin-right: 25px;
+	}
+	.panierthis #supprPlat{
+	width: 15px;
+	margin-left: 10px;
+	background-color: #FE2E2E;
+	border: 1px solid black;
+	text-align: center;
+	border-radius: 6px;
+	}
+	.panierthis .lbltotal{
+	font-weight: bold;
+	margin-left: 170px;
+	}
+	.panierthis .prixTotal{
+	font-weight: bold;
+	}
+
+	.panierthis #validerCommande{
+	background-color: #FAFAFA;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #92d70b;
+	font-size: 16px;
+	letter-spacing: 2px;
+	color: BLACK;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	margin-left: 20px;
+	padding: 3px 3px 3px 3px;
+	border-radius: 6px;
+	}
+	.panierthis #validerCommande:hover{
+	background-color: #FAFAFA;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #92d70b;
+	font-size: 16px;
+	letter-spacing: 2px;
+	color: BLACK;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	margin-left: 20px;
+	padding: 3px 3px 3px 3px;
+	border-radius: 6px;
+	transition:0.5s;
+	}
+
+	.panierthis .lblVide{
+	color : grey;
+
+	}
+
 
 
 /*styles pour le formulaire connexion               */

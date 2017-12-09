@@ -36,9 +36,7 @@ $theMenuType=null;
 	else
 	{
 		if(!isset($_SESSION['TypeProduit'])){
-			if(isset($_SESSION['typeProduitSelected'])){
-				unset($_SESSION['typeProduitSelected']);
-			}
+			$_SESSION['TypeProduit']=$_SESSION['typeProduitSelected'] ;
 		}
 
 	}
