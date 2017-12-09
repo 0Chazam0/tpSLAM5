@@ -314,10 +314,12 @@ li#prod{
 .imgProduit{
 	max-width: 100%;
 	height: 215px;
-	border-radius: 7px;
-=======
+	border-radius: 7px;}
+
+
 /*styles pour le formulaire connexion               */
 /****************************************************/
+
 .formInscriptionV{
 		margin-top: 10%;
 		margin-left:35%;
