@@ -97,7 +97,18 @@ if (isset($_POST['inscrValid'])) {
 	$_SESSION['menuPrincipal'] = 'Inscription';
 }
 
-
+/*----------------------------------------------------------*/
+/*--------Récupère le controleur Commande (si la condition est respectée) et si on est connecté----------*/
+/*----------------------------------------------------------*/
+if (isset($_POST['validerCommande'])){
+	if (!isset($_SESSION['identite'])) {
+		$_SESSION['menuPrincipal']= 'Connexion';
+	}
+	else{
+		$_SESSION['lieuLivraison']= $_SESSION['identite'][5];
+		$_SESSION['menuPrincipal']="Commande";
+	}
+}
 /*----------------------------------------------------------*/
 /*-------Affiche le controleur récupéré----------*/
 /*----------------------------------------------------------*/

@@ -12,7 +12,6 @@ foreach ($_SESSION['ListeProduits']->getLesProduits() as $OBJ){
   $correct = preg_replace('#[\\/\'" éàâäêçèë]#', "", $OBJ->getNom());
   $correct = strtolower($correct);
   $correct = 'image/'.$correct;
-
   $formProduit = new Formulaire("POST","index.php","formProduit","produitthis");
   $formProduit->ajouterComposantLigne($formProduit->creerInputImage('imgProduit', 'imgProduit', $correct));
   $formProduit->ajouterComposantTab();
@@ -80,7 +79,9 @@ else{
 
 $formPanier->ajouterComposantLigne($formPanier->concactComposants($formPanier->creerLabelFor("Total : ","lbltotal"),$formPanier->creerLabelFor($_SESSION['prixTotal']."€","prixTotal"),0));
 $formPanier->ajouterComposantTab();
-$formPanier->ajouterComposantLigne($formPanier->creerInputSubmit('validerCommande','validerCommande',"Valider votre commande"));
+if ($_SESSION['nbProduitPanier']>0){
+  $formPanier->ajouterComposantLigne($formPanier->creerInputSubmit('validerCommande','validerCommande',"Valider votre commande"));
+}
 $formPanier->ajouterComposantTab();
 
 $formPanier->creerFormulaire();

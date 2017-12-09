@@ -257,7 +257,7 @@ nav.menuTypeProduit ul li a:hover {
 
 
 #baniere{
-	margin-top: 12.3%;
+	margin-top: 1%;
 	height: 400px;
 	width: 100%;
 	background-image: url(../image/banniereAccueil.jpeg);
@@ -269,8 +269,7 @@ nav.menuTypeProduit ul li a:hover {
 
 .menuAccueil{
 	margin-top: 2%;
-	width:99%;
-	margin-bottom: 5%;
+	width:100%;
 
 }
 
@@ -302,14 +301,14 @@ li#prod{
 /*styles pour la vue produit                     */
 /****************************************************/
 #corpsProduit{
+	display: inline-block;
 	min-height: 300px;
 	height: auto;
-	overflow:hidden;
-	width: 100%;
+	width: 75%;
+	margin-top: 15%;
 }
 .produitthis{
 	margin-left: 2%;
-	margin-top: 15%;
 	height: 320px;
 	width: 310px;
 	display: inline-block;
@@ -323,13 +322,13 @@ li#prod{
 	/*styles pour le formulaire du panier           */
 	/****************************************************/
 	#panier{
-	display: inline-block;
-	width: 300px;
-	font-size: 15px;
-	margin-top: -24%;
-	height: inherit;
-	float: right;
-	margin-right: 1%;
+		display: inline-block;
+		width: 300px;
+		font-size: 15px;
+		height: inherit;
+		float: right;
+		margin-right: 2%;
+		margin-top: 16%;
 	}
 	.panierthis{
 	padding: 2% 2% 2% 2%;
