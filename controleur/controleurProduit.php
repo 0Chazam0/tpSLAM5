@@ -17,11 +17,21 @@ foreach ($_SESSION['ListeProduits']->getLesProduits() as $OBJ){
   $formProduit->ajouterComposantTab();
   $formProduit->ajouterComposantLigne($formProduit->creerLabelFor(ucfirst($OBJ->getNom()),"nomProduit"));
   $formProduit->ajouterComposantTab();
-  if(ProduitDAO::estEnVente($OBJ,date("Y-m-d"))){
-    $formProduit->ajouterComposantLigne($formProduit->creerInputSubmitPanier($OBJ->getCode(),"ajoutCommande-btn"," Ajouter au panier "));
+  if(ProduitDAO::estEnVente($OBJ,date("Y-m-d"))==1){
+    $formProduit->ajouterComposantLigne($formProduit->concactComposants($formProduit->creerLabelFor("Prix : ","lblprixProd"),
+                                        $formProduit->creerLabelFor(ProduitDAO::LePrixProduit($OBJ,date("Y-m-d"))."€",'prixProd'),0));
+    $formProduit->ajouterComposantTab();
+    $formProduit->ajouterComposantLigne($formProduit->concactComposants($formProduit->creerLabelFor("Quantité : ","lblQteProd"),
+                                        $formProduit->concactComposants($formProduit->creerLabelFor(ProduitDAO::LaQteProduit($OBJ,date("Y-m-d")),'QteProd'),
+                                        $formProduit->creerInputSubmitPanier($OBJ->getCode(),"ajoutCommande-btn"," Ajouter au panier "),0),0));
+  }
+  elseif (ProduitDAO::estEnVente($OBJ,date("Y-m-d"))==0) {
+    $formProduit->ajouterComposantLigne($formProduit->concactComposants($formProduit->creerInputImage2('imgCarton', 'imgCarton', "image\carton.jpg"),
+                                                                        $formProduit->creerLabelFor(" Rupture de stock ","lblRupture"),0));
   }
   else{
-    $formProduit->ajouterComposantLigne($formProduit->creerLabelFor("/!\ Rupture de stock /!\ ","lblRupture"));
+    $formProduit->ajouterComposantLigne($formProduit->concactComposants($formProduit->creerInputImage2('imgTime', 'imgTime', "image\itime.jpg"),
+                                        $formProduit->creerLabelFor(" Pas en vente cette semaine ","lblRupture"),0));
   }
   $formProduit->ajouterComposantTab();
   $formProduit->creerFormulaire();
@@ -38,6 +48,7 @@ $leProduit = new Produit("","","","","","","","","");
 foreach ($_SESSION['ListeProduits']->getLesProduits() as $OBJ)
 {
 	if(isset($_POST[$OBJ->getCode()])) {
+    ProduitDAO::updateQteProduit($OBJ);
 		$leProduit->__construct($OBJ->getCode(),$OBJ->getNom(),$OBJ->getCodeTypeProduit());
 		$_SESSION['lesProduits'][] =	serialize($leProduit);
 		$_SESSION['nbProduitPanier']+=1;
@@ -55,7 +66,8 @@ if ($_SESSION['nbProduitPanier']>0)
 
 $formPanier = new Formulaire("POST","index.php","formPanier","panierthis");
 
-$formPanier->ajouterComposantLigne($formPanier->creerLabelFor('Votre Panier', 'lblPanier'));
+$formPanier->ajouterComposantLigne($formPanier->concactComposants($formPanier->creerInputImage2('imgPanier', 'imgPanier', "image\panier.jpg"),
+                                                                  $formPanier->creerLabelFor('Votre Panier', 'lblPanier'),0));
 $formPanier->ajouterComposantTab();
 
 //Condition si le panier est remplit

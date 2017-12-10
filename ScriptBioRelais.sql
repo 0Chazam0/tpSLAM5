@@ -260,7 +260,7 @@ INSERT INTO `biorelaisbdd`.`client` (`EMAIL`, `NOM`, `PRENOM`, `MDP`) VALUES
 ('samuel.belondrade@gmail.com', 'belondrade', 'Samuel', 'belondrade');
 
 INSERT INTO `biorelaisbdd`.`producteur` (`EMAIL`, `NOM`, `ADRESSE`,`DESCRIPTIF`, `PRENOM`, `MDP`) VALUES
-('Jean.Eude@carotte.fr', 'Mouton', 'Jean-Eude','5 lieu dit des abricots','J\'ai des moutons', 'Mouton');
+('pro1@bio.fr', 'Producteur', '5 lieu dit des abricots','Ferme','Bob', 'bob');
 
 INSERT INTO `biorelaisbdd`.`responsable` (`EMAIL`, `NOM`, `PRENOM`, `MDP`) VALUES
 ('Admin@modo.com', 'modo', 'admin', 'admin');
@@ -332,5 +332,29 @@ INSERT INTO `produit` (`CODE`, `NOM`, `TYPEPRODUIT`) VALUES
 ('SAUC', 'Saucisson', 'VAD'),
 ('THO', 'thon', 'POI'),
 ('TRU', 'truite', 'POI');
+
+INSERT INTO `vendre` (`CODE`, `NUMSEMAINE`, `PRIX`,`QUANTITE`) VALUES
+('MER', 'S1', '5.6','18'),
+('BRN', 'S1', '4.9','12'),
+('CRE', 'S1', '2.8','16'),
+('DBG', 'S1', '1','21'),
+('BGT', 'S1', '4.9','0'),
+('BRO', 'S1', '6.3','7'),
+('CIT', 'S1', '5.7','24'),
+('POM', 'S1', '6.3','0'),
+('CEL', 'S1', '3.3','22'),
+('PAC', 'S1', '2','4'),
+('PEC', 'S1', '3.4','45'),
+('RAD', 'S1', '3.2','46'),
+('PAR', 'S1', '2.1','84'),
+('ANA', 'S1', '1.5','42'),
+('FRA', 'S1', '5.2','4'),
+('BAR', 'S1', '5.5','6'),
+('FRI', 'S1', '2.3','45'),
+('AGN', 'S1', '4.7','2'),
+('CHF', 'S1', '8.6','35'),
+('OIG', 'S1', '2.7','6'),
+('COURG', 'S1', '1.6','78');
+
 
 CREATE USER 'biobio'@'%' IDENTIFIED BY 'bio';GRANT SELECT, INSERT, UPDATE, DELETE ON *.* TO 'biobio'@'%' IDENTIFIED BY 'bio' WITH MAX_QUERIES_PER_HOUR 0 MAX_CONNECTIONS_PER_HOUR 0 MAX_UPDATES_PER_HOUR 0 MAX_USER_CONNECTIONS 0;GRANT ALL PRIVILEGES ON `BiorelaisBDD`.* TO 'biobio'@'%';

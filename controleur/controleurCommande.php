@@ -51,23 +51,35 @@ if (isset($_POST['confirmCommande'])) {
   $pdf->ajouterComposantTab();
   $lepdf = $pdf->creerFormulaireNewOnglet();
   $lepdf = $pdf->afficherFormulaire();
-  $numeroCommande = 1;
+  $numeroCommande = 0;
   $_SESSION['listeCommande'] = new Commandes(CommandeDAO::selectListeCommande());
   // recuperer le num de la prochaine commande
-  foreach ($_SESSION['listeCommande']->getLesCommandes() as $OBJ)
-  {
-    $idC = substr($OBJ->getNumCommande(), 1) ;
-    if ($numeroCommande < $idC) {
-      $numeroCommande = substr($OBJ->getNumCommande(), 1);
+    foreach ($_SESSION['listeCommande']->getLesCommandes() as $OBJ)
+    {
+      $idC = substr($OBJ->getNumCommande(), 1) ;
+      if ($numeroCommande < $idC) {
+        $numeroCommande = substr($OBJ->getNumCommande(), 1);
+      }
     }
-  }
+
 
   $_SESSION['compteurCommande']= "C".($numeroCommande+1);
   CommandeDAO::ajouterUneCommande($_SESSION['compteurCommande'], $_SESSION['identite'][0],date("Y-m-d"),"V");
   foreach ($_SESSION['lePanier']->getLesProduits() as $OBJ)
 	{
-    CommandeDAO::ajouterProduitCommande($OBJ->getCode(),$_SESSION['compteurCommande'],1);
+    $qte=0;
+    foreach ($_SESSION['lePanier']->getLesProduits() as $OBJ2)
+    {
+        if($OBJ==$OBJ2)
+        {
+          $qte+=1;
+        }
+    }
+    CommandeDAO::ajouterProduitCommande($OBJ->getCode(),$_SESSION['compteurCommande'],$qte);
   }
+  unset($_SESSION['lesProduits']);
+  unset($_SESSION['nbProduitPanier']);
+  unset($_SESSION['lePanier']);
 }
 
 

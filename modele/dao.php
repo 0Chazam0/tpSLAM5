@@ -124,23 +124,27 @@ class ProduitDAO{
 
 	public static function estEnVente($produit,$date)
   {
-		$end = false;
+		$end = 2;
     $result = array();
-    $sql = "SELECT v.code, s.numsemaine FROM vendre as v, semaine as s where s.numsemaine = v.numsemaine and s.dated<= '$date' and s.datef>='$date' and  v.code='" . $produit->getCode() . "';";
+    $sql = "SELECT v.code,v.quantite, s.numsemaine FROM vendre as v, semaine as s where s.numsemaine = v.numsemaine and s.dated<= '$date' and s.datef>='$date' and  v.code='" . $produit->getCode() . "';";
     $liste = DBConnex::getInstance()->queryFetchAll($sql);
     if (count($liste) > 0)
     {
       foreach ($liste as $leproduit)
       {
 				if($produit->getCode() == $leproduit['code'] ){
-					$end = true;
+					if($leproduit['quantite']>0){
+ 						$end = 1;
+					}
+					else{
+						$end = 0;
+					}
 				}
       }
     }
-
     return $end;
-
   }
+
 	public static function LePrixProduit($produit,$date)
   {
     $result = array();
@@ -156,7 +160,42 @@ class ProduitDAO{
 		return null;
 	}
 
+	public static function LaQteProduit($produit,$date)
+	{
+		$result = array();
+		$sql = "SELECT v.quantite FROM vendre as v, semaine as s where s.numsemaine = v.numsemaine and s.dated<= '$date' and s.datef>='$date' and  v.code='" . $produit->getCode() . "';";
+		$liste = DBConnex::getInstance()->queryFetchAll($sql);
+		if (count($liste) > 0)
+		{
+			foreach ($liste as $leproduit)
+			{
+				return $leproduit['quantite'];
+			}
+		}
+		return 0;
+	}
 
+	public static function LeNumSemaine($date)
+	{
+		$sql = "SELECT NUMSEMAINE  FROM semaine  where  dated<= '$date' and datef>='$date' ;";
+		$numS = DBConnex::getInstance()->queryFetchFirstRow($sql);
+		return $numS[0];
+
+	}
+
+	public static function updateQteProduit($produit)
+	{
+		$qte = ProduitDAO::LaQteProduit($produit,date("Y-m-d"));
+		if($qte >0){
+			$qte-=1;
+		}
+		else{
+			$qte=0;
+		}
+	  $sql = "UPDATE vendre SET 	QUANTITE = '" . $qte . "' ";
+		$sql .= " WHERE CODE = '" . $produit->getCode() . "' AND NUMSEMAINE= '" . ProduitDAO::LeNumSemaine(date("Y-m-d")) . "';";
+		return DBConnex::getInstance()->exec($sql);
+	}
 }
 
 class CommandeDAO{
@@ -173,7 +212,7 @@ class CommandeDAO{
 			}
 		}
 		else{
-			$result = 0;
+			$result = null;
 		}
 		return $result;
 	}

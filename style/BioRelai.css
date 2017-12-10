@@ -49,9 +49,9 @@ header {
 }
 
 #logo {
-	margin-top: 10px;
-	width:90px;
-	margin-left:50px;
+	margin-top: -25px;
+	width:170px;
+	margin-left:10px;
 
 }
 /****************************************************/
@@ -118,18 +118,49 @@ main {
 /*styles pour le footer                             */
 /****************************************************/
 footer {
-	background-color: #96bf0d;
-	height: 200px;
+	background-color: #252424;
+
 	color: white;
 	font-weight: bold;
 	font-size: 15px;
+	width: 100%;
+	height: inherit;
 }
 
 footer p{
+
 	padding: 15px;
-	padding-top: 25px;
+	padding-top: 6%;
+}
+.menuFooter{
+	width: 100%;
+
 }
 
+.menuFooter tr td table tr td{
+	margin-top: 2%;
+	width: 430px;
+	height: 170px;
+	padding-top: 3px;
+	float:left;
+	overflow:auto;
+	display:inline;
+}
+
+.lbltitreFooter{
+	color:#699c04;
+	margin-left: 55%;
+}
+.liste{
+	margin-left: 55%;
+}
+.imgFooter1{
+	margin-left: 55%;
+	width: 10%;
+}
+.imgFooter2{
+	width: 10%;
+}
 
 /****************************************************/
 /*styles pour le menu principal                     */
@@ -257,26 +288,27 @@ nav.menuTypeProduit ul li a:hover {
 
 
 #baniere{
-	margin-top: 1%;
+	margin-top: 10%;
 	height: 400px;
 	width: 100%;
 	background-image: url(../image/banniereAccueil.jpeg);
 	background-size: 100% 100%;
 	background-repeat:no-repeat;
 
+	background-color: #CDE5B9;
 }
 
 
 .menuAccueil{
-	margin-top: 2%;
+	padding-top:5%;
 	width:100%;
-
+	background-color: #CDE5B9;
 }
 
 .menuAccueil li {
 	display: inline-block;
 	margin-left:  10%;
-	border: 2px solid black;
+	border: 2px solid Black;
 	width: 18%;
 	text-align: center;
 	padding:3% 1.5% 3% 1.5%;
@@ -284,17 +316,21 @@ nav.menuTypeProduit ul li a:hover {
 }
 
 li#liv{
-	background-color: #F49F16;
+	background-color: #2A1300;
+	color:white;
 }
 li#promo{
- background-color: #1FC1E1;
+ background-color: #571B01;
+ color:white;
 }
 li#prod{
- background-color: #8746E3;
+ background-color: #8A4B08;
+ color:white;
 }
 #corpsAccueil{
-	height: 300px;
+	height: 100px;
 		width: 100%;
+		background-color: #CDE5B9;
 }
 
 /****************************************************/
@@ -307,16 +343,64 @@ li#prod{
 	width: 75%;
 	margin-top: 15%;
 }
+.nomProduit{
+	font-family: Snell Roundhand , cursive;
+	letter-spacing: 2px;
+	font-size: 25px;
+}
+.lblRupture{
+ text-align: center;
+ color:#FE2E2E;
+}
+
+.imgCarton{
+		width: 25%;
+		display: inline-block;
+	}
+
+.imgTime{
+		width: 20%;
+		display: inline-block;
+	}
 .produitthis{
 	margin-left: 2%;
 	height: 320px;
 	width: 310px;
 	display: inline-block;
+	margin-bottom: 5%;
 }
 .imgProduit{
 	max-width: 100%;
 	height: 215px;
 	border-radius: 7px;}
+
+ .ajoutCommande-btn{
+		margin-left: 45%;
+		margin-top: -50%;
+		background-color: #FAFAFA;
+		border-style: solid;
+		border-width: 2px;
+		border-color: #92d70b;
+		font-size: 16px;
+		letter-spacing: 2px;
+		color: BLACK;
+		padding: 1px 1px 1px 1px;
+		border-radius: 6px;
+	}
+ .ajoutCommande-btn:hover{
+		margin-left: 45%;
+		margin-top: -50%;
+		background-color: #FAFAFA;
+		border-style: solid;
+		border-width: 2px;
+		border-color: #92d70b;
+		font-size: 16px;
+		letter-spacing: 2px;
+		color: BLACK;
+		padding: 1px 1px 1px 1px;
+		border-radius: 6px;
+		transition:0.5s;
+	}
 
 	/****************************************************/
 	/*styles pour le formulaire du panier           */
@@ -330,17 +414,23 @@ li#prod{
 		margin-right: 2%;
 		margin-top: 16%;
 	}
+	.imgPanier{
+		width: 20%;
+	}
+
 	.panierthis{
 	padding: 2% 2% 2% 2%;
 	border: 2px solid #92d70b;
 	}
 	.lblPanier{
-	font-size: 20px;
-	text-decoration: bold;
-	margin-left: 80px;
+		margin-top: -13%;
+		font-size: 20px;
+		text-decoration: bold;
+		margin-left: 9%;
+		color:#01DF01;
 	}
 	.panierthis .nomP{
-	margin-left: 3px;
+	margin-left: 50px;
 	margin-right: 25px;
 	}
 	.panierthis .nbProduit{
