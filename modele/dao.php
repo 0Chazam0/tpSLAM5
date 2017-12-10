@@ -158,4 +158,39 @@ class ProduitDAO{
 
 
 }
+
+class CommandeDAO{
+	public static function selectListeCommande()
+	{
+		$sql = "SELECT * FROM commande ";
+		$liste = DBConnex::getInstance()->queryFetchAll($sql);
+		if (count($liste) > 0)
+		{
+			foreach ($liste as $com)
+			{
+				$uneCommande = new Commande($com['NUMCOMMANDE'], $com['EMAIL'], $com['DATECOMMANDE'], $com['ETAT']);
+				$result[] = $uneCommande;
+			}
+		}
+		else{
+			$result = 0;
+		}
+		return $result;
+	}
+	public static function ajouterUneCommande($numCommande,$email,$dateCommande,$etat){
+		$sql="INSERT INTO commande(NUMCOMMANDE,EMAIL,DATECOMMANDE,ETAT) VALUES ('";
+		$sql .= $numCommande . "','";
+		$sql.= $email . "','";
+		$sql.= $dateCommande . "','";
+		$sql.= $etat . "')";
+		DBConnex::getInstance()->queryFetchFirstRow($sql);
+	}
+	public static function ajouterProduitCommande($numCommander,$code,$qte){
+		$sql="INSERT INTO commander(CODE,NUMCOMMANDE,QUANTITE) VALUES ('";
+		$sql .= $code . "','";
+		$sql.= $numCommander . "','";
+		$sql.= $qte . "')";
+		DBConnex::getInstance()->queryFetchFirstRow($sql);
+	}
+}
  ?>

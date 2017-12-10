@@ -105,9 +105,11 @@ if (isset($_POST['validerCommande'])){
 		$_SESSION['menuPrincipal']= 'Connexion';
 	}
 	else{
-		$_SESSION['lieuLivraison']= $_SESSION['identite'][5];
 		$_SESSION['menuPrincipal']="Commande";
 	}
+}
+if (isset($_POST['confirmCommande'])) {
+	$_SESSION['menuPrincipal']="Commande";
 }
 /*----------------------------------------------------------*/
 /*-------Affiche le controleur récupéré----------*/

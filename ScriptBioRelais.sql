@@ -299,7 +299,7 @@ INSERT INTO `produit` (`CODE`, `NOM`, `TYPEPRODUIT`) VALUES
 ('BRO', 'Brocoli', 'LEG'),
 ('CAB', 'Cabillaud', 'POI'),
 ('CAS', 'Cassis', 'FRT'),
-('CEL', 'Celeri', 'FRT'),
+('CEL', 'Celeri', 'LEG'),
 ('CER', 'Cerise', 'FRT'),
 ('CHO', 'Chocolatine', 'PAT'),
 ('CHF', 'Choux fleur', 'LEG'),

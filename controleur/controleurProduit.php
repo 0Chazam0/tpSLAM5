@@ -63,9 +63,9 @@ if($_SESSION['nbProduitPanier']>0){
 	foreach ($_SESSION['lePanier']->getLesProduits() as $OBJ)
 	{
 	 	$formPanier->ajouterComposantLigne($formPanier->concactComposants($formPanier->creerLabelFor($OBJ->getNom(),"nomP"),
-                                       $formPanier->concactComposants($formPanier->creerLabelFor('x1','nbPlat'),
+                                       $formPanier->concactComposants($formPanier->creerLabelFor('x1','nbProduit'),
                                        $formPanier->concactComposants($formPanier->creerLabelFor(ProduitDAO::LePrixProduit($OBJ,date("Y-m-d"))."€",'prixP'),
-                                       $formPanier->creerInputSubmit($OBJ->getCode(),'supprPlat',"X"),0),0),0));
+                                       $formPanier->creerInputSubmit($OBJ->getCode(),'supprProduit',"X"),0),0),0));
 		$formPanier->ajouterComposantTab();
 		$_SESSION['prixTotal'] += ProduitDAO::LePrixProduit($OBJ,date("Y-m-d"));
 	}
