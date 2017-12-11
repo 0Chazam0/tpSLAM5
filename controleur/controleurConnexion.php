@@ -43,10 +43,11 @@ if (isset($_POST['Email']) && isset($_POST['mdp'])) {
       $formConnexion->ajouterComposantTab();
       $contentConnex=$formConnexion->ajouterComposantTab();
       $contentConnex=$formConnexion->creerFormulaire();
+
       $formInscriptionV = new Formulaire('post','index.php','formInscriptionV','formInscriptionV');
-$formInscriptionV->ajouterComposantLigne($formInscriptionV->creerInputSubmit('inscrValid', 'inscrValid', "Pas encore de compte ?"));
-$formInscriptionV->ajouterComposantTab();
-$contentInscrV=$formInscriptionV->ajouterComposantTab();
-$contentInscrV=$formInscriptionV->creerFormulaire();
+      $formInscriptionV->ajouterComposantLigne($formInscriptionV->creerInputSubmit('inscrValid', 'inscrValid', "Pas encore de compte ?"));
+      $formInscriptionV->ajouterComposantTab();
+      $contentInscrV=$formInscriptionV->ajouterComposantTab();
+      $contentInscrV=$formInscriptionV->creerFormulaire();
 
 include "vue/vueConnexion.php";

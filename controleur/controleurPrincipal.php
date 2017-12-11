@@ -98,6 +98,13 @@ if (isset($_POST['inscrValid'])) {
 }
 
 /*----------------------------------------------------------*/
+/*--------Récupère le controleur Inscription (si la condition est respectée)----------*/
+/*----------------------------------------------------------*/
+if (isset($_POST['Valconnexion'])) {
+	$_SESSION['menuPrincipal'] = 'Connexion';
+}
+
+/*----------------------------------------------------------*/
 /*--------Récupère le controleur Commande (si la condition est respectée) et si on est connecté----------*/
 /*----------------------------------------------------------*/
 if (isset($_POST['validerCommande'])){
