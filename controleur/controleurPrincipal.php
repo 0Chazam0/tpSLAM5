@@ -119,6 +119,13 @@ if (isset($_POST['mdpChange'])) {
 }
 
 /*----------------------------------------------------------*/
+/*--------Récupère le controleur MdpOublie (si la condition est respectée)----------*/
+/*----------------------------------------------------------*/
+if (isset($_POST['changValid'])) {
+	$_SESSION['menuPrincipal'] = 'MdpChange';
+}
+
+/*----------------------------------------------------------*/
 /*--------Récupère le controleur Commande (si la condition est respectée) et si on est connecté----------*/
 /*----------------------------------------------------------*/
 if (isset($_POST['validerCommande'])){

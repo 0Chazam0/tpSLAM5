@@ -860,14 +860,15 @@ nav.conteneurProfil input[type='submit']:hover{
 /****************************************************/
 .formChange{
 margin-left: 35%;
-padding-top: 10%;
+padding-top: 12%;
+font-size: 16px;
 }
 
 .formChange input[type='submit']:hover{
-background-color: #F4FA58;
+background-color: #F3F781;
 border-style: solid;
 border-width: 2px;
-border-color: orange;
+border-color: #92d70b;
 font-size: 16px;
 letter-spacing: 2px;
 color: BLACK;
@@ -877,7 +878,7 @@ transition:0.5s;
 		background-color: #FAFAFA;
 		border-style: solid;
 		border-width: 2px;
-		border-color: orange;
+		border-color: #92d70b;
 		text-align: center;
 		font-size: 16px;
 		letter-spacing: 2px;

@@ -82,6 +82,20 @@ class UserDAO{
 	  $sql = "DELETE FROM " . $table . " WHERE IDU = '" . $IDU . "';";
 
 	}
+	public function changeMDP($unIdUser,$typeUser, $nvMDP){
+		if($typeUser == 'C'){
+			$table = 'client';
+		}
+		elseif ($typeUser == 'P') {
+			$table = 'producteur';
+		}
+		elseif ($typeUser == 'R') {
+			$table = 'responsable';
+		}
+		$sql = "UPDATE " . $table . " set MDP = '" . $nvMDP ."' WHERE EMAIL = '" . $unIdUser . "'";
+		echo $sql;
+		DBConnex::getInstance()->queryFetchFirstRow($sql);
+	}
 }
 class TypeProduitDAO{
 

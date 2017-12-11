@@ -1,10 +1,10 @@
 <div class="conteneur">
   <header>
-      <?php include 'haut.php' ;?>
+      <?php //include 'haut.php' ;?>
   </header>
 
   <main>
-    <?php echo $formChange->afficherFormulaire(); ?>
+    <?php echo $formChangeAff; ?>
   </main>
   <footer>
       <?php include 'bas.php' ;?>
