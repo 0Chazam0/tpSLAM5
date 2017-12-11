@@ -239,7 +239,11 @@ class Formulaire{
 		</div>';
 		return $composant;
 	}
-
+	public function creerInputImageProfil($unNom, $uneClasse, $uneSource){
+		$composant = "<input type = 'image' name = '" . $unNom . "' class= '" . $uneClasse . "' ";
+		$composant .= "src = '" . $uneSource . "'/> ";
+		return $composant;
+	}
 	/****************************************************/
 	/**********Creation et affichage du formulaire   *************/
 	/****************************************************/

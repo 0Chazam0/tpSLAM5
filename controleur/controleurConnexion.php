@@ -42,12 +42,18 @@ if (isset($_POST['Email']) && isset($_POST['mdp'])) {
       $formConnexion->ajouterComposantLigne($formConnexion->creerInputSubmit('Valconnexion', 'Valconnexion', "Connexion"));
       $formConnexion->ajouterComposantTab();
       $contentConnex=$formConnexion->ajouterComposantTab();
-      $contentConnex=$formConnexion->creerFormulaire(); 
+      $contentConnex=$formConnexion->creerFormulaire();
 
       $formInscriptionV = new Formulaire('post','index.php','formInscriptionV','formInscriptionV');
       $formInscriptionV->ajouterComposantLigne($formInscriptionV->creerInputSubmit('inscrValid', 'inscrValid', "Pas encore de compte ?"));
       $formInscriptionV->ajouterComposantTab();
       $contentInscrV=$formInscriptionV->ajouterComposantTab();
       $contentInscrV=$formInscriptionV->creerFormulaire();
+
+      $formOublie = new Formulaire('post','index.php','formOublie','formOublie');
+      $formOublie->ajouterComposantLigne($formOublie->creerInputSubmit('mdpOublie', 'mdpOublie', "Mot de passe oublié ?"));
+      $formOublie->ajouterComposantTab();
+      $contentOublie=$formOublie->ajouterComposantTab();
+      $contentOublie=$formOublie->creerFormulaire();
 
 include "vue/vueConnexion.php";

@@ -4,12 +4,6 @@
   </header>
 
   <main>
-    <?php
-    echo $contentConnex;
-    echo $contentInscrV;
-    echo $contentOublie;
-    ?>
+    <?php echo $formChange->afficherFormulaire(); ?>
   </main>
-
-
 </div>

@@ -98,10 +98,24 @@ if (isset($_POST['inscrValid'])) {
 }
 
 /*----------------------------------------------------------*/
-/*--------Récupère le controleur Inscription (si la condition est respectée)----------*/
+/*--------Récupère le controleur Connexion (si la condition est respectée)----------*/
 /*----------------------------------------------------------*/
 if (isset($_POST['Valconnexion'])) {
 	$_SESSION['menuPrincipal'] = 'Connexion';
+}
+
+/*----------------------------------------------------------*/
+/*--------Récupère le controleur MdpOublie (si la condition est respectée)----------*/
+/*----------------------------------------------------------*/
+if (isset($_POST['mdpOublie'])) {
+	$_SESSION['menuPrincipal'] = 'MdpOublie';
+}
+
+/*----------------------------------------------------------*/
+/*--------Récupère le controleur MdpOublie (si la condition est respectée)----------*/
+/*----------------------------------------------------------*/
+if (isset($_POST['mdpChange'])) {
+	$_SESSION['menuPrincipal'] = 'MdpChange';
 }
 
 /*----------------------------------------------------------*/
