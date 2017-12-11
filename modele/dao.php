@@ -52,19 +52,16 @@ class DBConnex extends PDO{
 class UserDAO{
 	public static function unUserC($unEmailUser){
 		$sql = "select EMAIL, MDP, NOM, PRENOM from client where EMAIL = '".$unEmailUser."'";
-		echo $sql;
 		$user = DBConnex::getInstance()->queryFetchFirstRow($sql);
 		return $user;
 	}
   public static function unUserP($unEmailUser){
     $sql = "select EMAIL, MDP, NOM, PRENOM, ADRESSE, DESCRIPTIF from producteur where EMAIL = '".$unEmailUser."'";
-		echo $sql;
     $user = DBConnex::getInstance()->queryFetchFirstRow($sql);
     return $user;
   }
   public static function unUserR($unEmailUser){
     $sql = "select EMAIL, MDP, NOM, PRENOM from responsable where EMAIL = '".$unEmailUser."'";
-		echo $sql;
     $user = DBConnex::getInstance()->queryFetchFirstRow($sql);
     return $user;
   }
