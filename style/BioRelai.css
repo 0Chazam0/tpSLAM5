@@ -853,5 +853,42 @@ nav.conteneurProfil input[type='submit']:hover{
 
 #corpsResponsable tr:nth-child(even) {
     background-color: #dddddd;
->>>>>>> eed5e92df4f309fc5d359f08d47421e6a014a19b
+}
+
+/****************************************************/
+/*styles pour mdpChange                             */
+/****************************************************/
+.formChange{
+margin-left: 35%;
+padding-top: 10%;
+}
+
+.formChange input[type='submit']:hover{
+background-color: #F4FA58;
+border-style: solid;
+border-width: 2px;
+border-color: orange;
+font-size: 16px;
+letter-spacing: 2px;
+color: BLACK;
+transition:0.5s;
+	}
+.formChange input{
+		background-color: #FAFAFA;
+		border-style: solid;
+		border-width: 2px;
+		border-color: orange;
+		text-align: center;
+		font-size: 16px;
+		letter-spacing: 2px;
+		color: BLACK;
+		border-radius: 10px;
+		height: 40px;
+		width: 400px;
+	}
+.formChange input[type='password']:valid{
+	border-color: green;
+}
+.formChange input[type='password']:invalid{
+	border-color: red;
 }

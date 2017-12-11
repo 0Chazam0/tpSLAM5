@@ -6,5 +6,7 @@
   <main>
       <?php echo $contentInscr; ?>
   </main>
-
+  <footer>
+      <?php include 'bas.php' ;?>
+  </footer>
 </div>

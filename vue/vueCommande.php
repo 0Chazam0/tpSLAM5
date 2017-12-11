@@ -17,5 +17,7 @@
 
       ?>
     </div>
-
+    <footer>
+        <?php include 'bas.php' ;?>
+    </footer>
 </div>

@@ -6,4 +6,7 @@
   <main>
     <?php echo $LaphotoTravail; ?>
   </main>
+  <footer>
+      <?php include 'bas.php' ;?>
+  </footer>
 </div>
