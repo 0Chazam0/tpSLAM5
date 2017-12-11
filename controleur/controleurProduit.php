@@ -7,6 +7,37 @@ $_SESSION['nbProduitPanier']= 0;
 $_SESSION['ListeProduits'] = new Produits(ProduitDAO::selectListeProduit($_SESSION['typeProduitSelected']));
 $_SESSION['lesFormsProduit'] = null;
 
+
+
+
+
+/*----------------------------------------------------------*/
+/*--------Ajouter un Produit au panier (liste de Produit en obj)-----*/
+/*----------------------------------------------------------*/
+
+$leProduit = new Produit("","","","","","","","","");
+
+foreach ($_SESSION['ListeProduits']->getLesProduits() as $OBJ)
+{
+	if(isset($_POST[$OBJ->getCode()])) {
+    ProduitDAO::updateQteProduit($OBJ);
+		$leProduit->__construct($OBJ->getCode(),$OBJ->getNom(),$OBJ->getCodeTypeProduit());
+		$_SESSION['lesProduits'][] =	serialize($leProduit);
+		$_SESSION['nbProduitPanier']+=1;
+	}
+}
+if ($_SESSION['nbProduitPanier']>0)
+{
+	foreach ($_SESSION['lesProduits'] as $OBJ)
+	{
+		$lesProduits[] = unserialize($OBJ);
+	}
+	$_SESSION['lePanier'] = new Produits($lesProduits);
+
+}
+/*----------------------------------------------------------*/
+/*--------FORMULAIRE d' un Produit  et ses carac----*/
+/*----------------------------------------------------------*/
 foreach ($_SESSION['ListeProduits']->getLesProduits() as $OBJ){
 
   $correct = preg_replace('#[\\/\'" éàâäêçèë]#', "", $OBJ->getNom());
@@ -39,30 +70,7 @@ foreach ($_SESSION['ListeProduits']->getLesProduits() as $OBJ){
 
 }
 
-/*----------------------------------------------------------*/
-/*--------Ajouter un Produit au panier (liste de Produit en obj)-----*/
-/*----------------------------------------------------------*/
 
-$leProduit = new Produit("","","","","","","","","");
-
-foreach ($_SESSION['ListeProduits']->getLesProduits() as $OBJ)
-{
-	if(isset($_POST[$OBJ->getCode()])) {
-    ProduitDAO::updateQteProduit($OBJ);
-		$leProduit->__construct($OBJ->getCode(),$OBJ->getNom(),$OBJ->getCodeTypeProduit());
-		$_SESSION['lesProduits'][] =	serialize($leProduit);
-		$_SESSION['nbProduitPanier']+=1;
-	}
-}
-if ($_SESSION['nbProduitPanier']>0)
-{
-	foreach ($_SESSION['lesProduits'] as $OBJ)
-	{
-		$lesProduits[] = unserialize($OBJ);
-	}
-	$_SESSION['lePanier'] = new Produits($lesProduits);
-
-}
 
 $formPanier = new Formulaire("POST","index.php","formPanier","panierthis");
 
