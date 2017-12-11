@@ -581,6 +581,32 @@ li#prod{
 
 /*styles pour le formulaire connexion               */
 /****************************************************/
+.formOublie{
+		margin-left:35%;
+		height: 100px;
+		z-index: 10;
+		display: inline-block;
+}
+.formOublie input{
+	background-color: #FAFAFA;
+	border-style: solid;
+	margin-top: 10px;
+	margin-left: 20px;
+	border-width: 2px;
+	border-color: #92d70b;
+	text-align: center;
+	font-size: 16px;
+	letter-spacing: 2px;
+	color: BLACK;
+	border-radius: 10px;
+	width: 400px;
+	height: 40px;
+}
+
+.formOublie input[type='submit']:hover{
+	background-color: #F3F781;
+	transition:0.5s;
+}
 
 .formInscriptionV{
 		margin-top: 10%;

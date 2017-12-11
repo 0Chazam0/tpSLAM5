@@ -45,7 +45,7 @@ $_SESSION['leformCommande'] = $formCommande->afficherFormulaire();
 if (isset($_POST['confirmCommande'])) {
 
   $txt = "<div id='fin'>Nous vous remercions de votre commande <br><br> Merci à bientôt </div>";
-  $pdf = new Formulaire('post','index.php','pdf','pdf');
+  $pdf = new Formulaire('post','library/Facture/chargementPDF.php','pdf','pdf');
   $pdf->ajouterComposantLigne($pdf->creerInputSubmit('pdf','pdf','Afficher le pdf'));
   $pdf->ajouterComposantLigne($pdf->creerInputSubmitHidden('confirmCommande','confirmCommande',''));
   $pdf->ajouterComposantTab();
