@@ -77,13 +77,14 @@ else
 $menuPrincipal = new Menu("menuP");
 
 
-if (!isset($_SESSION['identite']))
+if (isset($_SESSION['identite']))
 {
-	$menuPrincipal->ajouterComposant($menuPrincipal->creerItemLien('Connexion',"Connexion"));
+	$menuPrincipal->ajouterComposant($menuPrincipal->creerItemLien('InfoClient',"Bienvenue : " . $_SESSION['identite'][3]));
+
 }
 else
 {
-	$menuPrincipal->ajouterComposant($menuPrincipal->creerItemLien('InfoClient',"Bienvenue : " . $_SESSION['identite'][3]));
+	$menuPrincipal->ajouterComposant($menuPrincipal->creerItemLien('Connexion',"Connexion"));
 }
 
 $leMenuP = $menuPrincipal->creerMenu('menuPrincipal');
