@@ -67,16 +67,14 @@ class UserDAO{
   }
 
 	public static function ajouterUnClient($unClient){
-		$sql="Insert into user(IDU,NOMU,PRENOMU,MAIL,MDP,ADRESSEU) VALUES ('";
-		$sql .= $unClient->getId() . "',NULL,NULL,NULL,NULL,NULL)";
+		$sql="Insert into user(EMAIL, MDP, NOM, PRENOM) VALUES ('";
+		$sql .= $unClient->getEmail() . "',NULL,NULL,NULL)";
 		DBConnex::getInstance()->queryFetchFirstRow($sql);
-		$sql = "Insert into client (IDU,NOMU,PRENOMU,MAIL,MDP,ADRESSEU) VALUES ('";
-		$sql .= $unClient->getId() . "','";
-		$sql.= $unClient->getNom() . "','";
-		$sql.= $unClient->getPrenom() . "','";
-		$sql.= $unClient->getMail() . "','";
+		$sql = "Insert into client (EMAIL, MDP, NOM, PRENOM) VALUES ('";
+		$sql .= $unClient->getEmail() . "','";
 		$sql.= $unClient->getMdp() . "','";
-		$sql.= $unClient->getAdresse() . "')";
+		$sql.= $unClient->getNom() . "','";
+		$sql.= $unClient->getPrenom() . "')";
 		DBConnex::getInstance()->queryFetchFirstRow($sql);
 	}
 	public function delUser($table, $IDU)

@@ -42,7 +42,7 @@ if (isset($_POST['Email']) && isset($_POST['mdp'])) {
       $formConnexion->ajouterComposantLigne($formConnexion->creerInputSubmit('Valconnexion', 'Valconnexion', "Connexion"));
       $formConnexion->ajouterComposantTab();
       $contentConnex=$formConnexion->ajouterComposantTab();
-      $contentConnex=$formConnexion->creerFormulaire();
+      $contentConnex=$formConnexion->creerFormulaire(); 
 
       $formInscriptionV = new Formulaire('post','index.php','formInscriptionV','formInscriptionV');
       $formInscriptionV->ajouterComposantLigne($formInscriptionV->creerInputSubmit('inscrValid', 'inscrValid', "Pas encore de compte ?"));
