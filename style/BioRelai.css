@@ -872,14 +872,19 @@ nav.conteneurProfil input[type='submit']:hover{
 		transition:0.5s;
 	}
 
-	#corpsResponsable{
-	position:absolute;
-  left: 50%;
-  top: 50%;
+#corpsResponsable{
+	/*position:absolute;*/
+  /*left: 10%;*/
+	margin-top: 15%;
+	margin-left: 15%;
+	margin-right: 15%;
+	height: 600px;
+	/*text-corection*/
+	/*
   width: 1000px;
-  height: 400px;
+  height: 1400px;
   margin-left: -500px;
-  margin-top: -100px;
+  margin-top: -200px;*/
 }
 
 #corpsResponsable table {
