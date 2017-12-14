@@ -22,7 +22,7 @@ if (!isset($_GET['c']) || $_GET['c'] == 0){
   $formResp->ajouterComposantTab();
   $formResp->ajouterComposantLigne($formResp->creerA("Nouveau mot de passe:"));
   $formResp->ajouterComposantTab();
-  $formResp->ajouterComposantLigne($formResp->creerA("Re nouveau mot de passe:"));
+  $formResp->ajouterComposantLigne($formResp->creerA("Confirmez le mot de passe:"));
   $formResp->ajouterComposantTab();
 }
 // -->Enregistrer un nouveau producteur.
@@ -40,7 +40,7 @@ elseif ($_GET['c'] == 1) {
   $formResp->ajouterComposantTab();
   $formResp->ajouterComposantLigne($formResp->creerA("Mot de passe:"));
   $formResp->ajouterComposantTab();
-  $formResp->ajouterComposantLigne($formResp->creerA("2 Mot de passe:"));
+  $formResp->ajouterComposantLigne($formResp->creerA("Confirmez le mot de passe:"));
   $formResp->ajouterComposantTab();
 }
 // -->Créer une nouvelle vente.
@@ -66,5 +66,6 @@ elseif ($_GET['c'] == 5) {
 
 }
 $formResp->creerFormulaire();
+
 require_once "vue/vueResponsable.php";
  ?>
