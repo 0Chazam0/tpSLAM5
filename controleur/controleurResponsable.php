@@ -3,6 +3,9 @@
 // $menuResp = new menu("menuResp");
 // $menuResp->ajouterComposant($menuResp->nomfunt());
 // $leMenu = $menuResp->creerMenuSwag("menuResp");
+// foreach ( $_POST as $post => $val )  {
+//   echo $val;
+// }
 
 $menu = '<table>';
 $menu .= '<tr>';
@@ -27,20 +30,25 @@ if (!isset($_GET['c']) || $_GET['c'] == 0){
 }
 // -->Enregistrer un nouveau producteur.
 elseif ($_GET['c'] == 1) {
-  $formResp->ajouterComposantLigne($formResp->creerA("Nom:"));
-  // $formResp->ajouterComposantLigne($formResp->creerInputTexte()
+  $formResp->ajouterComposantLigne($formResp->creerA("Nom:<br/>"));
+  $formResp->ajouterComposantLigne($formResp->creerInputTexte("nomProduc", "nomProduc", 0, 0, 1, 0, 0));
   $formResp->ajouterComposantTab();
   $formResp->ajouterComposantLigne($formResp->creerA("Prenom:"));
+  $formResp->ajouterComposantLigne($formResp->creerInputTexte("prenomProduc", "prenomProduc", 0, 0, 1, 0, 0));
   $formResp->ajouterComposantTab();
   $formResp->ajouterComposantLigne($formResp->creerA("Email:"));
+  $formResp->ajouterComposantLigne($formResp->creerInputTexte("emailProduc", "emailProduc", 0, 0, 1, 0, 0));
   $formResp->ajouterComposantTab();
   $formResp->ajouterComposantLigne($formResp->creerA("Adresse:"));
+  $formResp->ajouterComposantLigne($formResp->creerInputTexte("adresseProduc", "adresseProduc", 0, 0, 1, 0, 0));
   $formResp->ajouterComposantTab();
   $formResp->ajouterComposantLigne($formResp->creerA("Descriptif:"));
   $formResp->ajouterComposantTab();
   $formResp->ajouterComposantLigne($formResp->creerA("Mot de passe:"));
+  $formResp->ajouterComposantLigne($formResp->creerInputPassPattern("mdpProduc", "mdpProduc", 0, 0, 1, 0, 0));
   $formResp->ajouterComposantTab();
   $formResp->ajouterComposantLigne($formResp->creerA("Confirmez le mot de passe:"));
+  $formResp->ajouterComposantLigne($formResp->creerInputPassPattern("reMdpProduc", "reMdpProduc", 0, 0, 1, 0, 0));
   $formResp->ajouterComposantTab();
 }
 // -->Créer une nouvelle vente.
@@ -65,6 +73,8 @@ elseif ($_GET['c'] == 4) {
 elseif ($_GET['c'] == 5) {
 
 }
+$formResp->ajouterComposantLigne($formResp->creerInputSubmit("enregistrer", "enregistrer", "Enregistrer"));
+$formResp->ajouterComposantTab();
 $formResp->creerFormulaire();
 
 require_once "vue/vueResponsable.php";
