@@ -66,6 +66,18 @@ class UserDAO{
     return $user;
   }
 
+	public static function modifierClient($unClient, $newNom, $newPrenom){
+		$sql = "update client set NOM = '".$newNom."', PRENOM = '".$newPrenom."' WHERE EMAIL = '".$unClient[0]."'";
+			try {
+				$user = DBConnex::getInstance()->queryFetchFirstRow($sql);
+				return true;
+			} catch (Exception $e) {
+				return false;
+			}
+
+
+	}
+
 	public static function ajouterUnClient($unClient){
 		$sql="Insert into user(EMAIL, MDP, NOM, PRENOM) VALUES ('";
 		$sql .= $unClient->getEmail() . "',NULL,NULL,NULL)";
@@ -77,11 +89,13 @@ class UserDAO{
 		$sql.= $unClient->getPrenom() . "')";
 		DBConnex::getInstance()->queryFetchFirstRow($sql);
 	}
+
 	public function delUser($table, $IDU)
 	{
 	  $sql = "DELETE FROM " . $table . " WHERE IDU = '" . $IDU . "';";
 
 	}
+
 	public function changeMDP($unIdUser,$typeUser, $nvMDP){
 		if($typeUser == 'C'){
 			$table = 'client';

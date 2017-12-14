@@ -126,6 +126,13 @@ if (isset($_POST['changValid'])) {
 }
 
 /*----------------------------------------------------------*/
+/*--------Récupère le controleur InfoClient (si la condition est respectée)----------*/
+/*----------------------------------------------------------*/
+if (isset($_POST['ModifierClient'])) {
+	$_SESSION['menuPrincipal'] = 'InfoClient';
+}
+
+/*----------------------------------------------------------*/
 /*--------Récupère le controleur Commande (si la condition est respectée) et si on est connecté----------*/
 /*----------------------------------------------------------*/
 if (isset($_POST['validerCommande'])){
