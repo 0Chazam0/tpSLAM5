@@ -69,13 +69,25 @@ class UserDAO{
 	public static function modifierClient($unClient, $newNom, $newPrenom){
 		$sql = "update client set NOM = '".$newNom."', PRENOM = '".$newPrenom."' WHERE EMAIL = '".$unClient[0]."'";
 			try {
-				$user = DBConnex::getInstance()->queryFetchFirstRow($sql);
+				DBConnex::getInstance()->queryFetchFirstRow($sql);
 				return true;
 			} catch (Exception $e) {
 				return false;
 			}
+	}
 
-
+	public static function modifierProducteur($unProd, $newNom, $newPrenom, $newAdresse, $newDescriptif){
+		$sql = "update producteur set NOM = '".$newNom.
+		"', PRENOM = '".$newPrenom.
+		"', ADRESSE = '".$newAdresse.
+		"', DESCRIPTIF = '".$newDescriptif.
+		"' WHERE EMAIL = '".$unProd[0]."'";
+		try {
+			DBConnex::getInstance()->queryFetchFirstRow($sql);
+			return true;
+		} catch (Exception $e) {
+			return false;
+		}
 	}
 
 	public static function ajouterUnClient($unClient){

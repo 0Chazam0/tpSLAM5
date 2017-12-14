@@ -7,6 +7,13 @@ if (isset($_POST['nom'])
 				if (isset($_POST['adresse'])
 						&& isset($_POST['descriptif'])
 						){
+								UserDAO::modifierProducteur($_SESSION['identite'], $_POST['nom'], $_POST['prenom'], $_POST['adresse'], $_POST['descriptif']);
+								if (UserDAO::modifierProducteur($_SESSION['identite'], $_POST['nom'], $_POST['prenom'], $_POST['adresse'], $_POST['descriptif'])  == true) {
+									$_SESSION['identite'][2] = $_POST['nom'];
+									$_SESSION['identite'][3] = $_POST['prenom'];
+									$_SESSION['identite'][4] = $_POST['adresse'];
+									$_SESSION['identite'][5] = $_POST['descriptif'];
+								}
 						}
 			}
 			else {
@@ -16,9 +23,6 @@ if (isset($_POST['nom'])
 					$_SESSION['identite'][3] = $_POST['prenom'];
 				}
 			}
-    echo '<script type="text/javascript">';
-    echo 'window.location.href = "index.php?menuPrincipal='.$_SESSION['dernierePage'].'";';
-    echo '</script>';
 	}
 
 $menuProfil = new menu("menuProfil");
@@ -31,8 +35,8 @@ if ($_SESSION['typeIdentite'] == 'P') {
 }
 if ($_SESSION['typeIdentite'] == 'C') {
 	$menuProfil->ajouterComposant($menuProfil->creerItemLien('Historique','Historique'));
-	$menuProfil->ajouterComposant($menuProfil->creerItemLien('Modifier','Modifier'));
 }
+$menuProfil->ajouterComposant($menuProfil->creerItemLien('Modifier','Modifier'));
 $leMenuProfil = $menuProfil->creerMenu("menuProfil");
 
 if(isset($_GET['menuProfil'])){
@@ -71,14 +75,14 @@ if ($_SESSION['menuProfil'] == "Historique") {
 }
 
 if ($_SESSION['menuProfil'] == "Modifier") {
-	$formProfil->ajouterComposantLigne($formProfil->creerInputTextePattern('nom', 'nom', '', $_SESSION['identite'][2], 1, 'entrez votre Nom', '[a-zA-Z]{3,20}'));
+	$formProfil->ajouterComposantLigne($formProfil->creerInputTextePattern('nom', 'nom', '', $_SESSION['identite'][2], 1, 'entrez votre Nom', '[\sa-zA-Z]{3,20}'));
 	$formProfil->ajouterComposantTab();
 	$formProfil->ajouterComposantLigne($formProfil->creerInputTextePattern('prenom', 'prenom', '', $_SESSION['identite'][3], 1, 'entrez votre Prénom', '[a-zA-Z]{3,20}'));
 	$formProfil->ajouterComposantTab();
 	if ($_SESSION['typeIdentite'] == 'P') {
-		$formProfil->ajouterComposantLigne($formProfil->creerInputTextePattern('adresse', 'adresse', $_SESSION['identite'][4], 1, 'entrez votre Adresse', '[a-zA-Z0-9]{3,20}'));
+		$formProfil->ajouterComposantLigne($formProfil->creerInputTextePattern('adresse', 'adresse', '', $_SESSION['identite'][4], 1, 'entrez votre Adresse', '[\sa-zA-Z0-9]{3,32}'));
 		$formProfil->ajouterComposantTab();
-		$formProfil->ajouterComposantLigne($formProfil->creerInputTextePattern('descriptif', 'descriptif', $_SESSION['identite'][5], 1, 'entrez votre Descriptif', '[a-zA-Z0-9]{10,52}'));
+		$formProfil->ajouterComposantLigne($formProfil->creerInputTextePattern('descriptif', 'descriptif', '', $_SESSION['identite'][5], 1, 'entrez votre Descriptif', '[\sa-zA-Z0-9]{10,52}'));
 		$formProfil->ajouterComposantTab();
 	}
 	$formProfil->ajouterComposantLigne($formProfil->creerInputSubmit('ModifierClient','ModifierClient','Changer vos informations'));
