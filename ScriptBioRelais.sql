@@ -251,7 +251,7 @@ ALTER TABLE VENDRE
 INSERT INTO `biorelaisbdd`.`user` (`EMAIL`, `NOM`, `PRENOM`, `MDP`) VALUES ('beuquila.jeremy@gmail.com', '', '', ''),
 ('romain.daros@gmail.com', '', '', ''),
 ('samuel.belondrade@gmail.com', '', '', ''),
-('Jean.Eude@carotte.fr', NULL, NULL, NULL),
+('pro1@bio.fr', NULL, NULL, NULL),
 ('Admin@modo.com', NULL, NULL, NULL);
 
 INSERT INTO `biorelaisbdd`.`client` (`EMAIL`, `NOM`, `PRENOM`, `MDP`) VALUES
@@ -260,7 +260,7 @@ INSERT INTO `biorelaisbdd`.`client` (`EMAIL`, `NOM`, `PRENOM`, `MDP`) VALUES
 ('samuel.belondrade@gmail.com', 'belondrade', 'Samuel', 'belondrade');
 
 INSERT INTO `biorelaisbdd`.`producteur` (`EMAIL`, `NOM`, `ADRESSE`,`DESCRIPTIF`, `PRENOM`, `MDP`) VALUES
-('pro1@bio.fr', 'Producteur', '5 lieu dit des abricots','Ferme','Bob', 'bob');
+('pro1@bio.fr', 'Producteur', '5 lieu dit des abricots','Ferme','Bob', 'boby');
 
 INSERT INTO `biorelaisbdd`.`responsable` (`EMAIL`, `NOM`, `PRENOM`, `MDP`) VALUES
 ('Admin@modo.com', 'modo', 'admin', 'admin');

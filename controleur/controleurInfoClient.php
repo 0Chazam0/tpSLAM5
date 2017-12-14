@@ -50,7 +50,7 @@ if ($_SESSION['menuProfil'] == "Responsable") {
 	$formProfil->ajouterComposantTab();
 }
 
-if ($_SESSION['menuProfil'] == "Moderateur") {
+if ($_SESSION['menuProfil'] == "Producteur") {
 	$formProfil->ajouterComposantLigne($formProfil->creerInputSubmit('redirectionProducteur','redirectionProducteur','Votre espace Producteur'));
 	$formProfil->ajouterComposantTab();
 
@@ -85,7 +85,7 @@ if ($_SESSION['menuProfil'] == "Modifier") {
 }
 
 $photoProfil = new Formulaire('post','index.php','photoProfil','photoProfil');
-//$photoProfil->ajouterComposantLigne($photoProfil->creerInputImageProfil('photoProfil','photoDProfil',"image/" . $_SESSION['identite'][0]));
+$photoProfil->ajouterComposantLigne($photoProfil->creerInputImageProfil('photoProfil','photoDProfil',"image/" . $_SESSION['identite'][0]));
 $photoProfil->ajouterComposantLigne($photoProfil->creerInputSubmit('deconnexion','deconnexion','Deconnecter'));
 $photoProfil->ajouterComposantTab();
 $laPhotoProfil = $photoProfil->creerFormulaire();
