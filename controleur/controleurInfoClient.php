@@ -1,4 +1,5 @@
 <?php
+unset($_SESSION['typeProduitSelected']);
 if (isset($_POST['nom'])
 		&& isset($_POST['prenom'])
 		){
