@@ -10,7 +10,9 @@
     </div>
     <div id="panier">
       <?php
-        echo $_SESSION['leFormPlanier'];
+      	if (!isset($_SESSION['typeIdentite']) || $_SESSION['typeIdentite'] == 'C'){
+          echo $_SESSION['leFormPlanier'];
+        }
        ?>
 
     </div>

@@ -3,7 +3,7 @@
 /*--------Déclaration variable session----------------------*/
 /*----------------------------------------------------------*/
 $_SESSION['dernierePage'] = "Commande";
-
+if(isset($_SESSION['lesProduits'])){
 foreach ($_SESSION['lesProduits'] as $OBJ) {
   $lesProduits[] = unserialize($OBJ);
 }
@@ -22,7 +22,7 @@ $formCommande->ajouterComposantTab();
 
 // On ajoute les Produits du panier
 foreach ($_SESSION['lePanier']->getLesProduits() as $OBJ){
-  $formCommande->ajouterComposantLigne($formCommande->concactComposants($formCommande->creerLabelFor($OBJ->getNom(), 'nomProduitCommande'),
+  $formCommande->ajouterComposantLigne($formCommande->concactComposants($formCommande->creerLabelFor(ucfirst($OBJ->getNom()), 'nomProduitCommande'),
                                        $formCommande->concactComposants($formCommande->creerLabelFor('x1 : ', 'qtProduitCommande'),
                                        $formCommande->creerLabelFor(ProduitDAO::LePrixProduit($OBJ,date("Y-m-d"))."€", 'prixProduitCommande'),0),0));
 $formCommande->ajouterComposantTab();
@@ -43,14 +43,6 @@ $_SESSION['leformCommande'] = $formCommande->afficherFormulaire();
 /*----------------------------------------------------------*/
 // Condition respectée quand on utilise le btn confirmCommande
 if (isset($_POST['confirmCommande'])) {
-
-  $txt = "<div id='fin'>Nous vous remercions de votre commande <br><br> Merci à bientôt </div>";
-  $pdf = new Formulaire('post','library/Facture/chargementPDF.php','pdf','pdf');
-  $pdf->ajouterComposantLigne($pdf->creerInputSubmit('pdf','pdf','Afficher le pdf'));
-  $pdf->ajouterComposantLigne($pdf->creerInputSubmitHidden('confirmCommande','confirmCommande',''));
-  $pdf->ajouterComposantTab();
-  $lepdf = $pdf->creerFormulaireNewOnglet();
-  $lepdf = $pdf->afficherFormulaire();
   $numeroCommande = 0;
   $_SESSION['listeCommande'] = new Commandes(CommandeDAO::selectListeCommande());
   // recuperer le num de la prochaine commande
@@ -82,7 +74,7 @@ if (isset($_POST['confirmCommande'])) {
   unset($_SESSION['lePanier']);
 }
 
-
+}
 /*--------------------------------------------------------------------------*/
  include 'vue/vueCommande.php' ;
 

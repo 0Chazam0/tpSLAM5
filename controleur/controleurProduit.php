@@ -53,8 +53,10 @@ foreach ($_SESSION['ListeProduits']->getLesProduits() as $OBJ){
                                         $formProduit->creerLabelFor(ProduitDAO::LePrixProduit($OBJ,date("Y-m-d"))."€",'prixProd'),0));
     $formProduit->ajouterComposantTab();
     $formProduit->ajouterComposantLigne($formProduit->concactComposants($formProduit->creerLabelFor("Quantité : ","lblQteProd"),
-                                        $formProduit->concactComposants($formProduit->creerLabelFor(ProduitDAO::LaQteProduit($OBJ,date("Y-m-d")),'QteProd'),
-                                        $formProduit->creerInputSubmitPanier($OBJ->getCode(),"ajoutCommande-btn"," Ajouter au panier "),0),0));
+                                        $formProduit->creerLabelFor(ProduitDAO::LaQteProduit($OBJ,date("Y-m-d")),'QteProd'),0));
+		if (!isset($_SESSION['typeIdentite']) || $_SESSION['typeIdentite'] == 'C'){
+    	$formProduit->ajouterComposantLigne($formProduit->creerInputSubmitPanier($OBJ->getCode(),"ajoutCommande-btn"," Ajouter au panier "));
+		}
   }
   elseif (ProduitDAO::estEnVente($OBJ,date("Y-m-d"))==0) {
     $formProduit->ajouterComposantLigne($formProduit->concactComposants($formProduit->creerInputImage2('imgCarton', 'imgCarton', "image\carton.jpg"),
@@ -71,41 +73,42 @@ foreach ($_SESSION['ListeProduits']->getLesProduits() as $OBJ){
 }
 
 
+if (!isset($_SESSION['typeIdentite']) || $_SESSION['typeIdentite'] == 'C'){
+	$formPanier = new Formulaire("POST","index.php","formPanier","panierthis");
 
-$formPanier = new Formulaire("POST","index.php","formPanier","panierthis");
+	$formPanier->ajouterComposantLigne($formPanier->concactComposants($formPanier->creerInputImage2('imgPanier', 'imgPanier', "image\panier.jpg"),
+	                                                                  $formPanier->creerLabelFor('Votre Panier', 'lblPanier'),0));
+	$formPanier->ajouterComposantTab();
 
-$formPanier->ajouterComposantLigne($formPanier->concactComposants($formPanier->creerInputImage2('imgPanier', 'imgPanier', "image\panier.jpg"),
-                                                                  $formPanier->creerLabelFor('Votre Panier', 'lblPanier'),0));
-$formPanier->ajouterComposantTab();
-
-//Condition si le panier est remplit
-if($_SESSION['nbProduitPanier']>0){
-	foreach ($_SESSION['lePanier']->getLesProduits() as $OBJ)
-	{
-	 	$formPanier->ajouterComposantLigne($formPanier->concactComposants($formPanier->creerLabelFor($OBJ->getNom(),"nomP"),
-                                       $formPanier->concactComposants($formPanier->creerLabelFor('x1','nbProduit'),
-                                       $formPanier->concactComposants($formPanier->creerLabelFor(ProduitDAO::LePrixProduit($OBJ,date("Y-m-d"))."€",'prixP'),
-                                       $formPanier->creerInputSubmit($OBJ->getCode(),'supprProduit',"X"),0),0),0));
+	//Condition si le panier est remplit
+	if($_SESSION['nbProduitPanier']>0){
+		foreach ($_SESSION['lePanier']->getLesProduits() as $OBJ)
+		{
+		 	$formPanier->ajouterComposantLigne($formPanier->concactComposants($formPanier->creerLabelFor(ucfirst($OBJ->getNom()),"nomP"),
+	                                       $formPanier->concactComposants($formPanier->creerLabelFor('x1','nbProduit'),
+	                                       $formPanier->concactComposants($formPanier->creerLabelFor(ProduitDAO::LePrixProduit($OBJ,date("Y-m-d"))."€",'prixP'),
+	                                       $formPanier->creerInputSubmit($OBJ->getCode(),'supprProduit',"X"),0),0),0));
+			$formPanier->ajouterComposantTab();
+			$_SESSION['prixTotal'] += ProduitDAO::LePrixProduit($OBJ,date("Y-m-d"));
+		}
 		$formPanier->ajouterComposantTab();
-		$_SESSION['prixTotal'] += ProduitDAO::LePrixProduit($OBJ,date("Y-m-d"));
+	}
+	//Condition si le panier est vide
+	else{
+		$formPanier->ajouterComposantLigne($formPanier->creerLabelFor("Le panier est vide","lblVide"));
+		$formPanier->ajouterComposantTab();
+	}
+
+	$formPanier->ajouterComposantLigne($formPanier->concactComposants($formPanier->creerLabelFor("Total : ","lbltotal"),$formPanier->creerLabelFor($_SESSION['prixTotal']."€","prixTotal"),0));
+	$formPanier->ajouterComposantTab();
+	if ($_SESSION['nbProduitPanier']>0){
+	  $formPanier->ajouterComposantLigne($formPanier->creerInputSubmit('validerCommande','validerCommande',"Valider votre commande"));
 	}
 	$formPanier->ajouterComposantTab();
-}
-//Condition si le panier est vide
-else{
-	$formPanier->ajouterComposantLigne($formPanier->creerLabelFor("Le panier est vide","lblVide"));
-	$formPanier->ajouterComposantTab();
-}
 
-$formPanier->ajouterComposantLigne($formPanier->concactComposants($formPanier->creerLabelFor("Total : ","lbltotal"),$formPanier->creerLabelFor($_SESSION['prixTotal']."€","prixTotal"),0));
-$formPanier->ajouterComposantTab();
-if ($_SESSION['nbProduitPanier']>0){
-  $formPanier->ajouterComposantLigne($formPanier->creerInputSubmit('validerCommande','validerCommande',"Valider votre commande"));
+	$formPanier->creerFormulaire();
+	$_SESSION['leFormPlanier'] = $formPanier->afficherFormulaire();
 }
-$formPanier->ajouterComposantTab();
-
-$formPanier->creerFormulaire();
-$_SESSION['leFormPlanier'] = $formPanier->afficherFormulaire();
 
 include "vue/vueProduit.php";
  ?>
