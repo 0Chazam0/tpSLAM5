@@ -71,7 +71,6 @@ main {
 	width: 25%;
 	vertical-align: top;
 	font-size: 15px;
-
 }
 
 .sidenav{
@@ -328,7 +327,7 @@ li#prod{
  color:white;
 }
 #corpsAccueil{
-	height: 100px;
+		height: 100px;
 		width: 100%;
 		background-color: #CDE5B9;
 }
@@ -375,7 +374,7 @@ li#prod{
 	border-radius: 7px;}
 
  .ajoutCommande-btn{
-		margin-left: 45%;
+		margin-left: 20%;
 		margin-top: -50%;
 		background-color: #FAFAFA;
 		border-style: solid;
@@ -388,7 +387,7 @@ li#prod{
 		border-radius: 6px;
 	}
  .ajoutCommande-btn:hover{
-		margin-left: 45%;
+		margin-left: 20%;
 		margin-top: -50%;
 		background-color: #FAFAFA;
 		border-style: solid;
@@ -490,8 +489,9 @@ li#prod{
 	/*styles pour le formulaire de commande          */
 	/****************************************************/
 	#commande{
-		margin-top: 25%;
+		margin-top: 35%;
 		margin-left: 45%;
+		height: inherit;
 
 	}
 	.commandethis{
@@ -500,6 +500,7 @@ li#prod{
 	border: 2px solid #92d70b;
 	width:  600px;
 	padding: 10px 30px 30px 30px;
+	margin-bottom: 5%;
 	}
 	.commandethis .lblcommande{
 		color : #92d70b;
@@ -574,8 +575,24 @@ li#prod{
 		height: 60px;
 		padding-right: 30px;
 		text-align: center;
-		margin-left: -25%;
-		margin-top: -20%;
+		margin-left: -32%;
+		margin-top: -35%;
+		margin-bottom: 2%;
+	}
+	#pdf{
+		background-color: #FAFAFA;
+		border-style: solid;
+		border-width: 2px;
+		border-color: #92d70b;
+		font-size: 16px;
+		letter-spacing: 2px;
+		color: BLACK;
+		margin-bottom: -10px;
+		margin-top: 20px;
+		padding: 3px 3px 3px 3px;
+		border-radius: 6px;
+		transition:0.5s;
+		margin-bottom: 20%;
 	}
 
 
