@@ -46,13 +46,13 @@ class Producteur
   private   $adresse;
   private   $descriptif;
 
-  function __construct($pemail,  $pnom, $pprenom, $pmdp, $padresse, $pdescriptif)
+  function __construct($pemail,  $pnom, $padresse , $pdescriptif, $pprenom, $pmdp)
   {
     $this->email = $pemail;
     $this->nom = $pnom;
     $this->prenom = $pprenom;
     $this->mdp = $pmdp;
-    $this->adresse = $adresse;
+    $this->adresse = $padresse;
     $this->descriptif = $pdescriptif;
   }
 

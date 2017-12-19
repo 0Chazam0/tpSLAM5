@@ -131,6 +131,12 @@ if (isset($_POST['changValid'])) {
 if (isset($_POST['ModifierClient'])) {
 	$_SESSION['menuPrincipal'] = 'InfoClient';
 }
+/*----------------------------------------------------------*/
+/*--------Récupère le controleur Producteur (si la condition est respectée)----------*/
+/*----------------------------------------------------------*/
+if (isset($_POST['redirectionProducteur'])) {
+	$_SESSION['menuPrincipal'] = 'Producteur';
+}
 
 /*----------------------------------------------------------*/
 /*--------Récupère le controleur Commande (si la condition est respectée) et si on est connecté----------*/

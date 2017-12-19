@@ -164,7 +164,7 @@ class ProduitDAO{
   {
 		$end = 2;
     $result = array();
-    $sql = "SELECT v.code,v.quantite, s.numsemaine FROM vendre as v, semaine as s where s.numsemaine = v.numsemaine and s.dated<= '$date' and s.datef>='$date' and  v.code='" . $produit->getCode() . "';";
+    $sql = "SELECT v.code,v.quantite, s.numsemaine FROM vendre as v, semaine as s where s.numsemaine = v.numsemaine and s.dateDebutAchat<= '$date' and s.dateFinAchat>='$date' and  v.code='" . $produit->getCode() . "';";
     $liste = DBConnex::getInstance()->queryFetchAll($sql);
     if (count($liste) > 0)
     {
@@ -186,7 +186,7 @@ class ProduitDAO{
 	public static function LePrixProduit($produit,$date)
   {
     $result = array();
-		$sql = "SELECT v.prix FROM vendre as v, semaine as s where s.numsemaine = v.numsemaine and s.dated<= '$date' and s.datef>='$date' and  v.code='" . $produit->getCode() . "';";
+		$sql = "SELECT v.prix FROM vendre as v, semaine as s where s.numsemaine = v.numsemaine and s.dateDebutAchat<= '$date' and s.dateFinAchat>='$date' and  v.code='" . $produit->getCode() . "';";
     $liste = DBConnex::getInstance()->queryFetchAll($sql);
 		if (count($liste) > 0)
 		{
@@ -201,7 +201,7 @@ class ProduitDAO{
 	public static function LaQteProduit($produit,$date)
 	{
 		$result = array();
-		$sql = "SELECT v.quantite FROM vendre as v, semaine as s where s.numsemaine = v.numsemaine and s.dated<= '$date' and s.datef>='$date' and  v.code='" . $produit->getCode() . "';";
+		$sql = "SELECT v.quantite FROM vendre as v, semaine as s where s.numsemaine = v.numsemaine and s.dateDebutAchat<= '$date' and s.dateFinAchat>='$date' and  v.code='" . $produit->getCode() . "';";
 		$liste = DBConnex::getInstance()->queryFetchAll($sql);
 		if (count($liste) > 0)
 		{
@@ -215,7 +215,7 @@ class ProduitDAO{
 
 	public static function LeNumSemaine($date)
 	{
-		$sql = "SELECT NUMSEMAINE  FROM semaine  where  dated<= '$date' and datef>='$date' ;";
+		$sql = "SELECT NUMSEMAINE  FROM semaine  where  dateDebutAchat<= '$date' and dateFinAchat>='$date' ;";
 		$numS = DBConnex::getInstance()->queryFetchFirstRow($sql);
 		return $numS[0];
 
@@ -270,4 +270,25 @@ class CommandeDAO{
 		DBConnex::getInstance()->queryFetchFirstRow($sql);
 	}
 }
+class ProducteurDAO{
+	public static function selectListeProducteur()
+	{
+		$sql = "SELECT * FROM producteur ";
+		$liste = DBConnex::getInstance()->queryFetchAll($sql);
+		if (count($liste) > 0)
+		{
+			foreach ($liste as $prod)
+			{
+				$unProducteur = new Producteur(	$prod['EMAIL'] ,	$prod['NOM'] ,	$prod['ADRESSE'] , 	$prod['DESCRIPTIF'] ,	$prod['PRENOM'] ,$prod['MDP']);
+				$result[] = $unProducteur;
+			}
+		}
+		else{
+			$result = null;
+		}
+		return $result;
+	}
+}
+
+
  ?>

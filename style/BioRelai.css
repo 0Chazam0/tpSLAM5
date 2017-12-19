@@ -595,9 +595,21 @@ li#prod{
 		margin-bottom: 20%;
 	}
 
+	/****************************************************/
+	/*styles pour le formulaire de commande          */
+	/****************************************************/
+#corpsProd{
+	height: 400px;
+}
 
-/*styles pour le formulaire connexion               */
-/****************************************************/
+
+
+
+
+	/****************************************************/
+	/*styles pour le formulaire de connexion          */
+	/****************************************************/
+
 .formOublie{
 		margin-left:35%;
 		height: 100px;

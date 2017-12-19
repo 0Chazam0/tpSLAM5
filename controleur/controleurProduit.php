@@ -23,6 +23,7 @@ foreach ($_SESSION['ListeProduits']->getLesProduits() as $OBJ)
     ProduitDAO::updateQteProduit($OBJ);
 		$leProduit->__construct($OBJ->getCode(),$OBJ->getNom(),$OBJ->getCodeTypeProduit());
 		$_SESSION['lesProduits'][] =	serialize($leProduit);
+		var_dump($_SESSION['lesProduits']);
 		$_SESSION['nbProduitPanier']+=1;
 	}
 }

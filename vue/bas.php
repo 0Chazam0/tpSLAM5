@@ -2,10 +2,13 @@
 
   <nav class="menuFooter">
   	<?php
-
+    $_SESSION['ListeProducteur'] = new Producteurs(ProducteurDAO::selectListeProducteur());
     $formFooter = new Formulaire("post","index.php?menuPrincipal=Accueil","formFooter","formFooter");
-    $formFooter->ajouterComposantLigne($formFooter->concactComposants($formFooter->creerLabelFor("Nos Producteurs ","lbltitreFooter"),
-                                        $formFooter->creerLabelFor("test",'liste'),2));
+    $formFooter->ajouterComposantLigne($formFooter->creerLabelFor("Nos Producteurs ","lbltitreFooter"));
+    foreach ($_SESSION['ListeProducteur']->getLesProducteurs() as $OBJ)
+    {
+    $formFooter->creerLabelFor($OBJ->getNom(),'liste');
+    }
     $formFooter->ajouterComposantLigne($formFooter->concactComposants($formFooter->creerLabelFor("Nous Contacter ","lbltitreFooter"),
                                         $formFooter->concactComposants($formFooter->creerLabelFor("- BEUQUILA Jérémy ","liste"),
                                         $formFooter->concactComposants($formFooter->creerLabelFor("- BELONDRADE Samuel ","liste"),
