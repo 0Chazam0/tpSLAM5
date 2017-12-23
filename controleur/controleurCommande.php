@@ -24,7 +24,7 @@ $formCommande->ajouterComposantTab();
 foreach ($_SESSION['lePanier']->getLesProduits() as $OBJ){
   $formCommande->ajouterComposantLigne($formCommande->concactComposants($formCommande->creerLabelFor(ucfirst($OBJ->getNom()), 'nomProduitCommande'),
                                        $formCommande->concactComposants($formCommande->creerLabelFor('x1 : ', 'qtProduitCommande'),
-                                       $formCommande->creerLabelFor(ProduitDAO::LePrixProduit($OBJ,date("Y-m-d"))."€", 'prixProduitCommande'),0),0));
+                                       $formCommande->creerLabelFor(ProduitDAO::LePrixProduit($OBJ,date("Y-m-d"))*$OBJ->getQte()."€", 'prixProduitCommande'),0),0));
 $formCommande->ajouterComposantTab();
 }
 $formCommande->ajouterComposantLigne($formCommande->concactComposants($formCommande->creerLabelFor('Montant : ', 'lblmontant'),

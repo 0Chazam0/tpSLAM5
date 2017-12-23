@@ -1,87 +1,45 @@
 <?php
 $_SESSION['dernierePage'] = "Producteur";
-$_SESSION['listeTypeProduitProducteurs'] = new TypeProduits(TypeProduitDAO::selectListeTypeProduitProducteur());
-/*----------------------------------------------------------*/
-/*--------Affichage  des restaurants selon leur type-----*/
-/*----------------------------------------------------------*/
-if(isset($_GET['TypeProduitProducteur'])){
-	$_SESSION['TypeProduitProducteur']= $_GET['TypeProduitProducteur'];
-}
-else
-{
-	if(!isset($_SESSION['TypeProduitProducteur'])){
-		$_SESSION['TypeProduitProducteur']="All";
-	}
+if(!isset($_SESSION['nbProduitPanier'])){
+$_SESSION['nbProduitPanier']= 0;
 }
 
-/*----------------------------------------------------------*/
-/*--------Affichage type resto-----*/
-/*----------------------------------------------------------*/
-$menuTypeProduitProducteur = new menu("menuTypeProduitProducteur");
-
-$menuTypeProduitProducteur->ajouterComposant($menuTypeProduitProducteur->creerItemLien("All" ,"Tous les types"));
-foreach ($_SESSION['listeTypeProduitProducteurs']->getLesTypeProduitProducteurs() as $uneTypeProduitProducteur){
-	$menuTypeProduitProducteur->ajouterComposant($menuTypeProduitProducteur->creerItemLien($uneTypeProduitProducteur->getCodeT() ,$uneTypeProduitProducteur->getLibelle()));
-}
-$lemenuTypeProduitProducteurs = $menuTypeProduitProducteur->creerMenuType('TypeProduitProducteur',$_SESSION['TypeProduitProducteur']);
-
-
-/*----------------------------------------------------------*/
-/*--------creation des forms des restaurants du restaurateur choisit pour tous les types-----*/
-/*----------------------------------------------------------*/
-if ($_SESSION['TypeProduitProducteur']=="All"){
-  foreach ($_SESSION['listeRestos']->getLesRestos() as $OBJ)
-  {
-    foreach ($_SESSION['listeRestosRestaurateur'] as $OBJ2)
-    {
-    if ($OBJ->getId() == $OBJ2['IDR']){
-			$compteurResto +=1;
-      $correct = preg_replace('#[\\/\'" éàâäêçèë]#', "", $OBJ->getNom());
-      $correct = strtolower($correct);
-      $correct = 'image/'.$correct;
-
-      $formResto = new Formulaire("POST","index.php","formResto","restothis");
-      $formResto->ajouterComposantLigne($formResto->creerInputImage('imgResto', 'imgResto', $correct));
-			$formResto->ajouterComposantTab();
-      $formResto->ajouterComposantLigne($formResto->concactComposants($formResto->creerLabelFor($OBJ->getNom(),"nomResto"),$formResto->creerLabelFor($OBJ->getNumAdr()." ".$OBJ->getRueAdr() ." ". $OBJ->getCP(),'adrResto'),2));
-      $formResto->ajouterComposantLigne($formResto->creerInputSubmitHidden("idRestoRestaurateur","idRestoRestaurateur",$OBJ->getId()));
-      $formResto->ajouterComposantTab();
-      $formResto->creerFormulaire();
-      $_SESSION['lesFormsResto'] .= $formResto->afficherFormulaire();
-    }
-  }
-}
-}
-/*----------------------------------------------------------*/
-/*--------creation des forms des restaurants du restaurateur choisit pour le type choisit-----*/
-/*----------------------------------------------------------*/
-else {
-	foreach ($_SESSION['listeRestos']->getLesRestos() as $OBJ)
-	{
-    foreach ($_SESSION['listeRestosRestaurateur'] as $OBJ2)
-    {
-    if ($OBJ->getId() == $OBJ2['IDR']){
-			if ($OBJ->getCodeT()==$_SESSION['TypeProduitProducteur']){
-				$compteurResto +=1;
-				$correct = preg_replace('#[\\/\'" éàâäêçèë]#', "", $OBJ->getNom());
-				$correct = strtolower($correct);
-				$correct = 'image/'.$correct;
-
-				$formResto = new Formulaire("POST","index.php","formResto","restothis");
-				$formResto->ajouterComposantLigne($formResto->creerInputImage('imgResto', 'imgResto', $correct));
-				$formResto->ajouterComposantLigne($formResto->concactComposants($formResto->creerLabelFor($OBJ->getNom(),"nomResto"),$formResto->creerLabelFor($OBJ->getNumAdr()." ".$OBJ->getRueAdr() ." ". $OBJ->getCP(),'adrResto'),2));
-				$formResto->ajouterComposantLigne($formResto->creerInputSubmitHidden("idRestoRestaurateur","idRestoRestaurateur",$OBJ->getId()  ));
-				$formResto->ajouterComposantTab();
-				$formResto->creerFormulaire();
-				$_SESSION['lesFormsResto'] .= $formResto->afficherFormulaire();
-			}
-		}
-	}
-}
-}
-
-
-
-
+// $_SESSION['listeProduitProducteurs'] = new Produits(ProducteurDAO::selectListeProduitProducteur($_SESSION['identite'][0],date("Y-m-d")));
+// /*----------------------------------------------------------*/
+// /*--------FORMULAIRE d' un Produit  et ses carac----*/
+// /*----------------------------------------------------------*/
+// foreach ($_SESSION['listeProduitProducteurs']->getLesProduits() as $OBJ){
+//
+//   $correct = preg_replace('#[\\/\'" éàâäêçèë]#', "", $OBJ->getNom());
+//   $correct = strtolower($correct);
+//   $correct = 'image/'.$correct;
+//   $formProduit = new Formulaire("POST","index.php","formProduit","produitthis");
+//   $formProduit->ajouterComposantLigne($formProduit->creerInputImage('imgProduit', 'imgProduit', $correct));
+//   $formProduit->ajouterComposantTab();
+//   $formProduit->ajouterComposantLigne($formProduit->creerLabelFor(ucfirst($OBJ->getNom()),"nomProduit"));
+//   $formProduit->ajouterComposantTab();
+//   if(ProduitDAO::estEnVente($OBJ,date("Y-m-d"))==1){
+//     $formProduit->ajouterComposantLigne($formProduit->concactComposants($formProduit->creerLabelFor("Prix : ","lblprixProd"),
+//                                         $formProduit->creerLabelFor(ProduitDAO::LePrixProduit($OBJ,date("Y-m-d"))."€",'prixProd'),0));
+//     $formProduit->ajouterComposantTab();
+//     $formProduit->ajouterComposantLigne($formProduit->concactComposants($formProduit->creerLabelFor("Quantité : ","lblQteProd"),
+//                                         $formProduit->creerLabelFor(ProduitDAO::LaQteProduit($OBJ,date("Y-m-d")),'QteProd'),0));
+// 		if (!isset($_SESSION['typeIdentite']) || $_SESSION['typeIdentite'] == 'C'){
+//     	$formProduit->ajouterComposantLigne($formProduit->creerInputSubmitPanier($OBJ->getCode(),"ajoutCommande-btn"," Ajouter au panier "));
+// 		}
+//   }
+//   elseif (ProduitDAO::estEnVente($OBJ,date("Y-m-d"))==0) {
+//     $formProduit->ajouterComposantLigne($formProduit->concactComposants($formProduit->creerInputImage2('imgCarton', 'imgCarton', "image\carton.jpg"),
+//                                                                         $formProduit->creerLabelFor(" Rupture de stock ","lblRupture"),0));
+//   }
+//   else{
+//     $formProduit->ajouterComposantLigne($formProduit->concactComposants($formProduit->creerInputImage2('imgTime', 'imgTime', "image\itime.jpg"),
+//                                         $formProduit->creerLabelFor(" Pas en vente cette semaine ","lblRupture"),0));
+//   }
+//   $formProduit->ajouterComposantTab();
+//   $formProduit->creerFormulaire();
+//   $_SESSION['lesFormsProduit'] .= $formProduit->afficherFormulaire();
+//
+// }
 include "vue/vueProducteur.php";
  ?>

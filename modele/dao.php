@@ -153,7 +153,7 @@ class ProduitDAO{
     {
       foreach ($liste as $produit)
       {
-        $produit = new Produit($produit['CODE'], $produit['NOM'],$produit['TYPEPRODUIT']);
+        $produit = new Produit($produit['CODE'], $produit['NOM'],$produit['TYPEPRODUIT'],$produit['UNITE'],1);
         $result[] = $produit;
       }
     }
@@ -288,6 +288,27 @@ class ProducteurDAO{
 		}
 		return $result;
 	}
+
+
+	// public static function selectListeProduitProducteur($prod,$date)
+	// {
+	// 	$result = array();
+	// 	$sql = "SELECT p.code,p.nom, p.typeproduit,count(p.code)
+	// 	FROM  produit as p, vendre as v
+	// 	where v.code =p.code
+	// 	and v.email='" . $prod . "' ;";
+	// 	$liste = DBConnex::getInstance()->queryFetchAll($sql);
+	// 	echo $sql;
+	// 	if (count($liste) > 0)
+	// 	{
+	// 		foreach ($liste as $produit)
+	// 		{
+	// 			$produit = new Produit($produit['CODE'], $produit['NOM'],$produit['TYPEPRODUIT']);
+	// 			$result[] = $produit;
+	// 		}
+	// 	}
+	// 	return $result;
+	// }
 }
 
 
