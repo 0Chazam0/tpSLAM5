@@ -15,18 +15,20 @@ if (isset($_POST['Email']) && isset($_POST['mdp'])) {
     $unUser = $unUserR;
     $unUserType = 'R';
   }
-   if ($unUser != '') {
-    if ($unUser[1]==$_POST['mdp'] ) {
-      $_SESSION['identite'] = $unUser;
-      $_SESSION['typeIdentite'] = $unUserType;
-      $_SESSION['menuPrincipal']=$_SESSION['dernierePage'];
-            $_SESSION['menuPrincipal']="Accueil";
-            echo '<script type="text/javascript">';
-            echo 'window.location.href = "index.php?menuPrincipal='.$_SESSION['dernierePage'].'";';
-            echo '</script>';
+   if (isset($unUser)){
+     if ($unUser != '') {
+      if ($unUser[1]==$_POST['mdp'] ) {
+        $_SESSION['identite'] = $unUser;
+        $_SESSION['typeIdentite'] = $unUserType;
+        $_SESSION['menuPrincipal']=$_SESSION['dernierePage'];
+              $_SESSION['menuPrincipal']="Accueil";
+              echo '<script type="text/javascript">';
+              echo 'window.location.href = "index.php?menuPrincipal='.$_SESSION['dernierePage'].'";';
+              echo '</script>';
+            }
           }
         }
-      }
+   }
       if (isset($_POST['Email'])) {
         $ident = $_POST['Email'];
       }
