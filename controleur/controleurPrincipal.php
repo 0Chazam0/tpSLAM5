@@ -27,8 +27,9 @@ require_once 'modele\DTO\user.php';
 /*----------------------------------------------------------*/
 /*--------Header-----------------------------------------*/
 /*----------------------------------------------------------*/
-$_SESSION['TypeProduit']= null;
-$theMenuType=null;
+if (!isset($_SESSION['typeIdentite']) || $_SESSION['typeIdentite'] == 'C' || $_SESSION['typeIdentite'] == 'A'){
+	$_SESSION['TypeProduit']= null;
+	$theMenuType=null;
 	if(isset($_GET['TypeProduit'])){
 		$_SESSION['TypeProduit']= $_GET['TypeProduit'];
 		$_SESSION['typeProduitSelected'] = $_GET['TypeProduit'];
@@ -51,7 +52,7 @@ $theMenuType=null;
 	$theMenuType .= $menuTypeProduit->creerMenuType("TypeProduit",$_SESSION['TypeProduit']);
 
 	}
-
+}
 
 /*----------------------------------------------------------*/
 /*--------session du menu principal avec produit si le menu a été selectionné-------*/

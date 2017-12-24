@@ -47,6 +47,9 @@ foreach ($_SESSION['lePanier']->getLesProduits() as $OBJ)
     if($OBJ->getQte()>1){
       $OBJ->setQte($OBJ->getQte()-1);
     }
+    else{
+      $_SESSION['lePanier']->supprimerProduit($OBJ);
+    }
 
 	}
 }

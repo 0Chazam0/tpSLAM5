@@ -327,9 +327,14 @@ li#prod{
  color:white;
 }
 #corpsAccueil{
-		height: 100px;
+		height: 150px;
 		width: 100%;
 		background-color: #CDE5B9;
+		text-align: center;
+		font-weight: bold;
+		padding-top: 100px;
+		letter-spacing: 1.5px;
+
 }
 
 /****************************************************/
@@ -389,7 +394,7 @@ li#prod{
  .ajoutCommande-btn:hover{
 		margin-left: 20%;
 		margin-top: -50%;
-		background-color: #FAFAFA;
+		background-color: #6FD728;
 		border-style: solid;
 		border-width: 2px;
 		border-color: #92d70b;
@@ -406,7 +411,7 @@ li#prod{
 	/****************************************************/
 	#panier{
 		display: inline-block;
-		width: 300px;
+		width: 310px;
 		font-size: 15px;
 		height: inherit;
 		float: right;
@@ -434,6 +439,21 @@ li#prod{
 	}
 	.panierthis .nbProduit{
 	margin-right: 25px;
+	}
+	.panierthis .enleverProduit{
+		border: 1px solid #92d70b;
+		background-color: #FAFAFA;
+		width: 18px;
+		border-radius: 100%;
+		margin-right: 7px;
+	}
+	.panierthis .enleverProduit:hover{
+		border: 1px solid #92d70b;
+		background-color:  #6FD728;
+		width: 18px;
+		border-radius: 100%;
+		margin-right: 7px;
+		transition:0.5s;
 	}
 	.panierthis #supprProduit{
 	width: 15px;
@@ -466,7 +486,7 @@ li#prod{
 	border-radius: 6px;
 	}
 	.panierthis #validerCommande:hover{
-	background-color: #FAFAFA;
+	background-color: #6FD728;
 	border-style: solid;
 	border-width: 2px;
 	border-color: #92d70b;
@@ -550,7 +570,7 @@ li#prod{
 		border-radius: 6px;
 	}
 	.commandethis #confirmCommande:hover{
-		background-color: #FAFAFA;
+		background-color:#6FD728;
 		border-style: solid;
 		border-width: 2px;
 		border-color: #92d70b;

@@ -16,6 +16,8 @@
 </nav>
 <nav class="menuTypeProduit">
 	<?php
+	if (!isset($_SESSION['typeIdentite']) || $_SESSION['typeIdentite'] == 'C' || $_SESSION['typeIdentite'] == 'A'){
 		echo $theMenuType;
+	}
 	?>
 </nav>
