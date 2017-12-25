@@ -4,10 +4,16 @@
   	<?php
     $_SESSION['ListeProducteur'] = new Producteurs(ProducteurDAO::selectListeProducteur());
     $formFooter = new Formulaire("post","index.php?menuPrincipal=Accueil","formFooter","formFooter");
-    $formFooter->ajouterComposantLigne($formFooter->creerLabelFor("Nos Producteurs ","lbltitreFooter"));
+
     foreach ($_SESSION['ListeProducteur']->getLesProducteurs() as $OBJ)
     {
-    $formFooter->creerLabelFor($OBJ->getNom(),'liste');
+      $tableauProducteur[] = $OBJ->getNom();
+    }
+    if (!isset($_SESSION['typeIdentite']) || $_SESSION['typeIdentite'] == 'C' ){
+      $formFooter->ajouterComposantLigne($formFooter->concactComposantsProducteur($formFooter->creerLienP($formFooter->creerLabelFor("Nos Producteurs ","lbltitreFooter")),$tableauProducteur));
+    }
+    else{
+        $formFooter->ajouterComposantLigne($formFooter->concactComposantsProducteur($formFooter->creerLabelFor("Nos Producteurs ","lbltitreFooter"),$tableauProducteur));
     }
     $formFooter->ajouterComposantLigne($formFooter->concactComposants($formFooter->creerLabelFor("Nous Contacter ","lbltitreFooter"),
                                         $formFooter->concactComposants($formFooter->creerLabelFor("- BEUQUILA Jérémy ","liste"),

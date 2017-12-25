@@ -27,7 +27,7 @@ require_once 'modele\DTO\user.php';
 /*----------------------------------------------------------*/
 /*--------Header-----------------------------------------*/
 /*----------------------------------------------------------*/
-if (!isset($_SESSION['typeIdentite']) || $_SESSION['typeIdentite'] == 'C' || $_SESSION['typeIdentite'] == 'A'){
+if (!isset($_SESSION['typeIdentite']) || $_SESSION['typeIdentite'] == 'C' ){
 	$_SESSION['TypeProduit']= null;
 	$theMenuType=null;
 	if(isset($_GET['TypeProduit'])){
@@ -52,6 +52,59 @@ if (!isset($_SESSION['typeIdentite']) || $_SESSION['typeIdentite'] == 'C' || $_S
 	$theMenuType .= $menuTypeProduit->creerMenuType("TypeProduit",$_SESSION['TypeProduit']);
 
 	}
+}
+
+
+
+
+	elseif (isset($_SESSION['typeIdentite']) && $_SESSION['typeIdentite'] == 'R' ) {
+		$_SESSION['TypeMenuResponsable']= null;
+		$theMenuType=null;
+		if(isset($_GET['TypeMenuResponsable'])){
+		  $_SESSION['TypeMenuResponsable']= $_GET['TypeMenuResponsable'];
+		  $_SESSION['TypeMenuResponsableSelected'] = $_GET['TypeMenuResponsable'];
+		}
+		else
+		{
+		  if(!isset($_SESSION['TypeMenuResponsable'])){
+		    if(isset($_SESSION['TypeMenuResponsableSelected'])){
+		    $_SESSION['TypeMenuResponsable']=$_SESSION['TypeMenuResponsableSelected'] ;
+		  }
+		  }
+
+		}
+
+		$menuTypeMenuResponsable = new menu("menuTypeProd");
+		//$menuTypeMenuResponsable->ajouterComposant($menuTypeMenuResponsable->creerItemLien($OBJ->getCode(),ucfirst($OBJ->getLibelle())));
+		$theMenuType .= $menuTypeMenuResponsable->creerMenuType("TypeMenuResponsable",$_SESSION['TypeMenuResponsable']);
+
+	}
+
+	elseif (isset($_SESSION['typeIdentite']) && $_SESSION['typeIdentite'] == 'P' ) {
+		$_SESSION['TypeMenuProducteur']= null;
+		$theMenuType=null;
+		if(isset($_GET['TypeMenuProducteur'])){
+		  $_SESSION['TypeMenuProducteur']= $_GET['TypeMenuProducteur'];
+		  $_SESSION['TypeMenuProducteurSelected'] = $_GET['TypeMenuProducteur'];
+		}
+		else
+		{
+		  if(!isset($_SESSION['TypeMenuProducteur'])){
+		    if(isset($_SESSION['TypeMenuProducteurSelected'])){
+		    $_SESSION['TypeMenuProducteur']=$_SESSION['TypeMenuProducteurSelected'] ;
+		  }
+		  }
+
+		}
+
+
+
+
+		$menuTypeMenuProducteur = new menu("menuTypeProd");
+		//$menuTypeMenuProducteur->ajouterComposant($menuTypeMenuProducteur->creerItemLien($OBJ->getCode(),ucfirst($OBJ->getLibelle())));
+		$theMenuType .= $menuTypeMenuProducteur->creerMenuType("TypeMenuProducteur",$_SESSION['TypeMenuProducteur']);
+
+
 }
 
 /*----------------------------------------------------------*/
