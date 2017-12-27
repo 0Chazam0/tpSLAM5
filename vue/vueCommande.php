@@ -24,6 +24,9 @@
 
       ?>
     </div>
+    <div id="prevenirValiderC">
+      /!\ Attention :  Si vous validez la commande, vous ne pourrai plus la modifier ou la supprimer /!\
+    </div>
     <footer>
         <?php include 'bas.php' ;?>
     </footer>

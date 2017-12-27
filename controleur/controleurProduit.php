@@ -9,7 +9,6 @@ if (!isset(  $_SESSION['lePanier'])) {
 else{
   $_SESSION['lePanier'] = unserialize(serialize($_SESSION['lePanier']));
 }
-
 /*----------------------------------------------------------*/
 /*--------Ajouter un Produit au panier (liste de Produit en obj)-----*/
 /*----------------------------------------------------------*/
@@ -17,10 +16,12 @@ else{
 foreach ($_SESSION['ListeProduits']->getLesProduits() as $OBJ)
 {
 	if(isset($_POST[$OBJ->getCode()])) {
+
     ProduitDAO::updateQteProduit($OBJ);
 		if ($_SESSION['lePanier']->chercherProduit($OBJ->getCode())){
     }
     else{
+
       $_SESSION['lePanier']->ajouterProduit($OBJ);
 
 		}
@@ -124,9 +125,15 @@ if (!isset($_SESSION['typeIdentite']) || $_SESSION['typeIdentite'] == 'C'){
 
 	$formPanier->ajouterComposantLigne($formPanier->concactComposants($formPanier->creerLabelFor("Total : ","lbltotal"),$formPanier->creerLabelFor($_SESSION['prixTotal']."€","prixTotal"),0));
 	$formPanier->ajouterComposantTab();
-	if (isset($_SESSION['lePanier'])){
-	  $formPanier->ajouterComposantLigne($formPanier->creerInputSubmit('validerCommande','validerCommande',"Valider votre commande"));
-	}
+	if (isset($_SESSION['lePanier']) && sizeof($_SESSION['lePanier']->getLesProduits())>0){
+    if(isset($_SESSION['EstEnModif']) && $_SESSION['EstEnModif']){
+      $formPanier->ajouterComposantLigne($formPanier->creerInputSubmit('validerModifCommande','validerModifCommande',"Valider votre commande"));
+    }
+    else{
+      $formPanier->ajouterComposantLigne($formPanier->creerInputSubmit('validerCommande','validerCommande',"Valider votre commande"));
+
+    }
+  }
 	$formPanier->ajouterComposantTab();
 
 	$formPanier->creerFormulaire();

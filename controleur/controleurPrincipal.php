@@ -19,6 +19,7 @@ require_once 'modele/dao.php';
 /*--------inclut les fichiers DTO----------*/
 /*----------------------------------------------------------*/
 require_once 'modele\DTO\commande.php';
+require_once 'modele\DTO\commander.php';
 require_once 'modele\DTO\producteur.php';
 require_once 'modele\DTO\produit.php';
 require_once 'modele\DTO\typeProduit.php';
@@ -113,18 +114,21 @@ if (!isset($_SESSION['typeIdentite']) || $_SESSION['typeIdentite'] == 'C' ){
 /*----------------------------------------------------------*/
 /*--------Passage des commandes validées à distribuées au bout de 7j(jour mini pour que toutes les commandes de la semaine précédente soient distribuées)-------*/
 /*----------------------------------------------------------*/
+
 $_SESSION['listeCommande'] = new Commandes(CommandeDAO::selectListeCommande());
 // recuperer le num de la prochaine commande
+if(sizeof($_SESSION['listeCommande']->getLesCommandes())>0){
 	foreach ($_SESSION['listeCommande']->getLesCommandes() as $OBJ)
 	{
 		$dateNow= new datetime (date("Y-m-d")) ;
-		$dateCom= new datetime (CommandeDAO::selectDateCommande($OBJ->getNumCommande()));
+		$dateCom= new datetime ($OBJ->getDateCommande());
 
 		$diff = date_diff($dateNow,$dateCom);
 		if(abs($diff->format('%R%a'))>7){
 		 	CommandeDAO::updateDistribuerEtatCommande($OBJ->getNumCommande());
 		 }
 	}
+}
 /*----------------------------------------------------------*/
 /*--------session du menu principal avec produit si le menu a été selectionné-------*/
 /*----------------------------------------------------------*/
@@ -132,6 +136,28 @@ if (isset($_SESSION['typeProduitSelected'])) {
 	$_SESSION['menuPrincipal'] = 'Produit';
 }
 
+
+if(isset($_SESSION['identite']) && $_SESSION['typeIdentite']="C"){
+	$_SESSION['listeCommandeCli'] =new commandes(CommandeDAO::selectListeCommandeEC($_SESSION['identite'][0]));
+	// recuperer le num de la prochaine commande
+	if(sizeof($_SESSION['listeCommandeCli']->getLesCommandes())>0){
+		foreach ($_SESSION['listeCommandeCli']->getLesCommandes() as $OBJ){
+			if (isset($_POST["M".$OBJ->getNumCommande()])) {
+				$_SESSION['lePanier'] = new Produits(array());
+				$lesProduits = new Commanders(CommanderDAO::produitsCommande($OBJ->getNumCommande()));
+				foreach ($lesProduits->getLesCommanders() as $OBJ2) {
+					$leProd = ProduitDAO::leProduit($OBJ2->getcode());
+					$leProd->setQte($OBJ2->getqte());
+					$_SESSION['lePanier']->ajouterProduit($leProd);
+				}
+			$_SESSION['typeProduitSelected']= NULL;
+			$_SESSION['EstEnModif'] = true;
+			$_SESSION['NumComModif'] = $OBJ->getNumCommande();
+			$_SESSION['menuPrincipal'] = 'Produit';
+		}
+	}
+}
+}
 /*----------------------------------------------------------*/
 /*--------session du menu principal avec accueil par defaut-------*/
 /*----------------------------------------------------------*/
@@ -235,12 +261,32 @@ if (isset($_POST['validerCommande'])){
 		$_SESSION['lePanier'] = unserialize(serialize($_SESSION['lePanier']));
 	  foreach ($_SESSION['lePanier']->getLesProduits() as $OBJ)
 		{
-	    CommandeDAO::ajouterProduitCommande($OBJ->getCode(),$_SESSION['compteurCommande'],$OBJ->getQte());
+	    CommandeDAO::ajouterProduitCommande($_SESSION['compteurCommande'],$OBJ->getCode(),$OBJ->getQte());
 	  }
 
 		$_SESSION['menuPrincipal']="Commande";
 	}
 }
+
+
+if (isset($_POST['validerModifCommande'])){
+	if (!isset($_SESSION['identite'])) {
+		$_SESSION['menuPrincipal']= 'Connexion';
+	}
+	else{
+		CommanderDAO::deleteProdCommande($_SESSION['NumComModif']);
+		CommandeDAO::deleteCommande($_SESSION['NumComModif']);
+	  CommandeDAO::ajouterUneCommande($_SESSION['NumComModif'], $_SESSION['identite'][0],date("Y-m-d"),"EC");
+		$_SESSION['lePanier'] = unserialize(serialize($_SESSION['lePanier']));
+	  foreach ($_SESSION['lePanier']->getLesProduits() as $OBJ)
+		{
+	    CommandeDAO::ajouterProduitCommande($_SESSION['NumComModif'],$OBJ->getCode(),$OBJ->getQte());
+	  }
+
+		$_SESSION['menuPrincipal']="Commande";
+	}
+}
+
 
 
 if (isset($_POST['confirmCommande'])) {

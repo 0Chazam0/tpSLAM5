@@ -159,6 +159,16 @@ class ProduitDAO{
     }
     return $result;
   }
+	public static function leProduit($code)
+	{
+		$result = array();
+		$sql = "SELECT * FROM  	produit where code='" . $code . "';";
+		$liste = DBConnex::getInstance()->queryFetchFirstRow($sql);
+
+		$result = new Produit($liste[0], $liste[1],$liste[2],$liste[3],1);
+
+		return $result;
+	}
 
 	public static function estEnVente($produit,$date)
   {
@@ -183,11 +193,26 @@ class ProduitDAO{
     return $end;
   }
 
+	public static function LePrixProduitCode($produit,$date)
+	{
+		$result = array();
+		$sql = "SELECT v.prix FROM vendre as v, semaine as s where s.numsemaine = v.numsemaine and s.dateDebutAchat<= '$date' and s.dateFinAchat>='$date' and  v.code='" . $produit . "';";
+		$liste = DBConnex::getInstance()->queryFetchAll($sql);
+		if (count($liste) > 0)
+		{
+			foreach ($liste as $leproduit)
+			{
+				return $leproduit['prix'];
+			}
+		}
+		return null;
+	}
 	public static function LePrixProduit($produit,$date)
   {
     $result = array();
 		$sql = "SELECT v.prix FROM vendre as v, semaine as s where s.numsemaine = v.numsemaine and s.dateDebutAchat<= '$date' and s.dateFinAchat>='$date' and  v.code='" . $produit->getCode() . "';";
-    $liste = DBConnex::getInstance()->queryFetchAll($sql);
+
+		$liste = DBConnex::getInstance()->queryFetchAll($sql);
 		if (count($liste) > 0)
 		{
 			foreach ($liste as $leproduit)
@@ -237,6 +262,9 @@ class ProduitDAO{
 }
 
 class CommandeDAO{
+
+
+
 	public static function selectListeCommande()
 	{
 		$sql = "SELECT * FROM commande ";
@@ -254,12 +282,68 @@ class CommandeDAO{
 		}
 		return $result;
 	}
-	public static function selectDateCommande($numC)
+
+
+
+	public static function selectListeCommandeEC($emailCli)
 	{
-		$sql = "SELECT datecommande FROM commande  WHERE NUMCOMMANDE='".$numC."'";
-		$liste = DBConnex::getInstance()->queryFetchFirstRow($sql);
-		return $liste[0];
+		$sql = "SELECT * FROM commande WHERE ETAT='EC' and EMAIL='".$emailCli."'";
+		$liste = DBConnex::getInstance()->queryFetchAll($sql);
+		if (count($liste) > 0)
+		{
+			foreach ($liste as $com)
+			{
+				$uneCommande = new Commande($com['NUMCOMMANDE'], $com['EMAIL'], $com['DATECOMMANDE'], $com['ETAT']);
+				$result[] = $uneCommande;
+			}
+		}
+		else{
+			$result = null;
+		}
+		return $result;
 	}
+
+
+
+	public static function selectListeCommandeV($emailCli)
+	{
+		$sql = "SELECT * FROM commande WHERE ETAT='V' and EMAIL='".$emailCli."'";
+		$liste = DBConnex::getInstance()->queryFetchAll($sql);
+		if (count($liste) > 0)
+		{
+			foreach ($liste as $com)
+			{
+				$uneCommande = new Commande($com['NUMCOMMANDE'], $com['EMAIL'], $com['DATECOMMANDE'], $com['ETAT']);
+				$result[] = $uneCommande;
+			}
+		}
+		else{
+			$result = null;
+		}
+		return $result;
+	}
+
+
+
+	public static function selectListeCommandeD($emailCli)
+	{
+		$sql = "SELECT * FROM commande WHERE ETAT='D' and EMAIL='".$emailCli."'" ;
+		$liste = DBConnex::getInstance()->queryFetchAll($sql);
+		if (count($liste) > 0)
+		{
+			foreach ($liste as $com)
+			{
+				$uneCommande = new Commande($com['NUMCOMMANDE'], $com['EMAIL'], $com['DATECOMMANDE'], $com['ETAT']);
+				$result[] = $uneCommande;
+			}
+		}
+		else{
+			$result = null;
+		}
+		return $result;
+	}
+
+
 	public static function ajouterUneCommande($numCommande,$email,$dateCommande,$etat){
 		$sql="INSERT INTO commande(NUMCOMMANDE,EMAIL,DATECOMMANDE,ETAT) VALUES ('";
 		$sql .= $numCommande . "','";
@@ -284,7 +368,7 @@ class CommandeDAO{
 		DBConnex::getInstance()->exec($sql);
 	}
 	public static function deleteCommande($numCommande){
-		$sql="DELETE * FROM commande WHERE NUMCOMMANDE='".$numCommande."'";
+		$sql="DELETE FROM commande WHERE NUMCOMMANDE='".$numCommande."'";
 		DBConnex::getInstance()->exec($sql);
 	}
 }
@@ -329,5 +413,26 @@ class ProducteurDAO{
 	// }
 }
 
+class CommanderDAO{
+	public static function produitsCommande($numC)
+	{
+		$result = array();
+		$sql = "SELECT * FROM  	commander where numcommande='" . $numC . "'";
+		$liste = DBConnex::getInstance()->queryFetchAll($sql);
+		if (count($liste) > 0)
+		{
+			foreach ($liste as $produit)
+			{
+				$produit = new Commander($produit['NUMCOMMANDE'], $produit['CODE'],$produit['QUANTITE']);
+				$result[] = $produit;
+			}
+		}
+		return $result;
+	}
+	public static function deleteProdCommande($numCommande){
+		$sql="DELETE FROM commander WHERE NUMCOMMANDE='".$numCommande."'";
+		DBConnex::getInstance()->exec($sql);
+	}
+}
 
  ?>
