@@ -1,8 +1,35 @@
 <?php
 $_SESSION['dernierePage'] = "Producteur";
-if(!isset($_SESSION['nbProduitPanier'])){
-$_SESSION['nbProduitPanier']= 0;
+
+$formDetailsResto = new Formulaire("POST","","formDetailsResto","detailProducteurthis");
+$menuDetailProducteur = new menu("menuDetailProducteur");
+
+
+$menuDetailProducteur->ajouterComposant($menuDetailProducteur->creerItemLien('profil','Mon Profil Public'));
+$menuDetailProducteur->ajouterComposant($menuDetailProducteur->creerItemLien('insert','Ajouter un produit à la vente (en cours)'));
+$menuDetailProducteur->ajouterComposant($menuDetailProducteur->creerItemLien('update','Modifier un produit de la vente (en cours)'));
+$menuDetailProducteur->ajouterComposant($menuDetailProducteur->creerItemLien('delete','Supprimer un produit de la vente (en cours)'));
+$menuDetailProducteur = $menuDetailProducteur->creerMenu("menuDetailProducteur");
+
+$formDetailsResto->ajouterComposantLigne($formDetailsResto->concactComposants($formDetailsResto->creerLabelFor('Details du restaurant', 'lbltitreDetailProducteur'),
+$menuDetailProducteur,0));
+
+$formDetailsResto->ajouterComposantTab();
+$formDetailsResto->creerFormulaire();
+
+/*----------------------------------------------------------*/
+/*--------Gestion du menu detail resto selon l'onglet selectionné----------------------*/
+/*----------------------------------------------------------*/
+if(isset($_GET['menuDetailProducteur'])){
+	$_SESSION['menuDetailProducteur']= $_GET['menuDetailProducteur'];
 }
+else
+{
+	if(!isset($_SESSION['menuDetailProducteur'])){
+		$_SESSION['menuDetailProducteur']="profil";
+	}
+}
+
 
 // $_SESSION['listeProduitProducteurs'] = new Produits(ProducteurDAO::selectListeProduitProducteur($_SESSION['identite'][0],date("Y-m-d")));
 // /*----------------------------------------------------------*/

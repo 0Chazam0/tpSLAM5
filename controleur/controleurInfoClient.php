@@ -133,6 +133,7 @@ if ($_SESSION['menuProfil'] == "HistoriqueEC") {
 
 		}
 	}
+
 }
 if ($_SESSION['menuProfil'] == "HistoriqueV") {
 	$_SESSION['comV']= new commandes(CommandeDAO::selectListeCommandeV($_SESSION['identite'][0]));
@@ -165,6 +166,7 @@ if ($_SESSION['menuProfil'] == "HistoriqueV") {
 			$formProfil->ajouterComposantTab();
 		}
 	}
+
 }
 if ($_SESSION['menuProfil'] == "HistoriqueD") {
 	$_SESSION['comD']= new commandes(CommandeDAO::selectListeCommandeD($_SESSION['identite'][0]));

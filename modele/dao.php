@@ -303,7 +303,23 @@ class CommandeDAO{
 		return $result;
 	}
 
-
+	// public static function selectListeCommandeVP($emailProd)
+	// {
+	// 	$sql = "SELECT * FROM commande WHERE ETAT='V' and EMAIL='".$emailProd."'";
+	// 	$liste = DBConnex::getInstance()->queryFetchAll($sql);
+	// 	if (count($liste) > 0)
+	// 	{
+	// 		foreach ($liste as $com)
+	// 		{
+	// 			$uneCommande = new Commande($com['NUMCOMMANDE'], $com['EMAIL'], $com['DATECOMMANDE'], $com['ETAT']);
+	// 			$result[] = $uneCommande;
+	// 		}
+	// 	}
+	// 	else{
+	// 		$result = null;
+	// 	}
+	// 	return $result;
+	// }
 
 	public static function selectListeCommandeV($emailCli)
 	{
@@ -373,6 +389,29 @@ class CommandeDAO{
 	}
 }
 class ProducteurDAO{
+	public static function estEnVenteProducteur($produit,$date,$email)
+	{
+		$end = 2;
+		$result = array();
+		$sql = "SELECT v.code,v.quantite, s.numsemaine FROM vendre as v, semaine as s where s.numsemaine = v.numsemaine and s.dateDebutAchat<= '$date' and s.dateFinAchat>='$date' and v.email='".$email."' and v.code='" . $produit->getCode() . "';";
+		$liste = DBConnex::getInstance()->queryFetchAll($sql);
+		if (count($liste) > 0)
+		{
+			foreach ($liste as $leproduit)
+			{
+				if($produit->getCode() == $leproduit['code'] ){
+					if($leproduit['quantite']>0){
+						$end = 1;
+					}
+					else{
+						$end = 0;
+					}
+				}
+			}
+		}
+		return $end;
+	}
+
 	public static function selectListeProducteur()
 	{
 		$sql = "SELECT * FROM producteur ";
@@ -395,17 +434,18 @@ class ProducteurDAO{
 	// public static function selectListeProduitProducteur($prod,$date)
 	// {
 	// 	$result = array();
-	// 	$sql = "SELECT p.code,p.nom, p.typeproduit,count(p.code)
+	// 	$sql = "SELECT p.code, p.nom, p.typeproduit, p.unite, v.prix
 	// 	FROM  produit as p, vendre as v
 	// 	where v.code =p.code
-	// 	and v.email='" . $prod . "' ;";
+	// 	and s.numsemaine = v.numsemaine and s.dateDebutAchat<= '$date' and s.dateFinAchat>='$date'
+	// 	and v.email='" . $prod . "';";
 	// 	$liste = DBConnex::getInstance()->queryFetchAll($sql);
 	// 	echo $sql;
 	// 	if (count($liste) > 0)
 	// 	{
 	// 		foreach ($liste as $produit)
 	// 		{
-	// 			$produit = new Produit($produit['CODE'], $produit['NOM'],$produit['TYPEPRODUIT']);
+	// 			$produit = new Produit($produit['CODE'], $produit['NOM'],$produit['TYPEPRODUIT'],$produit['UNITE'],1);
 	// 			$result[] = $produit;
 	// 		}
 	// 	}

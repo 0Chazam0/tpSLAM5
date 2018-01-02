@@ -665,6 +665,7 @@ li#prod{
 	/****************************************************/
 #corpsProd{
 	height: 400px;
+	margin-top: 13%;
 }
 
 /****************************************************/
@@ -1064,4 +1065,68 @@ transition:0.5s;
 }
 .formChange input[type='password']:invalid{
 	border-color: red;
+}
+/****************************************************/
+/*styles pour le formulaire de Producteur            */
+/****************************************************/
+.menuDetailProducteur{
+	width: 320px;
+}
+
+.menuDetailProducteur ul {
+	text-decoration: none;
+}
+
+.gaucheRP {
+	display: inline-block;
+	background-color: #fff0f0;
+	width: 25%;
+	vertical-align: top;
+	font-size: 15px;
+	border-right: 4px solid black;
+}
+
+.sidenavRP{
+	position: fixed;
+ 	margin-top: 50px;
+ 	left: 0px;
+}
+
+.sidenavRP .titreListe{
+	color: black;
+	padding: 30px;
+	font-weight: bold;
+ 	font-size: 22px;
+}
+
+.sidenavRP ul{
+  list-style: none;
+  padding-left: 40px;
+  font-size: 16px;
+  line-height: 35px;
+}
+
+.sidenavRP li a {
+  text-decoration: none;
+  color: grey;
+}
+
+.sidenavRP li a:hover {
+  color: orange;
+}
+
+.detailProducteurthis{
+	margin-top: 5%;
+	margin-left: -15%;
+	height: 1000px;
+	border: 4px solid black;
+	width:  300px;
+	padding: 40px 0px 30px 30px;
+	background-color: #F6E9D6;
+}
+
+.lbltitreDetailProducteur{
+	font-size: 22px;
+	font-weight: bold;
+	color: orange;
 }
