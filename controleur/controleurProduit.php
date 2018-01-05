@@ -127,7 +127,7 @@ if (!isset($_SESSION['typeIdentite']) || $_SESSION['typeIdentite'] == 'C'){
 	$formPanier->ajouterComposantTab();
 	if (isset($_SESSION['lePanier']) && sizeof($_SESSION['lePanier']->getLesProduits())>0){
     if(isset($_SESSION['EstEnModif']) && $_SESSION['EstEnModif']){
-      $formPanier->ajouterComposantLigne($formPanier->creerInputSubmit('validerModifCommande','validerModifCommande',"Valider votre commande"));
+      $formPanier->ajouterComposantLigne($formPanier->creerInputSubmit('validerModifCommande','validerModifCommande',"Modifier votre commande"));
     }
     else{
       $formPanier->ajouterComposantLigne($formPanier->creerInputSubmit('validerCommande','validerCommande',"Valider votre commande"));

@@ -42,13 +42,25 @@ $_SESSION['leformCommande'] = $formCommande->afficherFormulaire();
 /*--------Ajout des informations dans la bdd (table commande et quantite) + création d'objet -----*/
 /*----------------------------------------------------------*/
 // Condition respectée quand on utilise le btn confirmCommande
-if (isset($_POST['confirmCommande'])) {
-  CommandeDAO::updateValiderEtatCommande($_SESSION['compteurCommande']);
-  unset($_SESSION['compteurCommande']);
+if (isset($_POST['confirmCommande'])){
+  if (isset($_SESSION['EstEnModif'])) {
+    CommandeDAO::updateValiderEtatCommande($_SESSION['NumComModif']);
+    unset($_SESSION['NumComModif']);
+    unset($_SESSION['lePanier']);
+    unset($_SESSION['EstEnModif']);
+  }
+  else{
+    CommandeDAO::updateValiderEtatCommande($_SESSION['compteurCommande']);
+    unset($_SESSION['compteurCommande']);
+    unset($_SESSION['lePanier']);
+  }
+}
+if (isset($_POST['validerModifCommande'])) {
   unset($_SESSION['lePanier']);
 }
-
-
+if (isset($_POST['validerCommande'])) {
+  unset($_SESSION['lePanier']);
+}
 /*--------------------------------------------------------------------------*/
  include 'vue/vueCommande.php' ;
 

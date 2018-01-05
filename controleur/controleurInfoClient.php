@@ -102,35 +102,35 @@ if ($_SESSION['menuProfil'] == "HistoriqueEC") {
 				CommanderDAO::deleteProdCommande($OBJ->getNumCommande());
 				CommandeDAO::deleteCommande($OBJ->getNumCommande());
 			}
+			else{
+				$formProfil->ajouterComposantLigne($formProfil->creerLabelFor("Commande N° ","lblnumeroCommande"));
+				$formProfil->ajouterComposantLigne($formProfil->creerLabelFor($OBJ->getNumCommande(),"numeroCommande"));
+				$formProfil->ajouterComposantTab();
+				$formProfil->ajouterComposantLigne($formProfil->creerLabelFor("Effectuée le ","lbldateCommande"));
+				$formProfil->ajouterComposantLigne($formProfil->creerLabelFor($OBJ->getDateCommande(),"dateCommande"));
+				$formProfil->ajouterComposantTab();
 
-			$formProfil->ajouterComposantLigne($formProfil->creerLabelFor("Commande N° ","lblnumeroCommande"));
-			$formProfil->ajouterComposantLigne($formProfil->creerLabelFor($OBJ->getNumCommande(),"numeroCommande"));
-			$formProfil->ajouterComposantTab();
-			$formProfil->ajouterComposantLigne($formProfil->creerLabelFor("Effectuée le ","lbldateCommande"));
-			$formProfil->ajouterComposantLigne($formProfil->creerLabelFor($OBJ->getDateCommande(),"dateCommande"));
-			$formProfil->ajouterComposantTab();
-
-			$lesProduits = new Commanders(CommanderDAO::produitsCommande($OBJ->getNumCommande()));
-			foreach ($lesProduits->getLesCommanders() as $OBJ2) {
-				$leProd = ProduitDAO::leProduit($OBJ2->getcode());
-				$correct = preg_replace('#[\\/\'" éàâäêçèë]#', "", $leProd->getNom());
-			  $correct = strtolower($correct);
-			  $correct = 'image/'.$correct;
-				$formProfil->ajouterComposantLigne($formProfil->creerInputImage('imgProduit','imgProduit',$correct));
-				$formProfil->ajouterComposantLigne($formProfil->concactComposants($formProfil->creerLabelFor("Nom du produit : ","lblnameprod"),
-																					 $formProfil->concactComposants($formProfil->creerA(ucfirst($leProd->getNom())),
-																					 $formProfil->concactComposants($formProfil->creerLabelFor("Prix du produit : ","lblpriceprod"),
-																					 $formProfil->concactComposants($formProfil->creerA(ProduitDAO::LePrixProduitCode($leProd->getCode(),$OBJ->getDateCommande()). " €"),
-																					 $formProfil->concactComposants($formProfil->creerLabelFor("Quantité du produit : ","lblqteprod"),
-																					 $formProfil->creerA($OBJ2->getqte()),0),2),0),2),0));
+				$lesProduits = new Commanders(CommanderDAO::produitsCommande($OBJ->getNumCommande()));
+				foreach ($lesProduits->getLesCommanders() as $OBJ2) {
+					$leProd = ProduitDAO::leProduit($OBJ2->getcode());
+					$correct = preg_replace('#[\\/\'" éàâäêçèë]#', "", $leProd->getNom());
+				  $correct = strtolower($correct);
+				  $correct = 'image/'.$correct;
+					$formProfil->ajouterComposantLigne($formProfil->creerInputImage('imgProduit','imgProduit',$correct));
+					$formProfil->ajouterComposantLigne($formProfil->concactComposants($formProfil->creerLabelFor("Nom du produit : ","lblnameprod"),
+																						 $formProfil->concactComposants($formProfil->creerA(ucfirst($leProd->getNom())),
+																						 $formProfil->concactComposants($formProfil->creerLabelFor("Prix du produit : ","lblpriceprod"),
+																						 $formProfil->concactComposants($formProfil->creerA(ProduitDAO::LePrixProduitCode($leProd->getCode(),$OBJ->getDateCommande()). " €"),
+																						 $formProfil->concactComposants($formProfil->creerLabelFor("Quantité du produit : ","lblqteprod"),
+																						 $formProfil->creerA($OBJ2->getqte()),0),2),0),2),0));
+					$formProfil->ajouterComposantTab();
+				}
+				$formProfil->ajouterComposantLigne($formProfil->concactComposants($formProfil->creerInputSubmit("M".$OBJ->getNumCommande(),'modifCommande',"Modifier la commande"),
+																					 $formProfil->creerInputSubmit("S".$OBJ->getNumCommande(),'supprimerCommande',"Supprimer la commande"),0));
+				$formProfil->ajouterComposantTab();
+				$formProfil->ajouterComposantLigne($formProfil->creerSep(''));
 				$formProfil->ajouterComposantTab();
 			}
-			$formProfil->ajouterComposantLigne($formProfil->concactComposants($formProfil->creerInputSubmit("M".$OBJ->getNumCommande(),'modifCommande',"Modifier la commande"),
-																				 $formProfil->creerInputSubmit("S".$OBJ->getNumCommande(),'supprimerCommande',"Supprimer la commande"),0));
-			$formProfil->ajouterComposantTab();
-			$formProfil->ajouterComposantLigne($formProfil->creerSep(''));
-			$formProfil->ajouterComposantTab();
-
 
 		}
 	}

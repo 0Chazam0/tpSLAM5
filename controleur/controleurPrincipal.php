@@ -58,58 +58,6 @@ if (!isset($_SESSION['typeIdentite']) || $_SESSION['typeIdentite'] == 'C' ){
 
 
 
-	elseif (isset($_SESSION['typeIdentite']) && $_SESSION['typeIdentite'] == 'R' ) {
-		$_SESSION['TypeMenuResponsable']= null;
-		$theMenuType=null;
-		if(isset($_GET['TypeMenuResponsable'])){
-		  $_SESSION['TypeMenuResponsable']= $_GET['TypeMenuResponsable'];
-		  $_SESSION['TypeMenuResponsableSelected'] = $_GET['TypeMenuResponsable'];
-		}
-		else
-		{
-		  if(!isset($_SESSION['TypeMenuResponsable'])){
-		    if(isset($_SESSION['TypeMenuResponsableSelected'])){
-		    $_SESSION['TypeMenuResponsable']=$_SESSION['TypeMenuResponsableSelected'] ;
-		  }
-		  }
-
-		}
-
-		$menuTypeMenuResponsable = new menu("menuTypeProd");
-		$menuTypeMenuResponsable->ajouterComposant($menuTypeMenuResponsable->creerItemLien("EC","Espace connecté"));
-		$menuTypeMenuResponsable->ajouterComposant($menuTypeMenuResponsable->creerItemLien("ER","Espace responsable"));
-
-		$theMenuType .= $menuTypeMenuResponsable->creerMenuType("TypeMenuResponsable",$_SESSION['TypeMenuResponsable']);
-
-	}
-
-	elseif (isset($_SESSION['typeIdentite']) && $_SESSION['typeIdentite'] == 'P' ) {
-		$_SESSION['TypeMenuProducteur']= null;
-		$theMenuType=null;
-		if(isset($_GET['TypeMenuProducteur'])){
-		  $_SESSION['TypeMenuProducteur']= $_GET['TypeMenuProducteur'];
-		  $_SESSION['TypeMenuProducteurSelected'] = $_GET['TypeMenuProducteur'];
-		}
-		else
-		{
-		  if(!isset($_SESSION['TypeMenuProducteur'])){
-		    if(isset($_SESSION['TypeMenuProducteurSelected'])){
-		    $_SESSION['TypeMenuProducteur']=$_SESSION['TypeMenuProducteurSelected'] ;
-		  }
-		  }
-
-		}
-
-
-
-
-		$menuTypeMenuProducteur = new menu("menuTypeProd");
-		$menuTypeMenuProducteur->ajouterComposant($menuTypeMenuProducteur->creerItemLien("EC","Espace connecté"));
-		$menuTypeMenuProducteur->ajouterComposant($menuTypeMenuProducteur->creerItemLien("EP","Espace producteur"));
-		$theMenuType .= $menuTypeMenuProducteur->creerMenuType("TypeMenuProducteur",$_SESSION['TypeMenuProducteur']);
-
-
-}
 
 /*----------------------------------------------------------*/
 /*--------Passage des commandes validées à distribuées au bout de 7j(jour mini pour que toutes les commandes de la semaine précédente soient distribuées)-------*/
@@ -247,6 +195,7 @@ if (isset($_POST['validerCommande'])){
 		$numeroCommande = 0;
 	  $_SESSION['listeCommande'] = new Commandes(CommandeDAO::selectListeCommande());
 	  // recuperer le num de la prochaine commande
+		if(sizeof($_SESSION['listeCommande']->getLesCommandes())>0){
 	    foreach ($_SESSION['listeCommande']->getLesCommandes() as $OBJ)
 	    {
 	      $idC = substr($OBJ->getNumCommande(), 1) ;
@@ -254,7 +203,7 @@ if (isset($_POST['validerCommande'])){
 	        $numeroCommande = substr($OBJ->getNumCommande(), 1);
 	      }
 	    }
-
+		}
 
 	  $_SESSION['compteurCommande']= "C".($numeroCommande+1);
 	  CommandeDAO::ajouterUneCommande($_SESSION['compteurCommande'], $_SESSION['identite'][0],date("Y-m-d"),"EC");

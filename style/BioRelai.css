@@ -504,11 +504,41 @@ li#prod{
 	border-radius: 6px;
 	transition:0.5s;
 	}
+	.panierthis #validerModifCommande{
+	background-color: #FAFAFA;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #92d70b;
+	font-size: 16px;
+	letter-spacing: 2px;
+	color: BLACK;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	margin-left: 20px;
+	padding: 3px 3px 3px 3px;
+	border-radius: 6px;
+	}
+	.panierthis #validerModifCommande:hover{
+	background-color: #6FD728;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #92d70b;
+	font-size: 16px;
+	letter-spacing: 2px;
+	color: BLACK;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	margin-left: 20px;
+	padding: 3px 3px 3px 3px;
+	border-radius: 6px;
+	transition:0.5s;
+	}
 
 	.panierthis .lblVide{
 	color : grey;
 
 	}
+
 	/****************************************************/
 	/*styles pour le formulaire de commande          */
 	/****************************************************/
@@ -588,6 +618,7 @@ li#prod{
 		border-radius: 6px;
 		transition:0.5s;
 	}
+
 #prevenirValiderC{
 	border: 2px solid red;
 	margin-left: 25%;
@@ -813,7 +844,7 @@ nav.menuProfil ul li a {
   	text-align: center;
   	vertical-align: middle;
   	height: 50px;
-  	width: 140px;
+  	width: 250px;
 		border-style: solid;
 		border-bottom: 0px;
 		border-left: 0px;
@@ -906,6 +937,15 @@ nav.conteneurProfil input[type='submit']:hover{
 		letter-spacing: 2px;
 		color: BLACK;
 		transition:0.5s;
+	}
+
+	nav.conteneurProfil hr{
+		border-style: solid;
+		border-width: 2px;
+		border-color: #92d70b;
+		width: 1000px;
+		margin: 5%;
+		border-radius: 50%;
 	}
 
 	/****************************************************/

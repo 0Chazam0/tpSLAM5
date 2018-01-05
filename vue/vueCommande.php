@@ -24,9 +24,13 @@
 
       ?>
     </div>
-    <div id="prevenirValiderC">
-      /!\ Attention :  Si vous validez la commande, vous ne pourrai plus la modifier ou la supprimer /!\
-    </div>
+    <?php
+      if (isset($_POST['validerModifCommande']) || isset($_POST['validerCommande'])){
+        echo '<div id="prevenirValiderC">
+          /!\ Attention :  Si vous validez la commande, vous ne pourrai plus la modifier ou la supprimer /!\
+        </div>';
+      }
+    ?>
     <footer>
         <?php include 'bas.php' ;?>
     </footer>
