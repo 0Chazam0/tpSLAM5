@@ -3,11 +3,12 @@
 /*--------Déclaration variable session----------------------*/
 /*----------------------------------------------------------*/
 $_SESSION['dernierePage'] = "Commande";
-if(isset($_SESSION['lesProduits'])){
-foreach ($_SESSION['lesProduits'] as $OBJ) {
-  $lesProduits[] = unserialize($OBJ);
+if (!isset(  $_SESSION['lePanier'])) {
+  $_SESSION['lePanier'] = new Produits(array());
 }
-$_SESSION['lePanier'] = new Produits($lesProduits);
+else{
+  $_SESSION['lePanier'] = unserialize(serialize($_SESSION['lePanier']));
+}
 $formCommande = new Formulaire("POST","index.php","formCommande","commandethis");
 
 /*----------------------------------------------------------*/
@@ -37,44 +38,17 @@ $formCommande->creerFormulaire();
 $_SESSION['leformCommande'] = $formCommande->afficherFormulaire();
 
 
-
 /*----------------------------------------------------------*/
 /*--------Ajout des informations dans la bdd (table commande et quantite) + création d'objet -----*/
 /*----------------------------------------------------------*/
 // Condition respectée quand on utilise le btn confirmCommande
 if (isset($_POST['confirmCommande'])) {
-  $numeroCommande = 0;
-  $_SESSION['listeCommande'] = new Commandes(CommandeDAO::selectListeCommande());
-  // recuperer le num de la prochaine commande
-    foreach ($_SESSION['listeCommande']->getLesCommandes() as $OBJ)
-    {
-      $idC = substr($OBJ->getNumCommande(), 1) ;
-      if ($numeroCommande < $idC) {
-        $numeroCommande = substr($OBJ->getNumCommande(), 1);
-      }
-    }
-
-
-  $_SESSION['compteurCommande']= "C".($numeroCommande+1);
-  CommandeDAO::ajouterUneCommande($_SESSION['compteurCommande'], $_SESSION['identite'][0],date("Y-m-d"),"V");
-  foreach ($_SESSION['lePanier']->getLesProduits() as $OBJ)
-	{
-    $qte=0;
-    foreach ($_SESSION['lePanier']->getLesProduits() as $OBJ2)
-    {
-        if($OBJ==$OBJ2)
-        {
-          $qte+=1;
-        }
-    }
-    CommandeDAO::ajouterProduitCommande($OBJ->getCode(),$_SESSION['compteurCommande'],$qte);
-  }
-  unset($_SESSION['lesProduits']);
-  unset($_SESSION['nbProduitPanier']);
+  CommandeDAO::updateValiderEtatCommande($_SESSION['compteurCommande']);
+  unset($_SESSION['compteurCommande']);
   unset($_SESSION['lePanier']);
 }
 
-}
+
 /*--------------------------------------------------------------------------*/
  include 'vue/vueCommande.php' ;
 

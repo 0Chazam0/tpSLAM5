@@ -75,7 +75,9 @@ if (!isset($_SESSION['typeIdentite']) || $_SESSION['typeIdentite'] == 'C' ){
 		}
 
 		$menuTypeMenuResponsable = new menu("menuTypeProd");
-		//$menuTypeMenuResponsable->ajouterComposant($menuTypeMenuResponsable->creerItemLien($OBJ->getCode(),ucfirst($OBJ->getLibelle())));
+		$menuTypeMenuResponsable->ajouterComposant($menuTypeMenuResponsable->creerItemLien("EC","Espace connecté"));
+		$menuTypeMenuResponsable->ajouterComposant($menuTypeMenuResponsable->creerItemLien("ER","Espace responsable"));
+
 		$theMenuType .= $menuTypeMenuResponsable->creerMenuType("TypeMenuResponsable",$_SESSION['TypeMenuResponsable']);
 
 	}
@@ -101,12 +103,28 @@ if (!isset($_SESSION['typeIdentite']) || $_SESSION['typeIdentite'] == 'C' ){
 
 
 		$menuTypeMenuProducteur = new menu("menuTypeProd");
-		//$menuTypeMenuProducteur->ajouterComposant($menuTypeMenuProducteur->creerItemLien($OBJ->getCode(),ucfirst($OBJ->getLibelle())));
+		$menuTypeMenuProducteur->ajouterComposant($menuTypeMenuProducteur->creerItemLien("EC","Espace connecté"));
+		$menuTypeMenuProducteur->ajouterComposant($menuTypeMenuProducteur->creerItemLien("EP","Espace producteur"));
 		$theMenuType .= $menuTypeMenuProducteur->creerMenuType("TypeMenuProducteur",$_SESSION['TypeMenuProducteur']);
 
 
 }
 
+/*----------------------------------------------------------*/
+/*--------Passage des commandes validées à distribuées au bout de 7j(jour mini pour que toutes les commandes de la semaine précédente soient distribuées)-------*/
+/*----------------------------------------------------------*/
+$_SESSION['listeCommande'] = new Commandes(CommandeDAO::selectListeCommande());
+// recuperer le num de la prochaine commande
+	foreach ($_SESSION['listeCommande']->getLesCommandes() as $OBJ)
+	{
+		$dateNow= new datetime (date("Y-m-d")) ;
+		$dateCom= new datetime (CommandeDAO::selectDateCommande($OBJ->getNumCommande()));
+
+		$diff = date_diff($dateNow,$dateCom);
+		if(abs($diff->format('%R%a'))>7){
+		 	CommandeDAO::updateDistribuerEtatCommande($OBJ->getNumCommande());
+		 }
+	}
 /*----------------------------------------------------------*/
 /*--------session du menu principal avec produit si le menu a été selectionné-------*/
 /*----------------------------------------------------------*/
@@ -200,12 +218,38 @@ if (isset($_POST['validerCommande'])){
 		$_SESSION['menuPrincipal']= 'Connexion';
 	}
 	else{
+		$numeroCommande = 0;
+	  $_SESSION['listeCommande'] = new Commandes(CommandeDAO::selectListeCommande());
+	  // recuperer le num de la prochaine commande
+	    foreach ($_SESSION['listeCommande']->getLesCommandes() as $OBJ)
+	    {
+	      $idC = substr($OBJ->getNumCommande(), 1) ;
+	      if ($numeroCommande < $idC) {
+	        $numeroCommande = substr($OBJ->getNumCommande(), 1);
+	      }
+	    }
+
+
+	  $_SESSION['compteurCommande']= "C".($numeroCommande+1);
+	  CommandeDAO::ajouterUneCommande($_SESSION['compteurCommande'], $_SESSION['identite'][0],date("Y-m-d"),"EC");
+		$_SESSION['lePanier'] = unserialize(serialize($_SESSION['lePanier']));
+	  foreach ($_SESSION['lePanier']->getLesProduits() as $OBJ)
+		{
+	    CommandeDAO::ajouterProduitCommande($OBJ->getCode(),$_SESSION['compteurCommande'],$OBJ->getQte());
+	  }
+
 		$_SESSION['menuPrincipal']="Commande";
 	}
 }
+
+
 if (isset($_POST['confirmCommande'])) {
 	$_SESSION['menuPrincipal']="Commande";
 }
+
+
+
+
 /*----------------------------------------------------------*/
 /*-------Affiche le controleur récupéré----------*/
 /*----------------------------------------------------------*/

@@ -254,6 +254,12 @@ class CommandeDAO{
 		}
 		return $result;
 	}
+	public static function selectDateCommande($numC)
+	{
+		$sql = "SELECT datecommande FROM commande  WHERE NUMCOMMANDE='".$numC."'";
+		$liste = DBConnex::getInstance()->queryFetchFirstRow($sql);
+		return $liste[0];
+	}
 	public static function ajouterUneCommande($numCommande,$email,$dateCommande,$etat){
 		$sql="INSERT INTO commande(NUMCOMMANDE,EMAIL,DATECOMMANDE,ETAT) VALUES ('";
 		$sql .= $numCommande . "','";
@@ -268,6 +274,18 @@ class CommandeDAO{
 		$sql.= $numCommander . "','";
 		$sql.= $qte . "')";
 		DBConnex::getInstance()->queryFetchFirstRow($sql);
+	}
+	public static function updateValiderEtatCommande($numCommande){
+		$sql="UPDATE commande SET ETAT = 'V' WHERE NUMCOMMANDE='".$numCommande."'";
+		DBConnex::getInstance()->exec($sql);
+	}
+	public static function updateDistribuerEtatCommande($numCommande){
+		$sql="UPDATE commande SET ETAT = 'D' WHERE NUMCOMMANDE='".$numCommande."' AND ETAT='V'";
+		DBConnex::getInstance()->exec($sql);
+	}
+	public static function deleteCommande($numCommande){
+		$sql="DELETE * FROM commande WHERE NUMCOMMANDE='".$numCommande."'";
+		DBConnex::getInstance()->exec($sql);
 	}
 }
 class ProducteurDAO{
