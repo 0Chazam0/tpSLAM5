@@ -25,6 +25,7 @@ require_once 'modele\DTO\produit.php';
 require_once 'modele\DTO\typeProduit.php';
 require_once 'modele\DTO\user.php';
 
+
 /*----------------------------------------------------------*/
 /*--------Header-----------------------------------------*/
 /*----------------------------------------------------------*/
@@ -77,6 +78,8 @@ if(sizeof($_SESSION['listeCommande']->getLesCommandes())>0){
 		 }
 	}
 }
+
+
 /*----------------------------------------------------------*/
 /*--------session du menu principal avec produit si le menu a été selectionné-------*/
 /*----------------------------------------------------------*/
@@ -85,7 +88,7 @@ if (isset($_SESSION['typeProduitSelected'])) {
 }
 
 
-if(isset($_SESSION['identite']) && $_SESSION['typeIdentite']="C"){
+if(isset($_SESSION['identite']) && $_SESSION['typeIdentite']=="C"){
 	$_SESSION['listeCommandeCli'] =new commandes(CommandeDAO::selectListeCommandeEC($_SESSION['identite'][0]));
 	// recuperer le num de la prochaine commande
 	if(sizeof($_SESSION['listeCommandeCli']->getLesCommandes())>0){

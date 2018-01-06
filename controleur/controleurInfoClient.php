@@ -32,7 +32,6 @@ if ($_SESSION['typeIdentite'] == 'R') {
 	$menuProfil->ajouterComposant($menuProfil->creerItemLien('Responsable','Responsable'));
 }
 if ($_SESSION['typeIdentite'] == 'P') {
-	$menuProfil->ajouterComposant($menuProfil->creerItemLien('HistoriqueEC','Historique commandes en cours'));
 	$menuProfil->ajouterComposant($menuProfil->creerItemLien('HistoriqueV','Historique commandes validées'));
 	$menuProfil->ajouterComposant($menuProfil->creerItemLien('HistoriqueD','Historique commandes distribuées'));
 	$menuProfil->ajouterComposant($menuProfil->creerItemLien('Producteur','Producteur'));
