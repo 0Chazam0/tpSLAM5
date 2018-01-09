@@ -482,7 +482,7 @@ class CommanderDAO{
 class ResponsableDAO
 {
 
-	public static function insertNewProducteur($nom, $prenom, $mail, $adresse, $descriptif, $mdp){
+	public static function		insertNewProducteur($nom, $prenom, $mail, $adresse, $descriptif, $mdp){
 		$sql="INSERT INTO producteur(NOM,PRENOM,EMAIL, ADRESSE, DESCRIPTIF, MDP) VALUES ('";
 		$sql .= $nom . "','";
 		$sql.= $prenom . "','";
@@ -492,6 +492,35 @@ class ResponsableDAO
 		$sql.= $mdp . "')";
 		DBConnex::getInstance()->queryFetchFirstRow($sql);
 	}
+
+	public static function		insertDate($dateDP, $dateFP, $dateDV, $dateFV){
+		$result = array();
+		$sql = "SELECT NUMSEMAINE FROM semaine ORDER BY NUMSEMAINE DESC LIMIT 10";
+		$liste = DBConnex::getInstance()->queryFetchAll($sql);
+		if (count($liste) > 0)
+		{
+			foreach ($liste as $produit)
+			{
+				$result[] = $produit;
+			}
+		}
+		print_r($result);
+		// $sql="INSERT INTO semaine(NUMSEMAINE,DATEDEBUTDEPOT,DATEDEBUTACHAT, DATEFINACHAT) VALUES ('";
+		// $sql .= $result . "','";
+		// $sql.= $dateDP . "','";
+		// $sql.= $dateFP . "','";
+		// $sql.= $dateDV . "','";
+		// $sql.= $dateFV . "')";
+		// DBConnex::getInstance()->queryFetchFirstRow($sql);
+	}
+
+	public static function		insertTypeProduit($codeType, $nomType){
+		$sql="INSERT INTO producteur(CODE, LIBELLE) VALUES ('";
+		$sql .= $codeType . "','";
+		$sql.= $nomType . "')";
+		DBConnex::getInstance()->queryFetchFirstRow($sql);
+	}
+
 }
 
 

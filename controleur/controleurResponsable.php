@@ -29,7 +29,10 @@ if (isset($_POST['nomProduc'])){
     echo "mdp incorrect";
   }
 }
-
+elseif (condition) {
+  ResponsableDAO::insertDate(0,0,0,0);
+}
+ResponsableDAO::insertDate(0,0,0,0);
 if (!isset($_GET['c']) || $_GET['c'] == 1){
 // -->Enregistrer un nouveau producteur.
   $formResp->ajouterComposantLigne($formResp->creerA("Nom:<br/>"));
@@ -57,11 +60,17 @@ if (!isset($_GET['c']) || $_GET['c'] == 1){
 
 // -->Créer une nouvelle vente.
 elseif ($_GET['c'] == 2) {
+  $formResp->ajouterComposantLigne($formResp->creerA("Date saisie producteur:"));
+  $formResp->ajouterComposantLigne($formResp->creerInputTexte("dateDebutProduc", "dateDebutProduc", 0, date('Y-m-d'), 1, 0, 0));
+  $formResp->ajouterComposantTab();
+  $formResp->ajouterComposantLigne($formResp->creerA("Date fin saisie producteur:"));
+  $formResp->ajouterComposantLigne($formResp->creerInputTexte("dateFinProduc", "dateFinProduc", 0, date('Y-m-d'), 1, 0, 0));
+  $formResp->ajouterComposantTab();
   $formResp->ajouterComposantLigne($formResp->creerA("Date début vente:"));
-  $formResp->ajouterComposantLigne($formResp->creerInputTexte("dateDebutVente", "dateDebutVente", 0, 0, 1, 0, 0));
+  $formResp->ajouterComposantLigne($formResp->creerInputTexte("dateDebutVente", "dateDebutVente", 0, date('Y-m-d'), 1, 0, 0));
   $formResp->ajouterComposantTab();
   $formResp->ajouterComposantLigne($formResp->creerA("Date fin de la vente:"));
-  $formResp->ajouterComposantLigne($formResp->creerInputTexte("dateFinVente", "dateFinVente", 0, 0, 1, 0, 0));
+  $formResp->ajouterComposantLigne($formResp->creerInputTexte("dateFinVente", "dateFinVente", 0, date('Y-m-d'), 1, 0, 0));
   $formResp->ajouterComposantTab();
 }
 
