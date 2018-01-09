@@ -475,4 +475,24 @@ class CommanderDAO{
 	}
 }
 
+
+/**
+ * responsable
+ */
+class ResponsableDAO
+{
+
+	public static function insertNewProducteur($nom, $prenom, $mail, $adresse, $descriptif, $mdp){
+		$sql="INSERT INTO producteur(NOM,PRENOM,EMAIL, ADRESSE, DESCRIPTIF, MDP) VALUES ('";
+		$sql .= $nom . "','";
+		$sql.= $prenom . "','";
+		$sql.= $mail . "','";
+		$sql.= $adresse . "','";
+		$sql.= $descriptif . "','";
+		$sql.= $mdp . "')";
+		DBConnex::getInstance()->queryFetchFirstRow($sql);
+	}
+}
+
+
  ?>
