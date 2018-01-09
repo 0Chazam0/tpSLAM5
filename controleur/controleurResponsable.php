@@ -1,12 +1,4 @@
 <?php
-
-// $menuResp = new menu("menuResp");
-// $menuResp->ajouterComposant($menuResp->nomfunt());
-// $leMenu = $menuResp->creerMenuSwag("menuResp");
-// foreach ( $_POST as $post => $val )  {
-//   echo $val;
-// }
-
 // $menu = '<table>';
 // $menu .= '<tr>';
 // $menu .= '<th><a href="index.php?menuPrincipal=Responsable&c=1">Enregistrer un nouveau producteur</a></th>';
@@ -19,7 +11,6 @@
 // $menu .= '</table>';
 
 $formResp = new Formulaire("POST","index.php?menuPrincipal=Responsable&c=1","formResp","responable");
-// print_r($GLOBALS);
 if (isset($_POST['nomProduc'])){
   if ($_POST['mdpProduc'] == $_POST['reMdpProduc']){
     ResponsableDAO::insertNewProducteur($_POST['nomProduc'], $_POST['prenomProduc'], $_POST['emailProduc'], $_POST['adresseProduc'], "descrip", $_POST['mdpProduc']);
@@ -29,10 +20,13 @@ if (isset($_POST['nomProduc'])){
     echo "mdp incorrect";
   }
 }
-elseif (condition) {
-  ResponsableDAO::insertDate(0,0,0,0);
+elseif (isset($_POST['dateDebutProduc'])) {
+  ResponsableDAO::insertDate($_POST['dateDebutProduc'],$_POST['dateFinProduc'],$_POST['dateDebutVente'],$_POST['dateFinVente']);
 }
-ResponsableDAO::insertDate(0,0,0,0);
+elseif (isset($_POST['codeType'])) {
+  echo "okokokokokoko";
+  ResponsableDAO::insertTypeProduit($_POST['codeType'], $_POST['libelleType']);
+}
 if (!isset($_GET['c']) || $_GET['c'] == 1){
 // -->Enregistrer un nouveau producteur.
   $formResp->ajouterComposantLigne($formResp->creerA("Nom:<br/>"));
@@ -56,8 +50,6 @@ if (!isset($_GET['c']) || $_GET['c'] == 1){
   $formResp->ajouterComposantLigne($formResp->creerInputPassPattern("reMdpProduc", "reMdpProduc", 0, 0, 1, 0, 0));
   $formResp->ajouterComposantTab();
 }
-
-
 // -->Créer une nouvelle vente.
 elseif ($_GET['c'] == 2) {
   $formResp->ajouterComposantLigne($formResp->creerA("Date saisie producteur:"));
@@ -74,21 +66,20 @@ elseif ($_GET['c'] == 2) {
   $formResp->ajouterComposantTab();
 }
 
-
 // ->Ajouter une nouvelle catégorie de produits.
 elseif ($_GET['c'] == 3) {
   $formResp->ajouterComposantLigne($formResp->creerA("Code du nouveau type produit:"));
+  $formResp->ajouterComposantLigne($formResp->creerInputTexte("codeType", "codeType", 0, 0, 1, 0, 0));
   $formResp->ajouterComposantTab();
   $formResp->ajouterComposantLigne($formResp->creerA("Libellé du nouveau type produit:"));
+  $formResp->ajouterComposantLigne($formResp->creerInputTexte("libelleType", "libelleType", 0, 0, 1, 0, 0));
   $formResp->ajouterComposantTab();
 }
-
 
 // -->Ouvrir/fermer l'autorisation de saisie des producteurs pour une nouvelle vente.
 elseif ($_GET['c'] == 4) {
 
 }
-
 
 // -->Ouvrir/fermer l'autorisation la saisie des commandes pour une nouvelle vente.
 elseif ($_GET['c'] == 5) {

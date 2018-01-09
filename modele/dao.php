@@ -481,7 +481,28 @@ class CommanderDAO{
  */
 class ResponsableDAO
 {
+	##############################################################################
+	#                                   SELECT                                   #
+	##############################################################################
+	public static function		selectVente(){
+		$result = array();
+		$sql = "SELECT NUMSEMAINE, DATEDEBUTP, DATEFINP, DATEDEBUTV, DATEFINV FROM  	commander where numcommande='" . $numC . "'";
+		$liste = DBConnex::getInstance()->queryFetchAll($sql);
+		if (count($liste) > 0)
+		{
+			foreach ($liste as $produit)
+			{
+				$produit = new Commander($produit['NUMCOMMANDE'], $produit['CODE'],$produit['QUANTITE']);
+				$result[] = $produit;
+			}
+		}
+		return $result;
+	}
 
+
+	##############################################################################
+	#                                   INSERT                                   #
+	##############################################################################
 	public static function		insertNewProducteur($nom, $prenom, $mail, $adresse, $descriptif, $mdp){
 		$sql="INSERT INTO producteur(NOM,PRENOM,EMAIL, ADRESSE, DESCRIPTIF, MDP) VALUES ('";
 		$sql .= $nom . "','";
@@ -495,7 +516,7 @@ class ResponsableDAO
 
 	public static function		insertDate($dateDP, $dateFP, $dateDV, $dateFV){
 		$result = array();
-		$sql = "SELECT NUMSEMAINE FROM semaine ORDER BY NUMSEMAINE DESC LIMIT 10";
+		$sql = "SELECT NUMSEMAINE, num FROM semaine ORDER BY num DESC LIMIT 1";
 		$liste = DBConnex::getInstance()->queryFetchAll($sql);
 		if (count($liste) > 0)
 		{
@@ -505,6 +526,8 @@ class ResponsableDAO
 			}
 		}
 		print_r($result);
+		echo $result[0]['num'] + 1;
+		echo "[S". strval(intval(substr($result[0]['NUMSEMAINE'], -3)) + 1) . "]";
 		// $sql="INSERT INTO semaine(NUMSEMAINE,DATEDEBUTDEPOT,DATEDEBUTACHAT, DATEFINACHAT) VALUES ('";
 		// $sql .= $result . "','";
 		// $sql.= $dateDP . "','";
@@ -515,9 +538,10 @@ class ResponsableDAO
 	}
 
 	public static function		insertTypeProduit($codeType, $nomType){
-		$sql="INSERT INTO producteur(CODE, LIBELLE) VALUES ('";
+		$sql="INSERT INTO typeproduit(CODE, LIBELLE) VALUES ('";
 		$sql .= $codeType . "','";
 		$sql.= $nomType . "')";
+
 		DBConnex::getInstance()->queryFetchFirstRow($sql);
 	}
 
