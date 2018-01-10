@@ -24,6 +24,7 @@ require_once 'modele\DTO\producteur.php';
 require_once 'modele\DTO\produit.php';
 require_once 'modele\DTO\typeProduit.php';
 require_once 'modele\DTO\user.php';
+require_once 'modele\DTO\semaine.php';
 
 
 /*----------------------------------------------------------*/

@@ -21,7 +21,7 @@ if (isset($_POST['nomProduc'])){
   }
 }
 elseif (isset($_POST['dateDebutProduc'])) {
-  ResponsableDAO::insertDate($_POST['dateDebutProduc'],$_POST['dateFinProduc'],$_POST['dateDebutVente'],$_POST['dateFinVente']);
+  ResponsableDAO::insertDate($_POST['dateDebutProduc'],$_POST['dateDebutVente'],$_POST['dateFinVente']);
 }
 elseif (isset($_POST['codeType'])) {
   echo "okokokokokoko";
@@ -55,9 +55,6 @@ elseif ($_GET['c'] == 2) {
   $formResp->ajouterComposantLigne($formResp->creerA("Date saisie producteur:"));
   $formResp->ajouterComposantLigne($formResp->creerInputTexte("dateDebutProduc", "dateDebutProduc", 0, date('Y-m-d'), 1, 0, 0));
   $formResp->ajouterComposantTab();
-  $formResp->ajouterComposantLigne($formResp->creerA("Date fin saisie producteur:"));
-  $formResp->ajouterComposantLigne($formResp->creerInputTexte("dateFinProduc", "dateFinProduc", 0, date('Y-m-d'), 1, 0, 0));
-  $formResp->ajouterComposantTab();
   $formResp->ajouterComposantLigne($formResp->creerA("Date début vente:"));
   $formResp->ajouterComposantLigne($formResp->creerInputTexte("dateDebutVente", "dateDebutVente", 0, date('Y-m-d'), 1, 0, 0));
   $formResp->ajouterComposantTab();
@@ -78,7 +75,9 @@ elseif ($_GET['c'] == 3) {
 
 // -->Ouvrir/fermer l'autorisation de saisie des producteurs pour une nouvelle vente.
 elseif ($_GET['c'] == 4) {
-
+  $vente = array();
+  $vente[] = ResponsableDAO::selectVente();
+  print_r($vente);
 }
 
 // -->Ouvrir/fermer l'autorisation la saisie des commandes pour une nouvelle vente.
