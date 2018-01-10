@@ -78,17 +78,12 @@ elseif ($_GET['c'] == 4) {
   $vente = array();
   $vente[] = ResponsableDAO::selectVente();
   $i = 0;
-  //print_r($vente);
   while (isset($vente[0][$i])) {
     echo $i + 1 . "</br>";
-    $o = new Semaine($vente[0][$i]);
+    $o = $vente[0][$i];
     print_r($o);
     $i++;
-    # code...
   }
-  // foreach ($vente as $key) {
-  //   echo $key . " ......... ";
-  // }
 }
 
 // -->Ouvrir/fermer l'autorisation la saisie des commandes pour une nouvelle vente.
