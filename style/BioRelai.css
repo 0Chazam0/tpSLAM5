@@ -1141,7 +1141,39 @@ display: inline-block;
 	font-weight: bold;
 	color: orange;
 }
-
+#supprimerProdVente{
+	background-color: #FAFAFA;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #92d70b;
+	font-size: 12px;
+	letter-spacing: 1px;
+	color: BLACK;
+	padding: 3px 3px 3px 3px;
+	border-radius: 6px;
+}
+#modifProdVente{
+	background-color: #FAFAFA;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #92d70b;
+	font-size: 12px;
+	letter-spacing: 1px;
+	color: BLACK;
+	padding: 3px 3px 3px 3px;
+	border-radius: 6px;
+}
+#ajouterProdVente{
+	background-color: #FAFAFA;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #92d70b;
+	font-size: 12px;
+	letter-spacing: 1px;
+	color: BLACK;
+	padding: 3px 3px 3px 3px;
+	border-radius: 6px;
+}
 
 .choixResponsable{
 	width: 460px;

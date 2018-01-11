@@ -28,7 +28,24 @@ else
 
 if ($_SESSION['menuDetailProducteur']== "profil"){
 
-ECHO "p";
+	$correct = preg_replace('#[\\/\'" éàâäêçèë]#', "", $_SESSION['identite'][2]);
+	$correct = strtolower($correct);
+	$correct = 'image/'.$correct;
+	$formProducteur = new Formulaire("POST","index.php","formInfosProducteurs","infosProducteursthis");
+	$formProducteur->ajouterComposantLigne($formProducteur->creerInputImage('imgProducteur', 'imgProducteur', $correct));
+	$formProducteur->ajouterComposantTab();
+	$formProducteur->ajouterComposantLigne($formProducteur->concactComposants($formProducteur->creerLabelFor("Dénomination : ","lblnomProducteur"),
+																				 $formProducteur->creerLabelFor(ucfirst($_SESSION['identite'][2]),"nomProducteur"),0));
+	$formProducteur->ajouterComposantTab();
+	$formProducteur->ajouterComposantLigne($formProducteur->concactComposants($formProducteur->creerLabelFor("Adresse : ","lbladresseProducteur"),
+																				 $formProducteur->creerLabelFor(ucfirst($_SESSION['identite'][4]),"adresseProducteur"),0));
+	$formProducteur->ajouterComposantTab();
+	$formProducteur->ajouterComposantLigne($formProducteur->concactComposants($formProducteur->creerLabelFor("Description : ","lbldescriptionProducteur"),
+																				 $formProducteur->creerLabelFor(ucfirst($_SESSION['identite'][5]),"descriptionProducteur"),0));
+	$formProducteur->ajouterComposantTab();
+	$formProducteur->creerFormulaire();
+	$_SESSION['lesFormsProduit'] .= $formProducteur->afficherFormulaire();
+
 
 }
 
