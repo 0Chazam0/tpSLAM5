@@ -55,27 +55,27 @@ if (!isset($_SESSION['typeIdentite']) || $_SESSION['typeIdentite'] == 'C' ){
 	$theMenuType .= $menuTypeProduit->creerMenuType("TypeProduit",$_SESSION['TypeProduit']);
 
 	}
-	$theMenuTypeResp = "";
-	$menuTypeResponsable = new menu("menuTypeProd");
-	$menuTypeResponsable->ajouterComposant($menuTypeResponsable->creerItemLien("Responsable&c=1","Enregistrer un nouveau producteur"));
-	$theMenuTypeResp .= $menuTypeResponsable->creerMenuType("menuPrincipal",$_SESSION['menuPrincipal']);
-	$menuTypeResponsable = new menu("menuTypeProd");
-	$menuTypeResponsable->ajouterComposant($menuTypeResponsable->creerItemLien("Responsable&c=2","Enregistrer une nouvelle vente"));
-	$theMenuTypeResp .= $menuTypeResponsable->creerMenuType("menuPrincipal",$_SESSION['menuPrincipal']);
-	$menuTypeResponsable = new menu("menuTypeProd");
-	$menuTypeResponsable->ajouterComposant($menuTypeResponsable->creerItemLien("Responsable&c=3","Enregistrer une nouvelle categorie de produits"));
-	$theMenuTypeResp .= $menuTypeResponsable->creerMenuType("menuPrincipal",$_SESSION['menuPrincipal']);
-	$menuTypeResponsable = new menu("menuTypeProd");
-	$menuTypeResponsable->ajouterComposant($menuTypeResponsable->creerItemLien("Responsable&c=4","Autoriser/bloquer l'autorisation de saisie des producteurs pour une vente"));
-	$theMenuTypeResp .= $menuTypeResponsable->creerMenuType("menuPrincipal",$_SESSION['menuPrincipal']);
-	$menuTypeResponsable = new menu("menuTypeProd");
-	$menuTypeResponsable->ajouterComposant($menuTypeResponsable->creerItemLien("Responsable&c=5","Autoriser/bloquer l'autorisation de commander"));
-	$theMenuTypeResp .= $menuTypeResponsable->creerMenuType("menuPrincipal",$_SESSION['menuPrincipal']);
+
 }
+if (isset($_SESSION['typeIdentite']) && $_SESSION['typeIdentite'] == 'R' ){
+$theMenuTypeResp = "";
+$menuTypeResponsable = new menu("menuTypeProd");
+$menuTypeResponsable->ajouterComposant($menuTypeResponsable->creerItemLien("Responsable&c=1","Enregistrer un nouveau producteur"));
+$theMenuTypeResp .= $menuTypeResponsable->creerMenuType("menuPrincipal",$_SESSION['menuPrincipal']);
+$menuTypeResponsable = new menu("menuTypeProd");
+$menuTypeResponsable->ajouterComposant($menuTypeResponsable->creerItemLien("Responsable&c=2","Enregistrer une nouvelle vente"));
+$theMenuTypeResp .= $menuTypeResponsable->creerMenuType("menuPrincipal",$_SESSION['menuPrincipal']);
+$menuTypeResponsable = new menu("menuTypeProd");
+$menuTypeResponsable->ajouterComposant($menuTypeResponsable->creerItemLien("Responsable&c=3","Enregistrer une nouvelle categorie de produits"));
+$theMenuTypeResp .= $menuTypeResponsable->creerMenuType("menuPrincipal",$_SESSION['menuPrincipal']);
+$menuTypeResponsable = new menu("menuTypeProd");
+$menuTypeResponsable->ajouterComposant($menuTypeResponsable->creerItemLien("Responsable&c=4","Autoriser/bloquer l'autorisation de saisie des producteurs pour une vente"));
+$theMenuTypeResp .= $menuTypeResponsable->creerMenuType("menuPrincipal",$_SESSION['menuPrincipal']);
+$menuTypeResponsable = new menu("menuTypeProd");
+$menuTypeResponsable->ajouterComposant($menuTypeResponsable->creerItemLien("Responsable&c=5","Autoriser/bloquer l'autorisation de commander"));
+$theMenuTypeResp .= $menuTypeResponsable->creerMenuType("menuPrincipal",$_SESSION['menuPrincipal']);
 
-
-
-
+}
 
 /*----------------------------------------------------------*/
 /*--------Passage des commandes validées à distribuées au bout de 7j(jour mini pour que toutes les commandes de la semaine précédente soient distribuées)-------*/
