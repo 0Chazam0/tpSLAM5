@@ -85,19 +85,26 @@ if ($_SESSION['menuDetailProducteur']== "update"){
 }
 
 if(isset($_POST['ajouterProdVente'])){
+
+	if(ProducteurDAO::ajouterVente()){
 	$_SESSION['lesFormsProduit'] =  '<div id="prevenirValiderC">
 			Le produit a été correctement ajouté à la vente
 		</div>';
+	}
 }
 if(isset($_POST['modifProdVente'])){
+	if(ProducteurDAO::modifVente()){
 	$_SESSION['lesFormsProduit'] =  '<div id="prevenirValiderC">
 			Le produit a été correctement modifié
 		</div>';
+	}
 }
 if(isset($_POST['supprimerProdVente'])){
+if(ProducteurDAO::supprimerVente()){
 	$_SESSION['lesFormsProduit'] =  '<div id="prevenirValiderC">
 			Le produit a été correctement supprimé
 		</div>';
+	}
 }
 
 include "vue/vueProducteur.php";
