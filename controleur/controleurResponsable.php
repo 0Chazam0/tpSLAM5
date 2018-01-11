@@ -85,17 +85,18 @@ elseif ($_GET['c'] == 4) {
   $vente[] = ResponsableDAO::selectVente();
   $i = 0;
   while (isset($vente[0][$i])) {
-    $formResp->ajouterComposantLigne($formResp->creerA($vente[0][$i]));
-    if ($vente[0][$i]['dateF'] < date('Y-m-d')){
-      $formResp->ajouterComposantLigne($formResp->creerInputSubmit($i, $i, "Fermer"));
-    }
-    else{
-      $formResp->ajouterComposantLigne($formResp->creerInputSubmit($i, $i, "Ouvrir"));
-    }
-    $formResp->ajouterComposantTab();
-    echo $i + 1 . "</br>";
-    $o = $vente[0][$i];
-    print_r($o);
+    print_r($vente[0][$i]);
+    // $formResp->ajouterComposantLigne($formResp->creerA($vente[0][$i]));
+    // if ($vente[0][$i]['dateF'] < date('Y-m-d')){
+    //   $formResp->ajouterComposantLigne($formResp->creerInputSubmit($i, $i, "Fermer"));
+    // }
+    // else{
+    //   $formResp->ajouterComposantLigne($formResp->creerInputSubmit($i, $i, "Ouvrir"));
+    // }
+    // $formResp->ajouterComposantTab();
+    // echo $i + 1 . "</br>";
+    // $o = $vente[0][$i];
+    // print_r($o);
     $i++;
   }
 }

@@ -498,7 +498,7 @@ class ResponsableDAO
 	##############################################################################
 	public static function		selectVente(){
 		$result = array();
-		$sql = "SELECT `NUMSEMAINE`, `DATEDEBUTDEPOT`, `DATEDEBUTACHAT`, `DATEFINACHAT` FROM `semaine` WHERE `DATEFINACHAT` > ". date('Y-m-d') ." ORDER BY `DATEDEBUTDEPOT` DESC LIMIT 20";// where numcommande='" . $numC . "'";
+		$sql = "SELECT `NUMSEMAINE`, `DATEDEBUTDEPOT`, `DATEDEBUTACHAT`, `DATEFINACHAT` FROM `semaine` WHERE `DATEFINACHAT` > ". date('Y-m-d') ." ORDER BY `DATEDEBUTDEPOT` DESC LIMIT 20";
 		$liste = DBConnex::getInstance()->queryFetchAll($sql);
 		if (count($liste) > 0)
 		{
