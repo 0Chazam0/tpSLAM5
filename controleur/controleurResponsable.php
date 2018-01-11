@@ -9,6 +9,7 @@
 // $menu .= '<th><a href="index.php?menuPrincipal=Responsable&c=0">Changer le mot de passe</a></th>';
 // $menu .= '</tr>';
 // $menu .= '</table>';
+$autVente = false;
 
 $formResp = new Formulaire("POST","index.php?menuPrincipal=Responsable&c=1","formResp","responable");
 if (isset($_POST['nomProduc'])){
@@ -75,10 +76,19 @@ elseif ($_GET['c'] == 3) {
 
 // -->Ouvrir/fermer l'autorisation de saisie des producteurs pour une nouvelle vente.
 elseif ($_GET['c'] == 4) {
+  $autVente = true;
   $vente = array();
   $vente[] = ResponsableDAO::selectVente();
   $i = 0;
   while (isset($vente[0][$i])) {
+    $formResp->ajouterComposantLigne($formResp->creerA($vente[0][$i]));
+    if ($vente[0][$i]['dateF'] < date('Y-m-d')){
+      $formResp->ajouterComposantLigne($formResp->creerInputSubmit($i, $i, "Fermer"));
+    }
+    else{
+      $formResp->ajouterComposantLigne($formResp->creerInputSubmit($i, $i, "Ouvrir"));
+    }
+    $formResp->ajouterComposantTab();
     echo $i + 1 . "</br>";
     $o = $vente[0][$i];
     print_r($o);
@@ -90,8 +100,11 @@ elseif ($_GET['c'] == 4) {
 elseif ($_GET['c'] == 5) {
 
 }
-$formResp->ajouterComposantLigne($formResp->creerInputSubmit("enregistrer", "enregistrer", "Enregistrer"));
-$formResp->ajouterComposantTab();
+if ($autVente == false){
+  $formResp->ajouterComposantLigne($formResp->creerInputSubmit("enregistrer", "enregistrer", "Enregistrer"));
+  $formResp->ajouterComposantTab();
+}
+
 $formResp->creerFormulaire();
 
 require_once "vue/vueResponsable.php";
