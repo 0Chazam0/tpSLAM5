@@ -1,24 +1,17 @@
 <?php
 $_SESSION['dernierePage'] = "Producteur";
+$_SESSION['lesFormsProduit']=null;
+$_SESSION['ListeProduits'] = new Produits(ProduitDAO::selectListeProduitAll());
 
-$formDetailsResto = new Formulaire("POST","","formDetailsResto","detailProducteurthis");
 $menuDetailProducteur = new menu("menuDetailProducteur");
-
-
 $menuDetailProducteur->ajouterComposant($menuDetailProducteur->creerItemLien('profil','Mon Profil Public'));
-$menuDetailProducteur->ajouterComposant($menuDetailProducteur->creerItemLien('insert','Ajouter un produit à la vente (en cours)'));
-$menuDetailProducteur->ajouterComposant($menuDetailProducteur->creerItemLien('update','Modifier un produit de la vente (en cours)'));
-$menuDetailProducteur->ajouterComposant($menuDetailProducteur->creerItemLien('delete','Supprimer un produit de la vente (en cours)'));
+$menuDetailProducteur->ajouterComposant($menuDetailProducteur->creerItemLien('update','Gestion de la vente (en cours)'));
+
 $menuDetailProducteur = $menuDetailProducteur->creerMenu("menuDetailProducteur");
 
-$formDetailsResto->ajouterComposantLigne($formDetailsResto->concactComposants($formDetailsResto->creerLabelFor('Details du restaurant', 'lbltitreDetailProducteur'),
-$menuDetailProducteur,0));
-
-$formDetailsResto->ajouterComposantTab();
-$formDetailsResto->creerFormulaire();
 
 /*----------------------------------------------------------*/
-/*--------Gestion du menu detail resto selon l'onglet selectionné----------------------*/
+/*--------Gestion du menu detail resto selon l'onglet selectionné------------*/
 /*----------------------------------------------------------*/
 if(isset($_GET['menuDetailProducteur'])){
 	$_SESSION['menuDetailProducteur']= $_GET['menuDetailProducteur'];
@@ -31,42 +24,52 @@ else
 }
 
 
-// $_SESSION['listeProduitProducteurs'] = new Produits(ProducteurDAO::selectListeProduitProducteur($_SESSION['identite'][0],date("Y-m-d")));
-// /*----------------------------------------------------------*/
-// /*--------FORMULAIRE d' un Produit  et ses carac----*/
-// /*----------------------------------------------------------*/
-// foreach ($_SESSION['listeProduitProducteurs']->getLesProduits() as $OBJ){
-//
-//   $correct = preg_replace('#[\\/\'" éàâäêçèë]#', "", $OBJ->getNom());
-//   $correct = strtolower($correct);
-//   $correct = 'image/'.$correct;
-//   $formProduit = new Formulaire("POST","index.php","formProduit","produitthis");
-//   $formProduit->ajouterComposantLigne($formProduit->creerInputImage('imgProduit', 'imgProduit', $correct));
-//   $formProduit->ajouterComposantTab();
-//   $formProduit->ajouterComposantLigne($formProduit->creerLabelFor(ucfirst($OBJ->getNom()),"nomProduit"));
-//   $formProduit->ajouterComposantTab();
-//   if(ProduitDAO::estEnVente($OBJ,date("Y-m-d"))==1){
-//     $formProduit->ajouterComposantLigne($formProduit->concactComposants($formProduit->creerLabelFor("Prix : ","lblprixProd"),
-//                                         $formProduit->creerLabelFor(ProduitDAO::LePrixProduit($OBJ,date("Y-m-d"))."€",'prixProd'),0));
-//     $formProduit->ajouterComposantTab();
-//     $formProduit->ajouterComposantLigne($formProduit->concactComposants($formProduit->creerLabelFor("Quantité : ","lblQteProd"),
-//                                         $formProduit->creerLabelFor(ProduitDAO::LaQteProduit($OBJ,date("Y-m-d")),'QteProd'),0));
-// 		if (!isset($_SESSION['typeIdentite']) || $_SESSION['typeIdentite'] == 'C'){
-//     	$formProduit->ajouterComposantLigne($formProduit->creerInputSubmitPanier($OBJ->getCode(),"ajoutCommande-btn"," Ajouter au panier "));
-// 		}
-//   }
-//   elseif (ProduitDAO::estEnVente($OBJ,date("Y-m-d"))==0) {
-//     $formProduit->ajouterComposantLigne($formProduit->concactComposants($formProduit->creerInputImage2('imgCarton', 'imgCarton', "image\carton.jpg"),
-//                                                                         $formProduit->creerLabelFor(" Rupture de stock ","lblRupture"),0));
-//   }
-//   else{
-//     $formProduit->ajouterComposantLigne($formProduit->concactComposants($formProduit->creerInputImage2('imgTime', 'imgTime', "image\itime.jpg"),
-//                                         $formProduit->creerLabelFor(" Pas en vente cette semaine ","lblRupture"),0));
-//   }
-//   $formProduit->ajouterComposantTab();
-//   $formProduit->creerFormulaire();
-//   $_SESSION['lesFormsProduit'] .= $formProduit->afficherFormulaire();
-//
-// }
+
+
+if ($_SESSION['menuDetailProducteur']== "profil"){
+
+ECHO "p";
+
+}
+
+if ($_SESSION['menuDetailProducteur']== "update"){
+
+	foreach ($_SESSION['ListeProduits']->getLesProduits() as $OBJ){
+
+	  $correct = preg_replace('#[\\/\'" éàâäêçèë]#', "", $OBJ->getNom());
+	  $correct = strtolower($correct);
+	  $correct = 'image/'.$correct;
+	  $formProduit = new Formulaire("POST","index.php","formProduit","produitproducteurthis");
+	  $formProduit->ajouterComposantLigne($formProduit->creerInputImage('imgProduit', 'imgProduit', $correct));
+	  $formProduit->ajouterComposantTab();
+	  $formProduit->ajouterComposantLigne($formProduit->creerLabelFor(ucfirst($OBJ->getNom()),"nomProduit"));
+	  $formProduit->ajouterComposantTab();
+	  if(ProducteurDAO::estEnVenteProducteur($OBJ,date("Y-m-d"),$_SESSION['identite'][0])==1){
+	    $formProduit->ajouterComposantLigne($formProduit->concactComposants($formProduit->creerLabelFor("Prix : ","lblprixProd"),
+	                                        $formProduit->concactComposants($formProduit->creerInputTexte("txtqte","txtqte","",ProduitDAO::LePrixProduit($OBJ,date("Y-m-d")),1,""),
+	                                        $formProduit->creerLabelFor(" €/ ".$OBJ->getUnite(),"lblprixProd"),0),0));
+	    $formProduit->ajouterComposantTab();
+	    $formProduit->ajouterComposantLigne($formProduit->concactComposants($formProduit->creerLabelFor("Quantité en vente : ","lblQteProd"),
+	                                        $formProduit->creerInputTexte("txtqte","txtqte","",ProduitDAO::LaQteProduit($OBJ,date("Y-m-d")),1,""),0));
+																					$formProduit->ajouterComposantTab();
+			$formProduit->ajouterComposantLigne($formProduit->concactComposants($formProduit->creerInputSubmit('modifProdVente','modifProdVente','Modifier la vente'),
+																					$formProduit->creerInputSubmit('supprimerProdVente','supprimerProdVente','Supprimer de la vente'),0));
+		}
+	  else{
+	    $formProduit->ajouterComposantLigne($formProduit->concactComposants($formProduit->creerLabelFor(" Quantité à vendre ","lblQteVente"),
+	                                        $formProduit->creerInputTexte("txtqte","txtqte","","",1,"Entrez votre quantité"),0));
+			$formProduit->ajouterComposantTab();
+			$formProduit->ajouterComposantLigne($formProduit->creerInputSubmit('ajouterProdVente','ajouterProdVente','Ajouter à la vente'));
+		}
+	  $formProduit->ajouterComposantTab();
+	  $formProduit->creerFormulaire();
+	  $_SESSION['lesFormsProduit'] .= $formProduit->afficherFormulaire();
+
+	}
+
+}
+
+
+
 include "vue/vueProducteur.php";
  ?>

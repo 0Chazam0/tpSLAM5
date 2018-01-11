@@ -159,6 +159,22 @@ class ProduitDAO{
     }
     return $result;
   }
+	public static function selectListeProduitAll()
+  {
+    $result = array();
+    $sql = "SELECT * FROM  	produit ;";
+    $liste = DBConnex::getInstance()->queryFetchAll($sql);
+    if (count($liste) > 0)
+    {
+      foreach ($liste as $produit)
+      {
+        $produit = new Produit($produit['CODE'], $produit['NOM'],$produit['TYPEPRODUIT'],$produit['UNITE'],1);
+        $result[] = $produit;
+      }
+    }
+    return $result;
+  }
+
 	public static function leProduit($code)
 	{
 		$result = array();
@@ -403,9 +419,6 @@ class ProducteurDAO{
 					if($leproduit['quantite']>0){
 						$end = 1;
 					}
-					else{
-						$end = 0;
-					}
 				}
 			}
 		}
@@ -429,7 +442,6 @@ class ProducteurDAO{
 		}
 		return $result;
 	}
-
 
 	// public static function selectListeProduitProducteur($prod,$date)
 	// {
