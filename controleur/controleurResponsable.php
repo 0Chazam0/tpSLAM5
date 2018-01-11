@@ -1,33 +1,27 @@
 <?php
-// $menu = '<table>';
-// $menu .= '<tr>';
-// $menu .= '<th><a href="index.php?menuPrincipal=Responsable&c=1">Enregistrer un nouveau producteur</a></th>';
-// $menu .= '<th><a href="index.php?menuPrincipal=Responsable&c=2">Enregistrer une nouvelle vente</a></th>';
-// $menu .= '<th><a href="index.php?menuPrincipal=Responsable&c=3">Enregistrer une nouvelle categorie de produits</a></th>';
-// $menu .= '<th><a href="index.php?menuPrincipal=Responsable&c=4">Autoriser/bloquer l\'autorisation de saisie des producteurs pour une vente</a></th>';
-// $menu .= '<th><a href="index.php?menuPrincipal=Responsable&c=5">Autoriser/bloquer l\'autorisation de commander</a></th>';
-// $menu .= '<th><a href="index.php?menuPrincipal=Responsable&c=0">Changer le mot de passe</a></th>';
-// $menu .= '</tr>';
-// $menu .= '</table>';
 $autVente = false;
 
 $formResp = new Formulaire("POST","index.php?menuPrincipal=Responsable&c=1","formResp","responable");
 if (isset($_POST['nomProduc'])){
   if ($_POST['mdpProduc'] == $_POST['reMdpProduc']){
     ResponsableDAO::insertNewProducteur($_POST['nomProduc'], $_POST['prenomProduc'], $_POST['emailProduc'], $_POST['adresseProduc'], "descrip", $_POST['mdpProduc']);
+    echo '<script>alert("cccc");</script>';
     echo "ok";
   }
   else{
+    echo '<script>alert("ccooooo");</script>';
     echo "mdp incorrect";
   }
 }
 elseif (isset($_POST['dateDebutProduc'])) {
+  echo '<script>alert("insertdate");</script>';
   ResponsableDAO::insertDate($_POST['dateDebutProduc'],$_POST['dateDebutVente'],$_POST['dateFinVente']);
 }
 elseif (isset($_POST['codeType'])) {
-  echo "okokokokokoko";
+  echo '<script>alert("insertTypeProduit");</script>';
   ResponsableDAO::insertTypeProduit($_POST['codeType'], $_POST['libelleType']);
 }
+
 if (!isset($_GET['c']) || $_GET['c'] == 1){
 // -->Enregistrer un nouveau producteur.
   $formResp->ajouterComposantLigne($formResp->creerA("Nom:<br/>"));
