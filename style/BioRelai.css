@@ -992,13 +992,12 @@ nav.conteneurProfil input[type='submit']:hover{
 	}
 
 #corpsResponsable{
-	display: inline-block;
+
   /*left: 10%;*/
 	margin-top: 15%;
 	margin-left: 15%;
 	margin-right: 15%;
 	height: 60%;
-	width: 3000px;
 }
 
 #corpsResponsable table {
