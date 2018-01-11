@@ -487,4 +487,74 @@ class CommanderDAO{
 	}
 }
 
+
+/**
+ * responsable
+ */
+class ResponsableDAO
+{
+	##############################################################################
+	#                                   SELECT                                   #
+	##############################################################################
+	public static function		selectVente(){
+		$result = array();
+		$sql = "SELECT `NUMSEMAINE`, `DATEDEBUTDEPOT`, `DATEDEBUTACHAT`, `DATEFINACHAT` FROM `semaine` WHERE `DATEFINACHAT` > ". date('Y-m-d') ." ORDER BY `DATEDEBUTDEPOT` DESC LIMIT 20";// where numcommande='" . $numC . "'";
+		$liste = DBConnex::getInstance()->queryFetchAll($sql);
+		if (count($liste) > 0)
+		{
+			foreach ($liste as $vente){
+
+				$uneCommande = new Semaine($vente['NUMSEMAINE'], $vente['DATEDEBUTDEPOT'], $vente['DATEFINACHAT'], $vente['DATEFINACHAT']);
+				$result[] = $uneCommande;
+			}
+		}
+		return $result;
+	}
+
+
+	##############################################################################
+	#                                   INSERT                                   #
+	##############################################################################
+	public static function		insertNewProducteur($nom, $prenom, $mail, $adresse, $descriptif, $mdp){
+		$sql="INSERT INTO producteur(NOM,PRENOM,EMAIL, ADRESSE, DESCRIPTIF, MDP) VALUES ('";
+		$sql .= $nom . "','";
+		$sql.= $prenom . "','";
+		$sql.= $mail . "','";
+		$sql.= $adresse . "','";
+		$sql.= $descriptif . "','";
+		$sql.= $mdp . "')";
+		DBConnex::getInstance()->queryFetchFirstRow($sql);
+	}
+
+	public static function		insertDate($dateDD, $dateDA, $dateFA){
+		$result = array();
+		$sql = "SELECT * FROM `semaine` ORDER BY `DATEDEBUTDEPOT` desc limit 1 ";
+		$liste = DBConnex::getInstance()->queryFetchAll($sql);
+		if (count($liste) > 0)
+		{
+			foreach ($liste as $produit)
+			{
+				$result[] = $produit;
+			}
+		}
+		$result = "S". strval(intval(substr($result[0]['NUMSEMAINE'], -3)) + 1);
+		$sql="INSERT INTO semaine(NUMSEMAINE,DATEDEBUTDEPOT,DATEDEBUTACHAT, DATEFINACHAT) VALUES ('";
+		$sql .= $result . "','";
+		$sql.= $dateDD . "','";
+		$sql.= $dateDA . "','";
+		$sql.= $dateFA . "')";
+		DBConnex::getInstance()->queryFetchFirstRow($sql);
+	}
+
+	public static function		insertTypeProduit($codeType, $nomType){
+		$sql="INSERT INTO typeproduit(CODE, LIBELLE) VALUES ('";
+		$sql .= $codeType . "','";
+		$sql.= $nomType . "')";
+
+		DBConnex::getInstance()->queryFetchFirstRow($sql);
+	}
+
+}
+
+
  ?>

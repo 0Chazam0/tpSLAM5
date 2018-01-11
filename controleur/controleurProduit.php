@@ -65,6 +65,7 @@ foreach ($_SESSION['ListeProduits']->getLesProduits() as $OBJ){
   $correct = preg_replace('#[\\/\'" éàâäêçèë]#', "", $OBJ->getNom());
   $correct = strtolower($correct);
   $correct = 'image/'.$correct;
+  $correct = file_exists($correct.".jpg")?$correct . ".jpg":$correct . ".jpeg";
   $formProduit = new Formulaire("POST","index.php","formProduit","produitthis");
   $formProduit->ajouterComposantLigne($formProduit->creerInputImage('imgProduit', 'imgProduit', $correct));
   $formProduit->ajouterComposantTab();
