@@ -660,13 +660,7 @@ li#prod{
 		margin-bottom: 20%;
 	}
 
-	/****************************************************/
-	/*styles pour le formulaire de commande          */
-	/****************************************************/
-#corpsProd{
-	height: 400px;
-	margin-top: 13%;
-}
+
 
 /****************************************************/
 /*styles pour la vue InfosProducteurs                    */
@@ -1061,41 +1055,64 @@ transition:0.5s;
 	border-color: red;
 }
 /****************************************************/
-/*styles pour le formulaire de Producteur            */
+/*styles pour le formulaire de ESPACE Prod          */
 /****************************************************/
+#corpsProd{
+height: inherit;
+margin-top: 13%;
+width: 100%;
+display: inline-block;
+}
 .menuDetailProducteur{
-	width: 320px;
+	width: 90%;
 }
 
 .menuDetailProducteur ul {
 	text-decoration: none;
 }
 
-.gaucheRP {
-	display: inline-block;
-	background-color: #fff0f0;
-	width: 25%;
-	vertical-align: top;
-	font-size: 15px;
-	border-right: 4px solid black;
+.menuDetailProducteur ul li .actif{
+	color: green;
 }
 
+.gaucheRP {
+	width: 26%;
+	vertical-align: top;
+	font-size: 15px;
+	border-right: 4px solid #21610B;
+}
+.droiteRP {
+	margin-top: 0.7%;
+	background-color: #CEF6CE;
+	margin-left: 26%;
+	width: 74%;
+	font-size: 15px;
+	display: inline-block;
+	height: inherit;
+}
+.produitproducteurthis{
+		margin-left: 2%;
+		height: 320px;
+		width: 310px;
+		display: inline-block;
+		margin-bottom: 5%;
+}
 .sidenavRP{
 	position: fixed;
- 	margin-top: 50px;
+ 	margin-top: 25px;
  	left: 0px;
 }
 
 .sidenavRP .titreListe{
 	color: black;
-	padding: 30px;
+	padding: 10px;
 	font-weight: bold;
  	font-size: 22px;
 }
 
 .sidenavRP ul{
   list-style: none;
-  padding-left: 40px;
+  padding-left:2%;
   font-size: 16px;
   line-height: 35px;
 }
@@ -1106,7 +1123,7 @@ transition:0.5s;
 }
 
 .sidenavRP li a:hover {
-  color: orange;
+  color: green;
 }
 
 .detailProducteurthis{
