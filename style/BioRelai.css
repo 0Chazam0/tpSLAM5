@@ -1000,16 +1000,10 @@ nav.conteneurProfil input[type='submit']:hover{
 #corpsResponsable{
 	/*position:absolute;*/
   /*left: 10%;*/
-	margin-top: 15%;
+	margin-top: 20%;
 	margin-left: 15%;
 	margin-right: 15%;
-	height: 600px;
-	/*text-corection*/
-	/*
-  width: 1000px;
-  height: 1400px;
-  margin-left: -500px;
-  margin-top: -200px;*/
+	height: 60%;
 }
 
 #corpsResponsable table {
@@ -1129,4 +1123,9 @@ transition:0.5s;
 	font-size: 22px;
 	font-weight: bold;
 	color: orange;
+}
+
+
+.choixResponsable{
+	width: 460px;
 }

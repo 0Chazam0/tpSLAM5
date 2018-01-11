@@ -20,7 +20,9 @@
 		echo $theMenuType;
 	}
 	elseif (isset($_GET['menuPrincipal']) && $_GET['menuPrincipal'] == "Responsable") {
+		echo '<div class="choixResponsable">';
 		echo $theMenuTypeResp;
+		echo '</div>';
 	}
 	?>
 </nav>
