@@ -16,10 +16,10 @@
 </nav>
 <nav class="menuTypeProduit">
 	<?php
-	if ((!isset($_SESSION['typeIdentite']) || $_SESSION['typeIdentite'] == 'C') && $_GET['menuPrincipal'] != "Responsable"){
+	if ((!isset($_SESSION['typeIdentite']) || $_SESSION['typeIdentite'] == 'C') && (!isset($_GET['menuPrincipal']) || $_GET['menuPrincipal'] != "Responsable")){
 		echo $theMenuType;
 	}
-	elseif ($_GET['menuPrincipal'] == "Responsable") {
+	elseif (isset($_GET['menuPrincipal']) && $_GET['menuPrincipal'] == "Responsable") {
 		echo $theMenuTypeResp;
 	}
 	?>
