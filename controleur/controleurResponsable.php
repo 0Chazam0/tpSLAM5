@@ -4,22 +4,32 @@ $autVente = false;
 $formResp = new Formulaire("POST","index.php?menuPrincipal=Responsable&c=1","formResp","responable");
 if (isset($_POST['nomProduc'])){
   if ($_POST['mdpProduc'] == $_POST['reMdpProduc']){
-    ResponsableDAO::insertNewProducteur($_POST['nomProduc'], $_POST['prenomProduc'], $_POST['emailProduc'], $_POST['adresseProduc'], "descrip", $_POST['mdpProduc']);
-    echo '<script>alert("cccc");</script>';
-    echo "ok";
+    try {
+      ResponsableDAO::insertNewProducteur($_POST['nomProduc'], $_POST['prenomProduc'], $_POST['emailProduc'], $_POST['adresseProduc'], "descrip", $_POST['mdpProduc']);
+      echo '<script>alert("Ajout de '. $_POST['nomProduc'] . ' réussi");</script>';
+    } catch (Exception $e) {
+      echo '<script>alert("Erreur");</script>';
+    }
   }
   else{
-    echo '<script>alert("ccooooo");</script>';
-    echo "mdp incorrect";
+    echo '<script>alert("mdp incorrect");</script>';
   }
 }
 elseif (isset($_POST['dateDebutProduc'])) {
-  echo '<script>alert("insertdate");</script>';
-  ResponsableDAO::insertDate($_POST['dateDebutProduc'],$_POST['dateDebutVente'],$_POST['dateFinVente']);
+  try {
+    ResponsableDAO::insertDate($_POST['dateDebutProduc'],$_POST['dateDebutVente'],$_POST['dateFinVente']);
+    echo '<script>alert("Ajout réussi");</script>';
+  } catch (Exception $e) {
+    echo '<script>alert("Erreur");</script>';
+  }
 }
 elseif (isset($_POST['codeType'])) {
-  echo '<script>alert("insertTypeProduit");</script>';
-  ResponsableDAO::insertTypeProduit($_POST['codeType'], $_POST['libelleType']);
+  try {
+    ResponsableDAO::insertTypeProduit($_POST['codeType'], $_POST['libelleType']);
+    echo '<script>alert("Ajout de '. $_POST['libelleType'] . ' réussi");</script>';
+  } catch (Exception $e) {
+    echo '<script>alert("Ajout de '. $_POST['libelleType'] . ' non réussi");</script>';
+  }
 }
 
 if (!isset($_GET['c']) || $_GET['c'] == 1){
