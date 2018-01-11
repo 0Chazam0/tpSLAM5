@@ -81,12 +81,24 @@ if ($_SESSION['menuDetailProducteur']== "update"){
 	  $formProduit->ajouterComposantTab();
 	  $formProduit->creerFormulaire();
 	  $_SESSION['lesFormsProduit'] .= $formProduit->afficherFormulaire();
-
 	}
-
 }
 
-
+if(isset($_POST['ajouterProdVente'])){
+	$_SESSION['lesFormsProduit'] =  '<div id="prevenirValiderC">
+			Le produit a été correctement ajouté à la vente
+		</div>';
+}
+if(isset($_POST['modifProdVente'])){
+	$_SESSION['lesFormsProduit'] =  '<div id="prevenirValiderC">
+			Le produit a été correctement modifié
+		</div>';
+}
+if(isset($_POST['supprimerProdVente'])){
+	$_SESSION['lesFormsProduit'] =  '<div id="prevenirValiderC">
+			Le produit a été correctement supprimé
+		</div>';
+}
 
 include "vue/vueProducteur.php";
  ?>
