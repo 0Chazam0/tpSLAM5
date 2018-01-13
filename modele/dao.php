@@ -554,6 +554,20 @@ class ResponsableDAO
 		DBConnex::getInstance()->queryFetchFirstRow($sql);
 	}
 
+	##############################################################################
+	#                                   UPDATE                                   #
+	##############################################################################
+
+	public static function 		updateSemaineAchat($numSemain){
+		$sql = "UPDATE semaine set DATEFINACHAT = " . date('Y-m-d') . " where NUMSEMAINE = " . $numsemaine . ";";
+		DBConnex::getInstance()->exec($sql);
+	}
+
+	public static function 		updateSemaineFinDepot($numSemain){
+		$sql = "UPDATE semaine set DATEDEBUTACHAT = " . date('Y-m-d') . " where NUMSEMAINE = " . $numsemaine . ";";
+		DBConnex::getInstance()->exec($sql);
+	}
+
 }
 
 
