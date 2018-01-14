@@ -81,29 +81,36 @@ elseif ($_GET['c'] == 3) {
 // -->Ouvrir/fermer l'autorisation de saisie des producteurs pour une nouvelle vente.
 elseif ($_GET['c'] == 4) {
   $autVente = true;
-  $vente = array();
-  $vente[] = ResponsableDAO::selectVente();
-  $i = 0;
-  while (isset($vente[0][$i])) {
-    print_r($vente[0][$i]);
-    // $formResp->ajouterComposantLigne($formResp->creerA($vente[0][$i]));
-    // if ($vente[0][$i]['dateF'] < date('Y-m-d')){
-    //   $formResp->ajouterComposantLigne($formResp->creerInputSubmit($i, $i, "Fermer"));
-    // }
-    // else{
-    //   $formResp->ajouterComposantLigne($formResp->creerInputSubmit($i, $i, "Ouvrir"));
-    // }
-    // $formResp->ajouterComposantTab();
-    // echo $i + 1 . "</br>";
-    // $o = $vente[0][$i];
-    // print_r($o);
-    $i++;
+  $_SESSION['ListeSemaine'] = new Semaines(ResponsableDAO::selectVente());
+  foreach ($_SESSION['ListeSemaine']->getLesSemaines() as $OBJ) {
+    print_r($OBJ->getNumSemaine());
+    $formResp->ajouterComposantLigne($formResp->creerA($OBJ->getNumSemaine()));
+    if ($OBJ->getDateF() < date('Y-m-d')){
+      $formResp->ajouterComposantLigne($formResp->creerInputSubmit($OBJ->getNumSemaine(), $OBJ->getNumSemaine(), "Fermer"));
+    }
+    else{
+      $formResp->ajouterComposantLigne($formResp->creerInputSubmit($OBJ->getNumSemaine(), $OBJ->getNumSemaine(), "Ouvrir"));
+    }
+    $formResp->ajouterComposantTab();
   }
 }
 
 // -->Ouvrir/fermer l'autorisation la saisie des commandes pour une nouvelle vente.
 elseif ($_GET['c'] == 5) {
-
+  $autVente = true;
+  $_SESSION['ListeSemaine'] = new Semaines(ResponsableDAO::selectVente());
+      // echo '<script>alert("ss");</script>';
+  foreach ($_SESSION['ListeSemaine']->getLesSemaines() as $OBJ) {
+    $formResp->ajouterComposantLigne($formResp->creerA($OBJ->getNumSemaine()));
+    list($annee, $mois, $jour) = split("-", $OBJ->getDateF());
+    if ($annee > date('Y') || ($annee == date('Y') && ($mois > date('m') || ($mois == date('m') && $jour > date('d'))))){
+      $formResp->ajouterComposantLigne($formResp->creerInputSubmit($OBJ->getNumSemaine(), $OBJ->getNumSemaine(), "Fermer"));
+    }
+    else{
+      $formResp->ajouterComposantLigne($formResp->creerInputSubmit($OBJ->getNumSemaine(), $OBJ->getNumSemaine(), "Ouvrir"));
+    }
+    $formResp->ajouterComposantTab();
+  }
 }
 if ($autVente == false){
   $formResp->ajouterComposantLigne($formResp->creerInputSubmit("enregistrer", "enregistrer", "Enregistrer"));
