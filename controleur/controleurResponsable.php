@@ -1,6 +1,6 @@
 <?php
 $autVente = false;
-
+print_r($_POST);
 $formResp = new Formulaire("POST","index.php?menuPrincipal=Responsable&c=1","formResp","responable");
 if (isset($_POST['nomProduc'])){
   if ($_POST['mdpProduc'] == $_POST['reMdpProduc']){
@@ -95,19 +95,20 @@ elseif ($_GET['c'] == 4) {
   }
 }
 
-// -->Ouvrir/fermer l'autorisation la saisie des commandes pour une nouvelle vente.
+// -->Ouvrir/fermer l'autorisation les nouvelles commande.
 elseif ($_GET['c'] == 5) {
   $autVente = true;
+  $date = array();
   $_SESSION['ListeSemaine'] = new Semaines(ResponsableDAO::selectVente());
-      // echo '<script>alert("ss");</script>';
   foreach ($_SESSION['ListeSemaine']->getLesSemaines() as $OBJ) {
     $formResp->ajouterComposantLigne($formResp->creerA($OBJ->getNumSemaine()));
-    list($annee, $mois, $jour) = split("-", $OBJ->getDateF());
-    if ($annee > date('Y') || ($annee == date('Y') && ($mois > date('m') || ($mois == date('m') && $jour > date('d'))))){
-      $formResp->ajouterComposantLigne($formResp->creerInputSubmit($OBJ->getNumSemaine(), $OBJ->getNumSemaine(), "Fermer"));
+    $date = explode('-', strval($OBJ->getDateF()));
+    print_r($date);
+    if ($date[0] > date('Y') || ($date[0] == date('Y') && ($date[1] > date('m') || ($date[1] == date('m') && $jour > $date[2])))){
+      $formResp->ajouterComposantLigne($formResp->creerInputSubmit("fermerSemaineC", "changerEtatSemaine", "Fermer"));
     }
     else{
-      $formResp->ajouterComposantLigne($formResp->creerInputSubmit($OBJ->getNumSemaine(), $OBJ->getNumSemaine(), "Ouvrir"));
+      $formResp->ajouterComposantLigne($formResp->creerInputSubmit("ouvrirSemaineC", $OBJ->getNumSemaine(), "Ouvrir"));
     }
     $formResp->ajouterComposantTab();
   }
