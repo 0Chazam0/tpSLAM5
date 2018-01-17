@@ -319,23 +319,6 @@ class CommandeDAO{
 		return $result;
 	}
 
-	// public static function selectListeCommandeVP($emailProd)
-	// {
-	// 	$sql = "SELECT * FROM commande WHERE ETAT='V' and EMAIL='".$emailProd."'";
-	// 	$liste = DBConnex::getInstance()->queryFetchAll($sql);
-	// 	if (count($liste) > 0)
-	// 	{
-	// 		foreach ($liste as $com)
-	// 		{
-	// 			$uneCommande = new Commande($com['NUMCOMMANDE'], $com['EMAIL'], $com['DATECOMMANDE'], $com['ETAT']);
-	// 			$result[] = $uneCommande;
-	// 		}
-	// 	}
-	// 	else{
-	// 		$result = null;
-	// 	}
-	// 	return $result;
-	// }
 
 	public static function selectListeCommandeV($emailCli)
 	{
@@ -443,26 +426,18 @@ class ProducteurDAO{
 		return $result;
 	}
 
-	// public static function selectListeProduitProducteur($prod,$date)
-	// {
-	// 	$result = array();
-	// 	$sql = "SELECT p.code, p.nom, p.typeproduit, p.unite, v.prix
-	// 	FROM  produit as p, vendre as v
-	// 	where v.code =p.code
-	// 	and s.numsemaine = v.numsemaine and s.dateDebutAchat<= '$date' and s.dateFinAchat>='$date'
-	// 	and v.email='" . $prod . "';";
-	// 	$liste = DBConnex::getInstance()->queryFetchAll($sql);
-	// 	echo $sql;
-	// 	if (count($liste) > 0)
-	// 	{
-	// 		foreach ($liste as $produit)
-	// 		{
-	// 			$produit = new Produit($produit['CODE'], $produit['NOM'],$produit['TYPEPRODUIT'],$produit['UNITE'],1);
-	// 			$result[] = $produit;
-	// 		}
-	// 	}
-	// 	return $result;
-	// }
+	public static function ajouterVente($email,$OBJ,$numS,$qte,$prix){
+		$sql = "INSERT INTO VENDRE VALUES('".$email."','".$OBJ->getNom()."','".$numS."','".$prix."','".$qte."')";
+		DBConnex::getInstance()->exec($sql);
+	}
+	public static function modifVente($email,$OBJ,$numS,$prix,$qte){
+		$sql="UPDATE VENDRE SET numsemaine='".$numS."', prix='".$prix."',quantite='".$qte."' WHERE EMAIL='".$email."' AND CODE='".$OBJ->getNom()."'";
+		DBConnex::getInstance()->exec($sql);
+	}
+	public static function supprimerVente($email,$OBJ){
+		$sql="DELETE FROM VENDRE WHERE EMAIL='".$email."' AND CODE='".$OBJ->getNom()."' ";
+		DBConnex::getInstance()->exec($sql);
+	}
 }
 
 class CommanderDAO{

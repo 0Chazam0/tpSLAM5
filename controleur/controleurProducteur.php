@@ -63,49 +63,52 @@ if ($_SESSION['menuDetailProducteur']== "update"){
 	  $formProduit->ajouterComposantTab();
 	  if(ProducteurDAO::estEnVenteProducteur($OBJ,date("Y-m-d"),$_SESSION['identite'][0])==1){
 	    $formProduit->ajouterComposantLigne($formProduit->concactComposants($formProduit->creerLabelFor("Prix : ","lblprixProd"),
-	                                        $formProduit->concactComposants($formProduit->creerInputTexte("txtqte","txtqte","",ProduitDAO::LePrixProduit($OBJ,date("Y-m-d")),1,""),
+	                                        $formProduit->concactComposants($formProduit->creerInputTexte("txtPrix","txtPrix","",ProduitDAO::LePrixProduit($OBJ,date("Y-m-d")),1,""),
 	                                        $formProduit->creerLabelFor(" €/ ".$OBJ->getUnite(),"lblprixProd"),0),0));
 	    $formProduit->ajouterComposantTab();
 	    $formProduit->ajouterComposantLigne($formProduit->concactComposants($formProduit->creerLabelFor("Quantité en vente : ","lblQteProd"),
 	                                        $formProduit->creerInputTexte("txtqte","txtqte","",ProduitDAO::LaQteProduit($OBJ,date("Y-m-d")),1,""),0));
 																					$formProduit->ajouterComposantTab();
-			$formProduit->ajouterComposantLigne($formProduit->concactComposants($formProduit->creerInputSubmit('modifProdVente','modifProdVente','Modifier la vente'),
-																					$formProduit->creerInputSubmit('supprimerProdVente','supprimerProdVente','Supprimer de la vente'),0));
+			$formProduit->ajouterComposantLigne($formProduit->concactComposants($formProduit->creerInputSubmit('modifProdVente'.$OBJ->getNom(),'modifProdVente','Modifier la vente'),
+																					$formProduit->creerInputSubmit('supprimerProdVente'.$OBJ->getNom(),'supprimerProdVente','Supprimer de la vente'),0));
 		}
 	  else{
+			$formProduit->ajouterComposantLigne($formProduit->concactComposants($formProduit->creerLabelFor("Prix : ","lblprixProd"),
+																					$formProduit->concactComposants($formProduit->creerInputTexte("txtPrix","txtPrix","","",1,"Entrer votre prix"),
+																					$formProduit->creerLabelFor(" €/ ".$OBJ->getUnite(),"lblprixProd"),0),0));
+			$formProduit->ajouterComposantTab();
 	    $formProduit->ajouterComposantLigne($formProduit->concactComposants($formProduit->creerLabelFor(" Quantité à vendre ","lblQteVente"),
 	                                        $formProduit->creerInputTexte("txtqte","txtqte","","",1,"Entrez votre quantité"),0));
 			$formProduit->ajouterComposantTab();
-			$formProduit->ajouterComposantLigne($formProduit->creerInputSubmit('ajouterProdVente','ajouterProdVente','Ajouter à la vente'));
+			$formProduit->ajouterComposantLigne($formProduit->creerInputSubmit('ajouterProdVente'.$OBJ->getNom(),'ajouterProdVente','Ajouter à la vente'));
 		}
 	  $formProduit->ajouterComposantTab();
 	  $formProduit->creerFormulaire();
 	  $_SESSION['lesFormsProduit'] .= $formProduit->afficherFormulaire();
 	}
 }
-
-if(isset($_POST['ajouterProdVente'])){
-
-	if(ProducteurDAO::ajouterVente()){
-	$_SESSION['lesFormsProduit'] =  '<div id="prevenirValiderC">
-			Le produit a été correctement ajouté à la vente
-		</div>';
+foreach ($_SESSION['ListeProduits']->getLesProduits() as $OBJ) {
+	if(isset($_POST['ajouterProdVente'.$OBJ->getNom()])){
+		if(ProducteurDAO::ajouterVente($email,$OBJ,$nums,$_POST['txtqte'],$_POST['txtPrix'])){
+		$_SESSION['lesFormsProduit'] =  '<div id="prevenirValiderC">
+				Le produit a été correctement ajouté à la vente
+			</div>';
+		}
+	}
+	if(isset($_POST['modifProdVente'.$OBJ->getNom()])){
+		if(ProducteurDAO::modifVente($email,$OBJ,$nums,$_POST['txtPrix'],$_POST['txtqte'])){
+		$_SESSION['lesFormsProduit'] =  '<div id="prevenirValiderC">
+				Le produit a été correctement modifié
+			</div>';
+		}
+	}
+	if(isset($_POST['supprimerProdVente'.$OBJ->getNom()])){
+	if(ProducteurDAO::supprimerVente($email,$OBJ)){
+		$_SESSION['lesFormsProduit'] =  '<div id="prevenirValiderC">
+				Le produit a été correctement supprimé
+			</div>';
+		}
 	}
 }
-if(isset($_POST['modifProdVente'])){
-	if(ProducteurDAO::modifVente()){
-	$_SESSION['lesFormsProduit'] =  '<div id="prevenirValiderC">
-			Le produit a été correctement modifié
-		</div>';
-	}
-}
-if(isset($_POST['supprimerProdVente'])){
-if(ProducteurDAO::supprimerVente()){
-	$_SESSION['lesFormsProduit'] =  '<div id="prevenirValiderC">
-			Le produit a été correctement supprimé
-		</div>';
-	}
-}
-
 include "vue/vueProducteur.php";
  ?>
