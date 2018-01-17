@@ -2,12 +2,12 @@
 
   <nav class="menuFooter">
   	<?php
-    $_SESSION['ListeProducteur'] = new Producteurs(ProducteurDAO::selectListeProducteur());
+    $lesProducteurs = ProducteurDAO::selectListeProducteur();
     $formFooter = new Formulaire("post","index.php?menuPrincipal=Accueil","formFooter","formFooter");
     $formFooter->ajouterComposantLigne($formFooter->creerLabelFor("Nos Producteurs ","lbltitreFooter"));
-    foreach ($_SESSION['ListeProducteur']->getLesProducteurs() as $OBJ)
-    {
-    $formFooter->creerLabelFor($OBJ->getNom(),'liste');
+    var_dump($lesProducteurs);
+    foreach ($lesProducteurs as $unProduct) {
+        $formFooter->ajouterComposantLigne($formFooter->creerLabelFor($unProduct['NOM'],""));
     }
     $formFooter->ajouterComposantLigne($formFooter->concactComposants($formFooter->creerLabelFor("Nous Contacter ","lbltitreFooter"),
                                         $formFooter->concactComposants($formFooter->creerLabelFor("- BEUQUILA Jérémy ","liste"),
@@ -27,5 +27,6 @@
   	?>
   </nav>
 
-  <p id="copy">Copyright © 2017 Bio Relai</p>
+<p id="copy">Copyright © 2017 Bio Relai</p>
+
 </div>

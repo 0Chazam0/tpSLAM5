@@ -118,7 +118,6 @@ main {
 /****************************************************/
 footer {
 	background-color: #252424;
-
 	color: white;
 	font-weight: bold;
 	font-size: 15px;
@@ -131,6 +130,7 @@ footer p{
 	padding: 15px;
 	padding-top: 6%;
 }
+
 .menuFooter{
 	width: 100%;
 

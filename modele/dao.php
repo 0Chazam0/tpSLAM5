@@ -275,18 +275,8 @@ class ProducteurDAO{
 	{
 		$sql = "SELECT * FROM producteur ";
 		$liste = DBConnex::getInstance()->queryFetchAll($sql);
-		if (count($liste) > 0)
-		{
-			foreach ($liste as $prod)
-			{
-				$unProducteur = new Producteur(	$prod['EMAIL'] ,	$prod['NOM'] ,	$prod['ADRESSE'] , 	$prod['DESCRIPTIF'] ,	$prod['PRENOM'] ,$prod['MDP']);
-				$result[] = $unProducteur;
-			}
-		}
-		else{
-			$result = null;
-		}
-		return $result;
+
+		return $liste;
 	}
 }
 
