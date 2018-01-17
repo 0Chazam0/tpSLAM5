@@ -145,7 +145,11 @@ footer p{
 	overflow:auto;
 	display:inline;
 }
-
+.formFooter a{
+	color:#699c04;
+	text-decoration: none;
+	font-style: normal;
+}
 .lbltitreFooter{
 	color:#699c04;
 	margin-left: 55%;
@@ -327,9 +331,14 @@ li#prod{
  color:white;
 }
 #corpsAccueil{
-		height: 100px;
+		height: 150px;
 		width: 100%;
 		background-color: #CDE5B9;
+		text-align: center;
+		font-weight: bold;
+		padding-top: 100px;
+		letter-spacing: 1.5px;
+
 }
 
 /****************************************************/
@@ -389,7 +398,7 @@ li#prod{
  .ajoutCommande-btn:hover{
 		margin-left: 20%;
 		margin-top: -50%;
-		background-color: #FAFAFA;
+		background-color: #6FD728;
 		border-style: solid;
 		border-width: 2px;
 		border-color: #92d70b;
@@ -406,7 +415,7 @@ li#prod{
 	/****************************************************/
 	#panier{
 		display: inline-block;
-		width: 300px;
+		width: 310px;
 		font-size: 15px;
 		height: inherit;
 		float: right;
@@ -434,6 +443,21 @@ li#prod{
 	}
 	.panierthis .nbProduit{
 	margin-right: 25px;
+	}
+	.panierthis .enleverProduit{
+		border: 1px solid #92d70b;
+		background-color: #FAFAFA;
+		width: 18px;
+		border-radius: 100%;
+		margin-right: 7px;
+	}
+	.panierthis .enleverProduit:hover{
+		border: 1px solid #92d70b;
+		background-color:  #6FD728;
+		width: 18px;
+		border-radius: 100%;
+		margin-right: 7px;
+		transition:0.5s;
 	}
 	.panierthis #supprProduit{
 	width: 15px;
@@ -466,7 +490,36 @@ li#prod{
 	border-radius: 6px;
 	}
 	.panierthis #validerCommande:hover{
+	background-color: #6FD728;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #92d70b;
+	font-size: 16px;
+	letter-spacing: 2px;
+	color: BLACK;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	margin-left: 20px;
+	padding: 3px 3px 3px 3px;
+	border-radius: 6px;
+	transition:0.5s;
+	}
+	.panierthis #validerModifCommande{
 	background-color: #FAFAFA;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #92d70b;
+	font-size: 16px;
+	letter-spacing: 2px;
+	color: BLACK;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	margin-left: 20px;
+	padding: 3px 3px 3px 3px;
+	border-radius: 6px;
+	}
+	.panierthis #validerModifCommande:hover{
+	background-color: #6FD728;
 	border-style: solid;
 	border-width: 2px;
 	border-color: #92d70b;
@@ -485,6 +538,7 @@ li#prod{
 	color : grey;
 
 	}
+
 	/****************************************************/
 	/*styles pour le formulaire de commande          */
 	/****************************************************/
@@ -550,7 +604,7 @@ li#prod{
 		border-radius: 6px;
 	}
 	.commandethis #confirmCommande:hover{
-		background-color: #FAFAFA;
+		background-color:#6FD728;
 		border-style: solid;
 		border-width: 2px;
 		border-color: #92d70b;
@@ -565,6 +619,17 @@ li#prod{
 		transition:0.5s;
 	}
 
+#prevenirValiderC{
+	border: 2px solid red;
+	margin-left: 25%;
+	width: 55%;
+	text-align: center;
+	margin-bottom: 5%;
+	height: 30px;
+	color: red;
+	background-color: #FF6767;
+	padding-top: 1%;
+}
 	#fin{
 		background-color: #97E18C;
 		border: 4px solid green;
@@ -595,16 +660,49 @@ li#prod{
 		margin-bottom: 20%;
 	}
 
-	/****************************************************/
-	/*styles pour le formulaire de commande          */
-	/****************************************************/
-#corpsProd{
-	height: 400px;
+
+
+/****************************************************/
+/*styles pour la vue InfosProducteurs                    */
+/****************************************************/
+#corpsInfosProducteurs{
+	display: inline-block;
+	min-height: 300px;
+	height: auto;
+	width: 75%;
+	margin-top: 15%;
+}
+.infosProducteursthis{
+	margin-left: 2%;
+	height: 320px;
+	width: 310px;
+	display: inline-block;
+	margin-bottom: 5%;
+
 }
 
+.imgProducteur{
+	max-width: 100%;
+	height: 215px;
+	border-radius: 7px;
+	border: 1.5px solid #6FD728;
+	}
 
-
-
+	.lblnomProducteur{
+		margin-left: 25px;
+		font-weight: bold;
+		width: 100%;
+	}
+	.lbladresseProducteur{
+		margin-left: 25px;
+		font-weight: bold;
+		width: 100%;
+	}
+	.lbldescriptionProducteur{
+		margin-left: 25px;
+		font-weight: bold;
+		width: 100%;
+	}
 
 	/****************************************************/
 	/*styles pour le formulaire de connexion          */
@@ -741,7 +839,7 @@ nav.menuProfil ul li a {
   	text-align: center;
   	vertical-align: middle;
   	height: 50px;
-  	width: 140px;
+  	width: 250px;
 		border-style: solid;
 		border-bottom: 0px;
 		border-left: 0px;
@@ -836,6 +934,15 @@ nav.conteneurProfil input[type='submit']:hover{
 		transition:0.5s;
 	}
 
+	nav.conteneurProfil hr{
+		border-style: solid;
+		border-width: 2px;
+		border-color: #92d70b;
+		width: 1000px;
+		margin: 5%;
+		border-radius: 50%;
+	}
+
 	/****************************************************/
 	/*styles pour l'inscription                         */
 	/****************************************************/
@@ -885,18 +992,12 @@ nav.conteneurProfil input[type='submit']:hover{
 	}
 
 #corpsResponsable{
-	/*position:absolute;*/
+
   /*left: 10%;*/
 	margin-top: 15%;
 	margin-left: 15%;
 	margin-right: 15%;
-	height: 600px;
-	/*text-corection*/
-	/*
-  width: 1000px;
-  height: 1400px;
-  margin-left: -500px;
-  margin-top: -200px;*/
+	height: 60%;
 }
 
 #corpsResponsable table {
@@ -909,10 +1010,15 @@ nav.conteneurProfil input[type='submit']:hover{
     /*border: 1px solid #dddddd;*/
     text-align: left;
     padding: 8px;
+    width: 150px;
 }
 
 #corpsResponsable tr:nth-child(even) {
     background-color: #dddddd;
+}
+
+#corpsResponsable input{
+	width: 200px;
 }
 
 /****************************************************/
@@ -952,4 +1058,135 @@ transition:0.5s;
 }
 .formChange input[type='password']:invalid{
 	border-color: red;
+}
+/****************************************************/
+/*styles pour le formulaire de ESPACE Prod          */
+/****************************************************/
+#corpsProd{
+height: inherit;
+margin-top: 13%;
+width: 100%;
+display: inline-block;
+}
+.menuDetailProducteur{
+	width: 90%;
+}
+
+.menuDetailProducteur ul {
+	text-decoration: none;
+}
+
+.menuDetailProducteur ul li .actif{
+	color: green;
+}
+
+.gaucheRP {
+	width: 26%;
+	vertical-align: top;
+	font-size: 15px;
+	border-right: 4px solid #21610B;
+}
+.droiteRP {
+	margin-top: 0.7%;
+	background-color: #CEF6CE;
+	margin-left: 26%;
+	width: 74%;
+	font-size: 15px;
+	display: inline-block;
+	height: inherit;
+}
+.produitproducteurthis{
+		margin-left: 2%;
+		height: 320px;
+		width: 310px;
+		display: inline-block;
+		margin-bottom: 5%;
+}
+.sidenavRP{
+	position: fixed;
+ 	margin-top: 25px;
+ 	left: 0px;
+}
+
+.sidenavRP .titreListe{
+	color: black;
+	padding: 10px;
+	font-weight: bold;
+ 	font-size: 22px;
+}
+
+.sidenavRP ul{
+  list-style: none;
+  padding-left:2%;
+  font-size: 16px;
+  line-height: 35px;
+}
+
+.sidenavRP li a {
+  text-decoration: none;
+  color: grey;
+}
+
+.sidenavRP li a:hover {
+  color: green;
+}
+
+.detailProducteurthis{
+	margin-top: 5%;
+	margin-left: -15%;
+	height: 1000px;
+	border: 4px solid black;
+	width:  300px;
+	padding: 40px 0px 30px 30px;
+	background-color: #F6E9D6;
+}
+
+.lbltitreDetailProducteur{
+	font-size: 22px;
+	font-weight: bold;
+	color: orange;
+}
+#supprimerProdVente{
+	background-color: #FAFAFA;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #92d70b;
+	font-size: 12px;
+	letter-spacing: 1px;
+	color: BLACK;
+	padding: 3px 3px 3px 3px;
+	border-radius: 6px;
+}
+#modifProdVente{
+	background-color: #FAFAFA;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #92d70b;
+	font-size: 12px;
+	letter-spacing: 1px;
+	color: BLACK;
+	padding: 3px 3px 3px 3px;
+	border-radius: 6px;
+}
+#ajouterProdVente{
+	background-color: #FAFAFA;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #92d70b;
+	font-size: 12px;
+	letter-spacing: 1px;
+	color: BLACK;
+	padding: 3px 3px 3px 3px;
+	border-radius: 6px;
+}
+
+nav.choixResponsable ul li a{
+	display: table-cell;
+	text-decoration: none;
+	color: black;
+	text-align: center;
+	vertical-align: middle;
+	width: 340px;
+	height: 80px;
+	margin-top: 1%;
 }

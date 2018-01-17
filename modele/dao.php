@@ -153,12 +153,38 @@ class ProduitDAO{
     {
       foreach ($liste as $produit)
       {
-        $produit = new Produit($produit['CODE'], $produit['NOM'],$produit['TYPEPRODUIT']);
+        $produit = new Produit($produit['CODE'], $produit['NOM'],$produit['TYPEPRODUIT'],$produit['UNITE'],1);
         $result[] = $produit;
       }
     }
     return $result;
   }
+	public static function selectListeProduitAll()
+  {
+    $result = array();
+    $sql = "SELECT * FROM  	produit ;";
+    $liste = DBConnex::getInstance()->queryFetchAll($sql);
+    if (count($liste) > 0)
+    {
+      foreach ($liste as $produit)
+      {
+        $produit = new Produit($produit['CODE'], $produit['NOM'],$produit['TYPEPRODUIT'],$produit['UNITE'],1);
+        $result[] = $produit;
+      }
+    }
+    return $result;
+  }
+
+	public static function leProduit($code)
+	{
+		$result = array();
+		$sql = "SELECT * FROM  	produit where code='" . $code . "';";
+		$liste = DBConnex::getInstance()->queryFetchFirstRow($sql);
+
+		$result = new Produit($liste[0], $liste[1],$liste[2],$liste[3],1);
+
+		return $result;
+	}
 
 	public static function estEnVente($produit,$date)
   {
@@ -183,11 +209,26 @@ class ProduitDAO{
     return $end;
   }
 
+	public static function LePrixProduitCode($produit,$date)
+	{
+		$result = array();
+		$sql = "SELECT v.prix FROM vendre as v, semaine as s where s.numsemaine = v.numsemaine and s.dateDebutAchat<= '$date' and s.dateFinAchat>='$date' and  v.code='" . $produit . "';";
+		$liste = DBConnex::getInstance()->queryFetchAll($sql);
+		if (count($liste) > 0)
+		{
+			foreach ($liste as $leproduit)
+			{
+				return $leproduit['prix'];
+			}
+		}
+		return null;
+	}
 	public static function LePrixProduit($produit,$date)
   {
     $result = array();
 		$sql = "SELECT v.prix FROM vendre as v, semaine as s where s.numsemaine = v.numsemaine and s.dateDebutAchat<= '$date' and s.dateFinAchat>='$date' and  v.code='" . $produit->getCode() . "';";
-    $liste = DBConnex::getInstance()->queryFetchAll($sql);
+
+		$liste = DBConnex::getInstance()->queryFetchAll($sql);
 		if (count($liste) > 0)
 		{
 			foreach ($liste as $leproduit)
@@ -237,6 +278,9 @@ class ProduitDAO{
 }
 
 class CommandeDAO{
+
+
+
 	public static function selectListeCommande()
 	{
 		$sql = "SELECT * FROM commande ";
@@ -254,6 +298,84 @@ class CommandeDAO{
 		}
 		return $result;
 	}
+
+
+
+	public static function selectListeCommandeEC($emailCli)
+	{
+		$sql = "SELECT * FROM commande WHERE ETAT='EC' and EMAIL='".$emailCli."'";
+		$liste = DBConnex::getInstance()->queryFetchAll($sql);
+		if (count($liste) > 0)
+		{
+			foreach ($liste as $com)
+			{
+				$uneCommande = new Commande($com['NUMCOMMANDE'], $com['EMAIL'], $com['DATECOMMANDE'], $com['ETAT']);
+				$result[] = $uneCommande;
+			}
+		}
+		else{
+			$result = null;
+		}
+		return $result;
+	}
+
+	// public static function selectListeCommandeVP($emailProd)
+	// {
+	// 	$sql = "SELECT * FROM commande WHERE ETAT='V' and EMAIL='".$emailProd."'";
+	// 	$liste = DBConnex::getInstance()->queryFetchAll($sql);
+	// 	if (count($liste) > 0)
+	// 	{
+	// 		foreach ($liste as $com)
+	// 		{
+	// 			$uneCommande = new Commande($com['NUMCOMMANDE'], $com['EMAIL'], $com['DATECOMMANDE'], $com['ETAT']);
+	// 			$result[] = $uneCommande;
+	// 		}
+	// 	}
+	// 	else{
+	// 		$result = null;
+	// 	}
+	// 	return $result;
+	// }
+
+	public static function selectListeCommandeV($emailCli)
+	{
+		$sql = "SELECT * FROM commande WHERE ETAT='V' and EMAIL='".$emailCli."'";
+		$liste = DBConnex::getInstance()->queryFetchAll($sql);
+		if (count($liste) > 0)
+		{
+			foreach ($liste as $com)
+			{
+				$uneCommande = new Commande($com['NUMCOMMANDE'], $com['EMAIL'], $com['DATECOMMANDE'], $com['ETAT']);
+				$result[] = $uneCommande;
+			}
+		}
+		else{
+			$result = null;
+		}
+		return $result;
+	}
+
+
+
+	public static function selectListeCommandeD($emailCli)
+	{
+		$sql = "SELECT * FROM commande WHERE ETAT='D' and EMAIL='".$emailCli."'" ;
+		$liste = DBConnex::getInstance()->queryFetchAll($sql);
+		if (count($liste) > 0)
+		{
+			foreach ($liste as $com)
+			{
+				$uneCommande = new Commande($com['NUMCOMMANDE'], $com['EMAIL'], $com['DATECOMMANDE'], $com['ETAT']);
+				$result[] = $uneCommande;
+			}
+		}
+		else{
+			$result = null;
+		}
+		return $result;
+	}
+
+
 	public static function ajouterUneCommande($numCommande,$email,$dateCommande,$etat){
 		$sql="INSERT INTO commande(NUMCOMMANDE,EMAIL,DATECOMMANDE,ETAT) VALUES ('";
 		$sql .= $numCommande . "','";
@@ -269,8 +391,40 @@ class CommandeDAO{
 		$sql.= $qte . "')";
 		DBConnex::getInstance()->queryFetchFirstRow($sql);
 	}
+	public static function updateValiderEtatCommande($numCommande){
+		$sql="UPDATE commande SET ETAT = 'V' WHERE NUMCOMMANDE='".$numCommande."'";
+		DBConnex::getInstance()->exec($sql);
+	}
+	public static function updateDistribuerEtatCommande($numCommande){
+		$sql="UPDATE commande SET ETAT = 'D' WHERE NUMCOMMANDE='".$numCommande."' AND ETAT='V'";
+		DBConnex::getInstance()->exec($sql);
+	}
+	public static function deleteCommande($numCommande){
+		$sql="DELETE FROM commande WHERE NUMCOMMANDE='".$numCommande."'";
+		DBConnex::getInstance()->exec($sql);
+	}
 }
 class ProducteurDAO{
+	public static function estEnVenteProducteur($produit,$date,$email)
+	{
+		$end = 2;
+		$result = array();
+		$sql = "SELECT v.code,v.quantite, s.numsemaine FROM vendre as v, semaine as s where s.numsemaine = v.numsemaine and s.dateDebutAchat<= '$date' and s.dateFinAchat>='$date' and v.email='".$email."' and v.code='" . $produit->getCode() . "';";
+		$liste = DBConnex::getInstance()->queryFetchAll($sql);
+		if (count($liste) > 0)
+		{
+			foreach ($liste as $leproduit)
+			{
+				if($produit->getCode() == $leproduit['code'] ){
+					if($leproduit['quantite']>0){
+						$end = 1;
+					}
+				}
+			}
+		}
+		return $end;
+	}
+
 	public static function selectListeProducteur()
 	{
 		$sql = "SELECT * FROM producteur ";
@@ -278,6 +432,132 @@ class ProducteurDAO{
 
 		return $liste;
 	}
+
+	// public static function selectListeProduitProducteur($prod,$date)
+	// {
+	// 	$result = array();
+	// 	$sql = "SELECT p.code, p.nom, p.typeproduit, p.unite, v.prix
+	// 	FROM  produit as p, vendre as v
+	// 	where v.code =p.code
+	// 	and s.numsemaine = v.numsemaine and s.dateDebutAchat<= '$date' and s.dateFinAchat>='$date'
+	// 	and v.email='" . $prod . "';";
+	// 	$liste = DBConnex::getInstance()->queryFetchAll($sql);
+	// 	echo $sql;
+	// 	if (count($liste) > 0)
+	// 	{
+	// 		foreach ($liste as $produit)
+	// 		{
+	// 			$produit = new Produit($produit['CODE'], $produit['NOM'],$produit['TYPEPRODUIT'],$produit['UNITE'],1);
+	// 			$result[] = $produit;
+	// 		}
+	// 	}
+	// 	return $result;
+	// }
+}
+
+class CommanderDAO{
+	public static function produitsCommande($numC)
+	{
+		$result = array();
+		$sql = "SELECT * FROM  	commander where numcommande='" . $numC . "'";
+		$liste = DBConnex::getInstance()->queryFetchAll($sql);
+		if (count($liste) > 0)
+		{
+			foreach ($liste as $produit)
+			{
+				$produit = new Commander($produit['NUMCOMMANDE'], $produit['CODE'],$produit['QUANTITE']);
+				$result[] = $produit;
+			}
+		}
+		return $result;
+	}
+	public static function deleteProdCommande($numCommande){
+		$sql="DELETE FROM commander WHERE NUMCOMMANDE='".$numCommande."'";
+		DBConnex::getInstance()->exec($sql);
+	}
+}
+
+
+/**
+ * responsable
+ */
+class ResponsableDAO
+{
+	##############################################################################
+	#                                   SELECT                                   #
+	##############################################################################
+	public static function		selectVente(){
+		$result = array();
+		$sql = "SELECT `NUMSEMAINE`, `DATEDEBUTDEPOT`, `DATEDEBUTACHAT`, `DATEFINACHAT` FROM `semaine` WHERE `DATEFINACHAT` > ". date('Y-m-d') ." ORDER BY `DATEDEBUTDEPOT` DESC LIMIT 20";
+		$liste = DBConnex::getInstance()->queryFetchAll($sql);
+		if (count($liste) > 0)
+		{
+			foreach ($liste as $vente){
+
+				$uneCommande = new Semaine($vente['NUMSEMAINE'], $vente['DATEDEBUTDEPOT'], $vente['DATEFINACHAT'], $vente['DATEFINACHAT']);
+				$result[] = $uneCommande;
+			}
+		}
+		return $result;
+	}
+
+
+	##############################################################################
+	#                                   INSERT                                   #
+	##############################################################################
+	public static function		insertNewProducteur($nom, $prenom, $mail, $adresse, $descriptif, $mdp){
+		$sql="INSERT INTO producteur(NOM,PRENOM,EMAIL, ADRESSE, DESCRIPTIF, MDP) VALUES ('";
+		$sql .= $nom . "','";
+		$sql.= $prenom . "','";
+		$sql.= $mail . "','";
+		$sql.= $adresse . "','";
+		$sql.= $descriptif . "','";
+		$sql.= $mdp . "')";
+		DBConnex::getInstance()->queryFetchFirstRow($sql);
+	}
+
+	public static function		insertDate($dateDD, $dateDA, $dateFA){
+		$result = array();
+		$sql = "SELECT * FROM `semaine` ORDER BY `DATEDEBUTDEPOT` desc limit 1 ";
+		$liste = DBConnex::getInstance()->queryFetchAll($sql);
+		if (count($liste) > 0)
+		{
+			foreach ($liste as $produit)
+			{
+				$result[] = $produit;
+			}
+		}
+		$result = "S". strval(intval(substr($result[0]['NUMSEMAINE'], -3)) + 1);
+		$sql="INSERT INTO semaine(NUMSEMAINE,DATEDEBUTDEPOT,DATEDEBUTACHAT, DATEFINACHAT) VALUES ('";
+		$sql .= $result . "','";
+		$sql.= $dateDD . "','";
+		$sql.= $dateDA . "','";
+		$sql.= $dateFA . "')";
+		DBConnex::getInstance()->queryFetchFirstRow($sql);
+	}
+
+	public static function		insertTypeProduit($codeType, $nomType){
+		$sql="INSERT INTO typeproduit(CODE, LIBELLE) VALUES ('";
+		$sql .= $codeType . "','";
+		$sql.= $nomType . "')";
+
+		DBConnex::getInstance()->queryFetchFirstRow($sql);
+	}
+
+	##############################################################################
+	#                                   UPDATE                                   #
+	##############################################################################
+
+	public static function 		updateSemaineAchat($numSemain){
+		$sql = "UPDATE semaine set DATEFINACHAT = " . date('Y-m-d') . " where NUMSEMAINE = " . $numsemaine . ";";
+		DBConnex::getInstance()->exec($sql);
+	}
+
+	public static function 		updateSemaineFinDepot($numSemain){
+		$sql = "UPDATE semaine set DATEDEBUTACHAT = " . date('Y-m-d') . " where NUMSEMAINE = " . $numsemaine . ";";
+		DBConnex::getInstance()->exec($sql);
+	}
+
 }
 
 

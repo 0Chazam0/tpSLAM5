@@ -15,7 +15,9 @@
 	<body>
 
 		<?php
+		
 			include_once 'controleur/controleurPrincipal.php';
+
 		?>
 
 	</body>

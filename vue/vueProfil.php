@@ -14,8 +14,6 @@
 
           <?php echo $contentProfil;  ?>
 
-
-
   </main>
 
   <footer>

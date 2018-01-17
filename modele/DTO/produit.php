@@ -21,14 +21,16 @@ class Produits
 
   public function chercherProduit($TheCode)
   {
+    $result= false;
     foreach ($this->lesProduits as $unProduit)
     {
-      if ($unProduit->getEmail() == $TheCode)
+      if ($unProduit->getCode() == $TheCode)
       {
-        return $unProduit;
+        $unProduit->setQte($unProduit->getQte()+1);
+        $result= true;
       }
     }
-    return null;
+    return $result;
   }
 
   public function chercherProduitParLibelle($TheCode)
@@ -45,8 +47,19 @@ class Produits
     return $array;
   }
 
-}
+  public function ajouterProduit($unProduit)
+  {
+      $this->lesProduits[]=$unProduit;
+  }
 
+  public function supprimerProduit($unProduit)
+  {
+    if (isset($unProduit)){
+      $positionProd = array_search($unProduit,$this->lesProduits);
+      unset($this->lesProduits[$positionProd]);
+    }
+  }
+}
 /**
  * Produit
  */
@@ -55,12 +68,15 @@ class Produit
   private   $code;
   private   $nom;
   private   $codeTypeProduit;
+  private   $unite;
+  private   $qte=1;
 
-  function __construct($pcode, $pnom, $pcodeTypeProduit)
+  function __construct($pcode, $pnom, $pcodeTypeProduit,$punite)
   {
     $this->code = $pcode;
     $this->nom = $pnom;
     $this->codeTypeProduit = $pcodeTypeProduit;
+    $this->unite = $punite;
   }
 
   public function getCode(){
@@ -88,6 +104,21 @@ class Produit
     $this->codeTypeProduit = $value;
   }
 
+  public function getUnite(){
+    return $this->unite;
+  }
+
+  public function setUnite($value){
+    $this->unite = $value;
+  }
+
+  public function getQte(){
+    return $this->qte;
+  }
+
+  public function setQte($value){
+    $this->qte = $value;
+  }
 
 }
 

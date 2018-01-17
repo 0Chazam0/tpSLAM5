@@ -19,23 +19,7 @@ class Formulaire{
 	/********************************************************************/
 	/*ajout ligne/ retour / concatenation des obj  formulaire   *************/
 	/***********************************************************************/
-	public function creerInputPassPattern($unNom, $unId, $unLabel, $uneValue , $required , $placeholder, $unPattern){
-		$composant = "<input type = 'password' name = '" . $unNom . "' id = '" . $unId . "' ";
-		if (!empty($uneValue)){
-			$composant .= "value = '" . $uneValue . "' ";
-		}
-		if (!empty($placeholder)){
-			$composant .= "placeholder = '" . $placeholder . "' ";
-		}
-		if (!empty($unPattern)){
-			$composant .= "pattern = '" . $unPattern . "' ";
-		}
-		if ( $required == 1){
-			$composant .= "required";
-		}
-		$composant .= " autocomplete='off'/>";
-		return $composant;
-	}
+
 
 	public function concactComposants($unComposant , $autreComposant ,$nbRetourLigne){
 		for ($i=0; $i < $nbRetourLigne ; $i++) {
@@ -44,6 +28,15 @@ class Formulaire{
 		$unComposant .=  $autreComposant;
 		return $unComposant ;
 	}
+	public function concactComposantsProducteur($unComposant , $array){
+		$unComposant .= "<br>";
+		for ($i=0; $i < sizeof($array) ; $i++) {
+				$unComposant .= "<br><label style='width: 10px;height: 10px;' class = 'liste' />" . $array[$i] . "</label>" ;
+
+		}
+		return $unComposant ;
+	}
+
 
 	public function ajouterComposantLigne($unComposant){
 		$this->ligneComposants[] = $unComposant;
@@ -71,6 +64,11 @@ class Formulaire{
 		$composant = "<a>" . $value . "</a>";
 		return $composant;
 	}
+	public function creerLienP($value)
+	{
+		$composant = "<a href=index.php?menuPrincipal=InfosProducteurs>" . $value . "</a>";
+		return $composant;
+	}
 	/****************************************************/
 	/**********fonction qui crée un label  *************/
 	/****************************************************/
@@ -85,6 +83,23 @@ class Formulaire{
 	/****************************************************/
 	public function creerInputTextePattern($unNom, $unId, $unLabel, $uneValue , $required , $placeholder, $unPattern){
 		$composant = "<input type = 'text' name = '" . $unNom . "' id = '" . $unId . "' ";
+		if (!empty($uneValue)){
+			$composant .= "value = '" . $uneValue . "' ";
+		}
+		if (!empty($placeholder)){
+			$composant .= "placeholder = '" . $placeholder . "' ";
+		}
+		if (!empty($unPattern)){
+			$composant .= "pattern = '" . $unPattern . "' ";
+		}
+		if ( $required == 1){
+			$composant .= "required";
+		}
+		$composant .= " autocomplete='off'/>";
+		return $composant;
+	}
+	public function creerInputPassPattern($unNom, $unId, $unLabel, $uneValue , $required , $placeholder, $unPattern){
+		$composant = "<input type = 'password' name = '" . $unNom . "' id = '" . $unId . "' ";
 		if (!empty($uneValue)){
 			$composant .= "value = '" . $uneValue . "' ";
 		}

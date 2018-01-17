@@ -16,6 +16,14 @@
 </nav>
 <nav class="menuTypeProduit">
 	<?php
+	if ((!isset($_SESSION['typeIdentite']) || $_SESSION['typeIdentite'] == 'C') && (!isset($_GET['menuPrincipal']) || $_GET['menuPrincipal'] != "Responsable")){
 		echo $theMenuType;
+	}
+	elseif (isset($_GET['menuPrincipal']) && $_GET['menuPrincipal'] == "Responsable") {
+		// echo '</nav>';
+		echo '<nav class="choixResponsable">';
+		echo $theMenuTypeResp;
+		echo '</div>';
+	}
 	?>
 </nav>

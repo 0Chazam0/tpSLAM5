@@ -2,7 +2,6 @@
 $_SESSION['dernierePage'] = "Accueil";
 
 
-
 $menuAccueil = new menu("menuAccueil");
 $menuAccueil->ajouterComposant($menuAccueil->creerItemLien('liv','Livraison à un point relais'));
 $menuAccueil->ajouterComposant($menuAccueil->creerItemLien('promo','Des promotions à gagner'));
