@@ -319,23 +319,7 @@ class CommandeDAO{
 		return $result;
 	}
 
-	// public static function selectListeCommandeVP($emailProd)
-	// {
-	// 	$sql = "SELECT * FROM commande WHERE ETAT='V' and EMAIL='".$emailProd."'";
-	// 	$liste = DBConnex::getInstance()->queryFetchAll($sql);
-	// 	if (count($liste) > 0)
-	// 	{
-	// 		foreach ($liste as $com)
-	// 		{
-	// 			$uneCommande = new Commande($com['NUMCOMMANDE'], $com['EMAIL'], $com['DATECOMMANDE'], $com['ETAT']);
-	// 			$result[] = $uneCommande;
-	// 		}
-	// 	}
-	// 	else{
-	// 		$result = null;
-	// 	}
-	// 	return $result;
-	// }
+
 
 	public static function selectListeCommandeV($emailCli)
 	{
@@ -373,6 +357,15 @@ class CommandeDAO{
 			$result = null;
 		}
 		return $result;
+	}
+
+	public static function selectListeCommandeProdVal($emailProd)
+	{
+		$sql = "SELECT C.EMAIL, C.DATECOMMANDE, C.NUMCOMMANDE,Com.QUANTITE, P.NOM, P.UNITE FROM commande as C, commander as Com, vendre as V, produit as P WHERE P.CODE = V.CODE and P.CODE = Com.CODE and C.NUMCOMMANDE = Com.NUMCOMMANDE and C.ETAT='V' and V.EMAIL='".$emailProd."'";
+		echo $sql;
+		$liste = DBConnex::getInstance()->queryFetchAll($sql);
+
+		return $liste;
 	}
 
 

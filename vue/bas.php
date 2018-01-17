@@ -4,12 +4,11 @@
   	<?php
     $lesProducteurs = ProducteurDAO::selectListeProducteur();
     $formFooter = new Formulaire("post","index.php?menuPrincipal=Accueil","formFooter","formFooter");
-<<<<<<< HEAD
     $formFooter->ajouterComposantLigne($formFooter->creerLabelFor("Nos Producteurs ","lbltitreFooter"));
     var_dump($lesProducteurs);
     foreach ($lesProducteurs as $unProduct) {
         $formFooter->ajouterComposantLigne($formFooter->creerLabelFor($unProduct['NOM'],""));
-=======
+
 
     foreach ($_SESSION['ListeProducteur']->getLesProducteurs() as $OBJ)
     {
@@ -20,7 +19,6 @@
     }
     else{
         $formFooter->ajouterComposantLigne($formFooter->concactComposantsProducteur($formFooter->creerLabelFor("Nos Producteurs ","lbltitreFooter"),$tableauProducteur));
->>>>>>> ad6b1c4a14ffbdccae05e189283058b7e442cf85
     }
     $formFooter->ajouterComposantLigne($formFooter->concactComposants($formFooter->creerLabelFor("Nous Contacter ","lbltitreFooter"),
                                         $formFooter->concactComposants($formFooter->creerLabelFor("- BEUQUILA Jérémy ","liste"),
