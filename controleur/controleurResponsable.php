@@ -1,25 +1,35 @@
 <?php
 $autVente = false;
-
+print_r($_POST);
 $formResp = new Formulaire("POST","index.php?menuPrincipal=Responsable&c=1","formResp","responable");
 if (isset($_POST['nomProduc'])){
   if ($_POST['mdpProduc'] == $_POST['reMdpProduc']){
-    ResponsableDAO::insertNewProducteur($_POST['nomProduc'], $_POST['prenomProduc'], $_POST['emailProduc'], $_POST['adresseProduc'], "descrip", $_POST['mdpProduc']);
-    echo '<script>alert("cccc");</script>';
-    echo "ok";
+    try {
+      ResponsableDAO::insertNewProducteur($_POST['nomProduc'], $_POST['prenomProduc'], $_POST['emailProduc'], $_POST['adresseProduc'], "descrip", $_POST['mdpProduc']);
+      echo '<script>alert("Ajout de '. $_POST['nomProduc'] . ' réussi");</script>';
+    } catch (Exception $e) {
+      echo '<script>alert("Erreur");</script>';
+    }
   }
   else{
-    echo '<script>alert("ccooooo");</script>';
-    echo "mdp incorrect";
+    echo '<script>alert("mdp incorrect");</script>';
   }
 }
 elseif (isset($_POST['dateDebutProduc'])) {
-  echo '<script>alert("insertdate");</script>';
-  ResponsableDAO::insertDate($_POST['dateDebutProduc'],$_POST['dateDebutVente'],$_POST['dateFinVente']);
+  try {
+    ResponsableDAO::insertDate($_POST['dateDebutProduc'],$_POST['dateDebutVente'],$_POST['dateFinVente']);
+    echo '<script>alert("Ajout réussi");</script>';
+  } catch (Exception $e) {
+    echo '<script>alert("Erreur");</script>';
+  }
 }
 elseif (isset($_POST['codeType'])) {
-  echo '<script>alert("insertTypeProduit");</script>';
-  ResponsableDAO::insertTypeProduit($_POST['codeType'], $_POST['libelleType']);
+  try {
+    ResponsableDAO::insertTypeProduit($_POST['codeType'], $_POST['libelleType']);
+    echo '<script>alert("Ajout de '. $_POST['libelleType'] . ' réussi");</script>';
+  } catch (Exception $e) {
+    echo '<script>alert("Ajout de '. $_POST['libelleType'] . ' non réussi");</script>';
+  }
 }
 
 if (!isset($_GET['c']) || $_GET['c'] == 1){
@@ -71,28 +81,37 @@ elseif ($_GET['c'] == 3) {
 // -->Ouvrir/fermer l'autorisation de saisie des producteurs pour une nouvelle vente.
 elseif ($_GET['c'] == 4) {
   $autVente = true;
-  $vente = array();
-  $vente[] = ResponsableDAO::selectVente();
-  $i = 0;
-  while (isset($vente[0][$i])) {
-    $formResp->ajouterComposantLigne($formResp->creerA($vente[0][$i]));
-    if ($vente[0][$i]['dateF'] < date('Y-m-d')){
-      $formResp->ajouterComposantLigne($formResp->creerInputSubmit($i, $i, "Fermer"));
+  $_SESSION['ListeSemaine'] = new Semaines(ResponsableDAO::selectVente());
+  foreach ($_SESSION['ListeSemaine']->getLesSemaines() as $OBJ) {
+    print_r($OBJ->getNumSemaine());
+    $formResp->ajouterComposantLigne($formResp->creerA($OBJ->getNumSemaine()));
+    if ($OBJ->getDateF() < date('Y-m-d')){
+      $formResp->ajouterComposantLigne($formResp->creerInputSubmit($OBJ->getNumSemaine(), $OBJ->getNumSemaine(), "Fermer"));
     }
     else{
-      $formResp->ajouterComposantLigne($formResp->creerInputSubmit($i, $i, "Ouvrir"));
+      $formResp->ajouterComposantLigne($formResp->creerInputSubmit($OBJ->getNumSemaine(), $OBJ->getNumSemaine(), "Ouvrir"));
     }
     $formResp->ajouterComposantTab();
-    echo $i + 1 . "</br>";
-    $o = $vente[0][$i];
-    print_r($o);
-    $i++;
   }
 }
 
-// -->Ouvrir/fermer l'autorisation la saisie des commandes pour une nouvelle vente.
+// -->Ouvrir/fermer l'autorisation les nouvelles commande.
 elseif ($_GET['c'] == 5) {
-
+  $autVente = true;
+  $date = array();
+  $_SESSION['ListeSemaine'] = new Semaines(ResponsableDAO::selectVente());
+  foreach ($_SESSION['ListeSemaine']->getLesSemaines() as $OBJ) {
+    $formResp->ajouterComposantLigne($formResp->creerA($OBJ->getNumSemaine()));
+    $date = explode('-', strval($OBJ->getDateF()));
+    print_r($date);
+    if ($date[0] > date('Y') || ($date[0] == date('Y') && ($date[1] > date('m') || ($date[1] == date('m') && $jour > $date[2])))){
+      $formResp->ajouterComposantLigne($formResp->creerInputSubmit("fermerSemaineC", "changerEtatSemaine", "Fermer"));
+    }
+    else{
+      $formResp->ajouterComposantLigne($formResp->creerInputSubmit("ouvrirSemaineC", $OBJ->getNumSemaine(), "Ouvrir"));
+    }
+    $formResp->ajouterComposantTab();
+  }
 }
 if ($autVente == false){
   $formResp->ajouterComposantLigne($formResp->creerInputSubmit("enregistrer", "enregistrer", "Enregistrer"));

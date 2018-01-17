@@ -2,7 +2,7 @@
 
 class Producteurs
 {
-  private   $lesProducteurs;
+  private $lesProducteurs;
 
   function __construct($lesProducteurs)
   {
@@ -14,9 +14,14 @@ class Producteurs
     return $this->lesProducteurs;
   }
 
-  public function setLesProducteurs($value)
+  public function ajouterProducteur($unProducteur)
   {
-    $this->lesProducteurs = $value;
+    $this->lesProducteurs = $unProducteur;
+  }
+
+  public function afficherProducteur()
+  {
+
   }
 
   public function chercher($TheEmail)

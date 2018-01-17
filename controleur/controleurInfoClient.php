@@ -32,8 +32,8 @@ if ($_SESSION['typeIdentite'] == 'R') {
 	$menuProfil->ajouterComposant($menuProfil->creerItemLien('Responsable','Responsable'));
 }
 if ($_SESSION['typeIdentite'] == 'P') {
-	$menuProfil->ajouterComposant($menuProfil->creerItemLien('HistoriqueV','Historique commandes validées'));
-	$menuProfil->ajouterComposant($menuProfil->creerItemLien('HistoriqueD','Historique commandes distribuées'));
+	$menuProfil->ajouterComposant($menuProfil->creerItemLien('HistoriquePV','Historique commandes validées'));
+	$menuProfil->ajouterComposant($menuProfil->creerItemLien('HistoriquePD','Historique commandes distribuées'));
 	$menuProfil->ajouterComposant($menuProfil->creerItemLien('Producteur','Producteur'));
 }
 if ($_SESSION['typeIdentite'] == 'C') {
@@ -201,6 +201,36 @@ if (sizeof($_SESSION['comD']->getLesCommandes())>0){
 	}
 }
 
+if ($_SESSION['menuProfil'] == "HistoriquePV") {
+	$_SESSION['comPV']= new commandes(CommandeDAO::selectListeCommandeProdVal($_SESSION['identite'][0]));
+		foreach ($_SESSION['comPV'] as $OBJ) {
+			$formProfil->ajouterComposantLigne($formProfil->creerLabelFor("Commande N° ","lblnumeroCommande"));
+			$formProfil->ajouterComposantLigne($formProfil->creerLabelFor($OBJ['NUMCOMMANDE'],"numeroCommande"));
+			$formProfil->ajouterComposantTab();
+			$formProfil->ajouterComposantLigne($formProfil->creerLabelFor("Effectuée le ","lbldateCommande"));
+			$formProfil->ajouterComposantLigne($formProfil->creerLabelFor($OBJ['DATE'],"dateCommande"));
+			$formProfil->ajouterComposantTab();
+
+			/*$lesProduits = new Commanders(CommanderDAO::produitsCommande($OBJ->getNumCommande()));
+			foreach ($lesProduits->getLesCommanders() as $OBJ2) {
+				$leProd = ProduitDAO::leProduit($OBJ2->getcode());
+				$correct = preg_replace('#[\\/\'" éàâäêçèë]#', "", $leProd->getNom());
+			  $correct = strtolower($correct);
+			  $correct = 'image/'.$correct;
+				$formProfil->ajouterComposantLigne($formProfil->creerInputImage('imgProduit','imgProduit',$correct));
+				$formProfil->ajouterComposantLigne($formProfil->concactComposants($formProfil->creerLabelFor("Nom du produit : ","lblnameprod"),
+																					 $formProfil->concactComposants($formProfil->creerA(ucfirst($leProd->getNom())),
+																					 $formProfil->concactComposants($formProfil->creerLabelFor("Prix du produit : ","lblpriceprod"),
+																					 $formProfil->concactComposants($formProfil->creerA(ProduitDAO::LePrixProduitCode($leProd->getCode(),$OBJ->getDateCommande()). " €"),
+																					 $formProfil->concactComposants($formProfil->creerLabelFor("Quantité du produit : ","lblqteprod"),
+																					 $formProfil->creerA($OBJ2->getqte()),0),2),0),2),0));
+				$formProfil->ajouterComposantTab();
+			}
+			$formProfil->ajouterComposantTab();
+			$formProfil->ajouterComposantLigne($formProfil->creerSep(''));
+			$formProfil->ajouterComposantTab();
+		*/}
+	}
 $photoProfil = new Formulaire('post','index.php','photoProfil','photoProfil');
 $photoProfil->ajouterComposantLigne($photoProfil->creerInputImageProfil('photoProfil','photoDProfil',"image/" . $_SESSION['identite'][0]));
 $photoProfil->ajouterComposantLigne($photoProfil->creerInputSubmit('deconnexion','deconnexion','Deconnecter'));

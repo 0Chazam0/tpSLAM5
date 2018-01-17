@@ -2,8 +2,13 @@
 
   <nav class="menuFooter">
   	<?php
-    $_SESSION['ListeProducteur'] = new Producteurs(ProducteurDAO::selectListeProducteur());
+    $lesProducteurs = ProducteurDAO::selectListeProducteur();
     $formFooter = new Formulaire("post","index.php?menuPrincipal=Accueil","formFooter","formFooter");
+    $formFooter->ajouterComposantLigne($formFooter->creerLabelFor("Nos Producteurs ","lbltitreFooter"));
+    var_dump($lesProducteurs);
+    foreach ($lesProducteurs as $unProduct) {
+        $formFooter->ajouterComposantLigne($formFooter->creerLabelFor($unProduct['NOM'],""));
+
 
     foreach ($_SESSION['ListeProducteur']->getLesProducteurs() as $OBJ)
     {
@@ -33,5 +38,6 @@
   	?>
   </nav>
 
-  <p id="copy">Copyright © 2017 Bio Relai</p>
+<p id="copy">Copyright © 2017 Bio Relai</p>
+
 </div>

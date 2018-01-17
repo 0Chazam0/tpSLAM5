@@ -319,6 +319,10 @@ class CommandeDAO{
 		return $result;
 	}
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> bdc21d24cae5c0f139f17739a673e30ecf071a17
 
 	public static function selectListeCommandeV($emailCli)
 	{
@@ -356,6 +360,15 @@ class CommandeDAO{
 			$result = null;
 		}
 		return $result;
+	}
+
+	public static function selectListeCommandeProdVal($emailProd)
+	{
+		$sql = "SELECT C.EMAIL, C.DATECOMMANDE, C.NUMCOMMANDE,Com.QUANTITE, P.NOM, P.UNITE FROM commande as C, commander as Com, vendre as V, produit as P WHERE P.CODE = V.CODE and P.CODE = Com.CODE and C.NUMCOMMANDE = Com.NUMCOMMANDE and C.ETAT='V' and V.EMAIL='".$emailProd."'";
+		echo $sql;
+		$liste = DBConnex::getInstance()->queryFetchAll($sql);
+
+		return $liste;
 	}
 
 
@@ -412,18 +425,8 @@ class ProducteurDAO{
 	{
 		$sql = "SELECT * FROM producteur ";
 		$liste = DBConnex::getInstance()->queryFetchAll($sql);
-		if (count($liste) > 0)
-		{
-			foreach ($liste as $prod)
-			{
-				$unProducteur = new Producteur(	$prod['EMAIL'] ,	$prod['NOM'] ,	$prod['ADRESSE'] , 	$prod['DESCRIPTIF'] ,	$prod['PRENOM'] ,$prod['MDP']);
-				$result[] = $unProducteur;
-			}
-		}
-		else{
-			$result = null;
-		}
-		return $result;
+
+		return $liste;
 	}
 
 	public static function ajouterVente($email,$OBJ,$numS,$qte,$prix){
@@ -473,7 +476,7 @@ class ResponsableDAO
 	##############################################################################
 	public static function		selectVente(){
 		$result = array();
-		$sql = "SELECT `NUMSEMAINE`, `DATEDEBUTDEPOT`, `DATEDEBUTACHAT`, `DATEFINACHAT` FROM `semaine` WHERE `DATEFINACHAT` > ". date('Y-m-d') ." ORDER BY `DATEDEBUTDEPOT` DESC LIMIT 20";// where numcommande='" . $numC . "'";
+		$sql = "SELECT `NUMSEMAINE`, `DATEDEBUTDEPOT`, `DATEDEBUTACHAT`, `DATEFINACHAT` FROM `semaine` WHERE `DATEFINACHAT` > ". date('Y-m-d') ." ORDER BY `DATEDEBUTDEPOT` DESC LIMIT 20";
 		$liste = DBConnex::getInstance()->queryFetchAll($sql);
 		if (count($liste) > 0)
 		{
@@ -527,6 +530,20 @@ class ResponsableDAO
 		$sql.= $nomType . "')";
 
 		DBConnex::getInstance()->queryFetchFirstRow($sql);
+	}
+
+	##############################################################################
+	#                                   UPDATE                                   #
+	##############################################################################
+
+	public static function 		updateSemaineAchat($numSemain){
+		$sql = "UPDATE semaine set DATEFINACHAT = " . date('Y-m-d') . " where NUMSEMAINE = " . $numsemaine . ";";
+		DBConnex::getInstance()->exec($sql);
+	}
+
+	public static function 		updateSemaineFinDepot($numSemain){
+		$sql = "UPDATE semaine set DATEDEBUTACHAT = " . date('Y-m-d') . " where NUMSEMAINE = " . $numsemaine . ";";
+		DBConnex::getInstance()->exec($sql);
 	}
 
 }

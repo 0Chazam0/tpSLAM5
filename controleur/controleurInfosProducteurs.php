@@ -25,5 +25,7 @@ foreach ($_SESSION['ListeProducteur']->getLesProducteurs() as $OBJ){
 
 }
 
+
+
 include "vue/vueInfosProducteurs.php";
  ?>

@@ -118,7 +118,6 @@ main {
 /****************************************************/
 footer {
 	background-color: #252424;
-
 	color: white;
 	font-weight: bold;
 	font-size: 15px;
@@ -131,6 +130,7 @@ footer p{
 	padding: 15px;
 	padding-top: 6%;
 }
+
 .menuFooter{
 	width: 100%;
 
@@ -1010,10 +1010,15 @@ nav.conteneurProfil input[type='submit']:hover{
     /*border: 1px solid #dddddd;*/
     text-align: left;
     padding: 8px;
+    width: 150px;
 }
 
 #corpsResponsable tr:nth-child(even) {
     background-color: #dddddd;
+}
+
+#corpsResponsable input{
+	width: 200px;
 }
 
 /****************************************************/
