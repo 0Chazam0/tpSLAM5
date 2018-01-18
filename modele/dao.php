@@ -484,13 +484,28 @@ class ResponsableDAO
 	##############################################################################
 	public static function		selectVente(){
 		$result = array();
-		$sql = "SELECT `NUMSEMAINE`, `DATEDEBUTDEPOT`, `DATEDEBUTACHAT`, `DATEFINACHAT` FROM `semaine` WHERE `DATEFINACHAT` > ". date('Y-m-d') ." ORDER BY `DATEDEBUTDEPOT` DESC LIMIT 20";
+		$sql = "SELECT `NUMSEMAINE`, `DATEDEBUTDEPOT`, `DATEDEBUTACHAT`, `DATEFINACHAT` FROM `semaine` WHERE `DATEDEBUTACHAT` > ". date('Y-m-d') ." ORDER BY `DATEDEBUTDEPOT` DESC LIMIT 20";
 		$liste = DBConnex::getInstance()->queryFetchAll($sql);
 		if (count($liste) > 0)
 		{
 			foreach ($liste as $vente){
 
-				$uneCommande = new Semaine($vente['NUMSEMAINE'], $vente['DATEDEBUTDEPOT'], $vente['DATEFINACHAT'], $vente['DATEFINACHAT']);
+				$uneCommande = new Semaine($vente['NUMSEMAINE'], $vente['DATEDEBUTDEPOT'], $vente['DATEDEBUTACHAT'], $vente['DATEFINACHAT']);
+				$result[] = $uneCommande;
+			}
+		}
+		return $result;
+	}
+
+	public static function		selectFinVente(){
+		$result = array();
+		$sql = "SELECT `NUMSEMAINE`, `DATEDEBUTDEPOT`, `DATEDEBUTACHAT`, `DATEFINACHAT` FROM `semaine` ORDER BY `DATEFINACHAT` DESC LIMIT 20";
+		$liste = DBConnex::getInstance()->queryFetchAll($sql);
+		if (count($liste) > 0)
+		{
+			foreach ($liste as $vente){
+
+				$uneCommande = new Semaine($vente['NUMSEMAINE'], $vente['DATEDEBUTDEPOT'], $vente['DATEDEBUTACHAT'], $vente['DATEFINACHAT']);
 				$result[] = $uneCommande;
 			}
 		}
@@ -544,13 +559,13 @@ class ResponsableDAO
 	#                                   UPDATE                                   #
 	##############################################################################
 
-	public static function 		updateSemaineAchat($numSemain){
-		$sql = "UPDATE semaine set DATEFINACHAT = " . date('Y-m-d') . " where NUMSEMAINE = " . $numsemaine . ";";
+	public static function 		updateVente($date, $semaine){
+		$sql = "UPDATE semaine set DATEDEBUTACHAT = '" . date(Y-m-d) . "' WHERE NUMSEMAINE = '". $semaine . "'";
 		DBConnex::getInstance()->exec($sql);
 	}
 
-	public static function 		updateSemaineFinDepot($numSemain){
-		$sql = "UPDATE semaine set DATEDEBUTACHAT = " . date('Y-m-d') . " where NUMSEMAINE = " . $numsemaine . ";";
+	public static function 		updateFinVente($date, $semaine){
+		$sql = "UPDATE semaine set DATEFINACHAT = '" . date(Y-m-d) . "' WHERE NUMSEMAINE = '". $semaine . "'";
 		DBConnex::getInstance()->exec($sql);
 	}
 
