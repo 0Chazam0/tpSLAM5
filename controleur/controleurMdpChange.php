@@ -1,4 +1,5 @@
 <?php
+//changement de mdp
 if (isset($_POST['inscrmdpPrec']) && isset($_POST['inscrmdp']) && isset($_POST['inscrmdpconf'])) {
   if ($_POST['inscrmdpPrec'] == $_SESSION['identite'][1]) {
     if ($_POST['inscrmdp'] == $_POST['inscrmdpconf']) {
@@ -11,6 +12,8 @@ if (isset($_POST['inscrmdpPrec']) && isset($_POST['inscrmdp']) && isset($_POST['
     }
   }
 }
+
+//formulaire pour changement de mdp
 $formChange = new Formulaire('post','index.php','formChange','formChange');
 $formChange->ajouterComposantLigne($formChange->creerInputPassPattern('inscrmdpPrec', 'inscrmdpPrec', '','',1,'saisir précédent mot de passe', '[a-zA-Z0-9]{4,20}' ));
 $formChange->ajouterComposantTab();

@@ -1,4 +1,5 @@
 <?php
+//inscription ave données envoyés
 if (isset($_POST['Inscrmail'])
 		&& isset($_POST['Inscrnom'])
 		&& isset($_POST['Inscrprenom'])
@@ -15,6 +16,8 @@ if (isset($_POST['Inscrmail'])
     echo '</script>';
 	}
 }
+
+//recupération des données entrées si inscription non validée
 if (isset($_POST['Inscrmail'])) {
 	$Inscrmail = $_POST['Inscrmail'];
 }
@@ -34,6 +37,7 @@ else {
 	$Inscrprenom = '';
 }
 
+//formulaire d'inscription
 $formInscription = new Formulaire('post','index.php','formInscription','formInscription');
 $formInscription->ajouterComposantLigne($formInscription->creerInputTextePattern('Inscrmail', 'Inscrmail', '',$Inscrmail,1,'saisir votre mail', '[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([_\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})' ));
 $formInscription->ajouterComposantTab();
