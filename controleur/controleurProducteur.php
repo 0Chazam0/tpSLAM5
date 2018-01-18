@@ -1,7 +1,14 @@
 <?php
+/*----------------------------------------------------------*/
+/*--------Déclaration variable session----------------------*/
+/*----------------------------------------------------------*/
 $_SESSION['dernierePage'] = "Producteur";
 $_SESSION['lesFormsProduit']=null;
 $_SESSION['ListeProduits'] = new Produits(ProduitDAO::selectListeProduitAll());
+
+/*----------------------------------------------------------*/
+/*--------Affichage menu de gauche----------------------*/
+/*----------------------------------------------------------*/
 
 $menuDetailProducteur = new menu("menuDetailProducteur");
 $menuDetailProducteur->ajouterComposant($menuDetailProducteur->creerItemLien('profil','Mon Profil Public'));
@@ -23,9 +30,12 @@ else
 	}
 }
 
-
+/*----------------------------------------------------------*/
+/*--------Affichage de la liste des produits----------------------*/
+/*----------------------------------------------------------*/
 foreach ($_SESSION['ListeProduits']->getLesProduits() as $OBJ) {
 	if(isset($_POST['ajouterProdVente'.$OBJ->getNom()])){
+		//ajout a la vente du produit
 		if(ProducteurDAO::ajouterVente($_SESSION['identite'][0],$OBJ,ProduitDAO::LeNumSemaine(date("Y-m-d")),$_POST['txtqte'],$_POST['txtPrix'])){
 		$_SESSION['lesFormsProduit'] =  '<div id="prevenirValiderC">
 				Le produit a été correctement ajouté à la vente
@@ -33,6 +43,7 @@ foreach ($_SESSION['ListeProduits']->getLesProduits() as $OBJ) {
 		}
 	}
 	if(isset($_POST['modifProdVente'.$OBJ->getNom()])){
+		//modification d'un produit
 		if(ProducteurDAO::modifVente($_SESSION['identite'][0],$OBJ,ProduitDAO::LeNumSemaine(date("Y-m-d")),$_POST['txtPrix'],$_POST['txtqte'])){
 		$_SESSION['lesFormsProduit'] =  '<div id="prevenirValiderC">
 				Le produit a été correctement modifié
@@ -40,6 +51,7 @@ foreach ($_SESSION['ListeProduits']->getLesProduits() as $OBJ) {
 		}
 	}
 	if(isset($_POST['supprimerProdVente'.$OBJ->getNom()])){
+		//suppression du produit
 	if(ProducteurDAO::supprimerVente($_SESSION['identite'][0],$OBJ,ProduitDAO::LeNumSemaine(date("Y-m-d")))){
 		$_SESSION['lesFormsProduit'] =  '<div id="prevenirValiderC">
 				Le produit a été correctement supprimé
@@ -47,9 +59,8 @@ foreach ($_SESSION['ListeProduits']->getLesProduits() as $OBJ) {
 		}
 	}
 }
-
+//affichage quand on selectionne l'onglet profil du menu
 if ($_SESSION['menuDetailProducteur']== "profil"){
-
 	$correct = preg_replace('#[\\/\'" éàâäêçèë]#', "", $_SESSION['identite'][2]);
 	$correct = strtolower($correct);
 	$correct = 'image/'.$correct;
@@ -70,7 +81,7 @@ if ($_SESSION['menuDetailProducteur']== "profil"){
 
 
 }
-
+//affichage quand on selectionne l'onglet modifier du menu
 if ($_SESSION['menuDetailProducteur']== "update"){
 
 	foreach ($_SESSION['ListeProduits']->getLesProduits() as $OBJ){

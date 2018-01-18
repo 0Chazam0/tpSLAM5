@@ -1,8 +1,12 @@
 <?php
+/*----------------------------------------------------------*/
+/*--------Déclaration variable session----------------------*/
+/*----------------------------------------------------------*/
 $_SESSION['dernierePage'] = "InfosProducteurs";
 $_SESSION['lesFormsProducteurs'] = null;
 $_SESSION['ListeProducteur'] = new Producteurs(ProducteurDAO::selectListeProducteur());
 
+//affichage des informations des producteurs
 foreach ($_SESSION['ListeProducteur']->getLesProducteurs() as $OBJ){
 
   $correct = preg_replace('#[\\/\'" éàâäêçèë]#', "", $OBJ->getNom());
