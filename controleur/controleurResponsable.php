@@ -36,7 +36,12 @@ else{
   foreach ($_SESSION['ListeSemaine']->getLesSemaines() as $OBJ){
     if (isset($_POST[$OBJ->getNumSemaine()])){
       try {
-        ResponsableDAO::updateVente(date('Y-m-d'), $OBJ->getNumSemaine());
+        if ($_POST[$OBJ->getNumSemaine()] == "Ouvrir la vente"){
+          ResponsableDAO::updateVente(date('Y-m-d'), $OBJ->getNumSemaine());
+        }
+        else {
+          ResponsableDAO::updateFinVente(date('Y-m-d'), $OBJ->getNumSemaine());
+        }
         echo "<script>alert(' ". $OBJ->getNumSemaine() . "')</script>";
         break;
       } catch (Exception $e){
@@ -92,36 +97,24 @@ elseif ($_GET['c'] == 3) {
   $formResp->ajouterComposantTab();
 }
 
-// -->Ouvrir/fermer debut vente.
+// -->Ouvrir debut vente.
 elseif ($_GET['c'] == 4) {
   $autVente = true;
   $_SESSION['ListeSemaine'] = new Semaines(ResponsableDAO::selectVente());
   foreach ($_SESSION['ListeSemaine']->getLesSemaines() as $OBJ) {
-    print_r($OBJ->getNumSemaine());
     $formResp->ajouterComposantLigne($formResp->creerA($OBJ->getNumSemaine()));
-    if ($OBJ->getDateF() < date('Y-m-d')){
-      $formResp->ajouterComposantLigne($formResp->creerInputSubmit($OBJ->getNumSemaine(), $OBJ->getNumSemaine(), "Fermer"));
-    }
-    else{
-      $formResp->ajouterComposantLigne($formResp->creerInputSubmit($OBJ->getNumSemaine(), $OBJ->getNumSemaine(), "Ouvrir"));
-    }
+    $formResp->ajouterComposantLigne($formResp->creerInputSubmit($OBJ->getNumSemaine(), $OBJ->getNumSemaine(), "Ouvrir la vente"));
     $formResp->ajouterComposantTab();
   }
 }
 
-// -->Ouvrir/fermer fermer une vente.
+// -->Ouvrir une vente.
 elseif ($_GET['c'] == 5) {
   $autVente = true;
   $_SESSION['ListeSemaine'] = new Semaines(ResponsableDAO::selectVente());
-      // echo '<script>alert("ss");</script>';
   foreach ($_SESSION['ListeSemaine']->getLesSemaines() as $OBJ) {
     $formResp->ajouterComposantLigne($formResp->creerA($OBJ->getNumSemaine()));
-    if (date($OBJ->getDateF()) < date('Y-m-d')){   //$annee > date('Y') || ($annee == date('Y') && ($mois > date('m') || ($mois == date('m') && $jour > date('d'))))){
-      $formResp->ajouterComposantLigne($formResp->creerInputSubmit($OBJ->getNumSemaine(), $OBJ->getNumSemaine(), "Fermer"));
-    }
-    else{
-      $formResp->ajouterComposantLigne($formResp->creerInputSubmit($OBJ->getNumSemaine(), $OBJ->getNumSemaine(), "Ouvrir"));
-    }
+    $formResp->ajouterComposantLigne($formResp->creerInputSubmit($OBJ->getNumSemaine(), $OBJ->getNumSemaine(), "Fermer la vente"));
     $formResp->ajouterComposantTab();
   }
 }

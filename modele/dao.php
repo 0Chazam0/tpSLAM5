@@ -479,9 +479,7 @@ class CommanderDAO{
  */
 class ResponsableDAO
 {
-	##############################################################################
-	#                                   SELECT                                   #
-	##############################################################################
+	//		afficher les 20 dernieres ouvertures de vente
 	public static function		selectVente(){
 		$result = array();
 		$sql = "SELECT `NUMSEMAINE`, `DATEDEBUTDEPOT`, `DATEDEBUTACHAT`, `DATEFINACHAT` FROM `semaine` WHERE `DATEDEBUTACHAT` > ". date('Y-m-d') ." ORDER BY `DATEDEBUTDEPOT` DESC LIMIT 20";
@@ -497,6 +495,7 @@ class ResponsableDAO
 		return $result;
 	}
 
+	//		afficher les 20 dernieres fermetures de vente
 	public static function		selectFinVente(){
 		$result = array();
 		$sql = "SELECT `NUMSEMAINE`, `DATEDEBUTDEPOT`, `DATEDEBUTACHAT`, `DATEFINACHAT` FROM `semaine` ORDER BY `DATEFINACHAT` DESC LIMIT 20";
@@ -513,9 +512,7 @@ class ResponsableDAO
 	}
 
 
-	##############################################################################
-	#                                   INSERT                                   #
-	##############################################################################
+	//		ajouter un nouveau producteur
 	public static function		insertNewProducteur($nom, $prenom, $mail, $adresse, $descriptif, $mdp){
 		$sql="INSERT INTO producteur(NOM,PRENOM,EMAIL, ADRESSE, DESCRIPTIF, MDP) VALUES ('";
 		$sql .= $nom . "','";
@@ -527,6 +524,7 @@ class ResponsableDAO
 		DBConnex::getInstance()->queryFetchFirstRow($sql);
 	}
 
+	//		ajouter une nouvelle date
 	public static function		insertDate($dateDD, $dateDA, $dateFA){
 		$result = array();
 		$sql = "SELECT * FROM `semaine` ORDER BY `DATEDEBUTDEPOT` desc limit 1 ";
@@ -547,6 +545,7 @@ class ResponsableDAO
 		DBConnex::getInstance()->queryFetchFirstRow($sql);
 	}
 
+	//		ajouter un nouveau type
 	public static function		insertTypeProduit($codeType, $nomType){
 		$sql="INSERT INTO typeproduit(CODE, LIBELLE) VALUES ('";
 		$sql .= $codeType . "','";
@@ -555,15 +554,13 @@ class ResponsableDAO
 		DBConnex::getInstance()->queryFetchFirstRow($sql);
 	}
 
-	##############################################################################
-	#                                   UPDATE                                   #
-	##############################################################################
-
+	//		maj vente
 	public static function 		updateVente($date, $semaine){
 		$sql = "UPDATE semaine set DATEDEBUTACHAT = '" . date('Y-m-d') . "' WHERE NUMSEMAINE = '". $semaine . "'";
 		DBConnex::getInstance()->exec($sql);
 	}
 
+	//		maj fin vente
 	public static function 		updateFinVente($date, $semaine){
 		$sql = "UPDATE semaine set DATEFINACHAT = '" . date('Y-m-d') . "' WHERE NUMSEMAINE = '". $semaine . "'";
 		DBConnex::getInstance()->exec($sql);
