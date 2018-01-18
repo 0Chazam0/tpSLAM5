@@ -1,4 +1,5 @@
 <?php
+//recupération des données utilisateur
 unset($_SESSION['typeProduitSelected']);
 if (isset($_POST['nom'])
 		&& isset($_POST['prenom'])
@@ -25,6 +26,7 @@ if (isset($_POST['nom'])
 			}
 	}
 
+//crétion du menu
 $menuProfil = new menu("menuProfil");
 $menuProfil->ajouterComposant($menuProfil->creerItemLien('Profil','Profil'));
 $menuProfil->ajouterComposant($menuProfil->creerItemLien('Modifier','Modifier'));
@@ -44,6 +46,7 @@ if ($_SESSION['typeIdentite'] == 'C') {
 
 $leMenuProfil = $menuProfil->creerMenu("menuProfil");
 
+//Récupérarion du menu séléctionné
 if(isset($_GET['menuProfil'])){
 	$_SESSION['menuProfil']= $_GET['menuProfil'];
 }
@@ -54,6 +57,7 @@ else
 	}
 }
 
+//création du formulaire en fonction du menu selectionné
 $formProfil = new Formulaire('post','index.php','formProfil','formProfil');
 if ($_SESSION['menuProfil'] == "Responsable") {
 	$formProfil->ajouterComposantLigne($formProfil->creerInputSubmit('redirectionResponsable','redirectionResponsable','Votre espace Responsable'));

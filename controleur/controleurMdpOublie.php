@@ -1,4 +1,5 @@
 <?php
+//formulaire pour récupérer mdp
 $photoTravail = new Formulaire('','','formTravail','formTravail');
 $photoTravail->ajouterComposantLigne($photoTravail->creerInputImageProfil('photoTravail','photoTravail',"image/travailEnCours.jpg"));
 $photoTravail->ajouterComposantTab();
