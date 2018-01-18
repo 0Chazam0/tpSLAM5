@@ -319,10 +319,7 @@ class CommandeDAO{
 		return $result;
 	}
 
-<<<<<<< HEAD
-=======
 
->>>>>>> bdc21d24cae5c0f139f17739a673e30ecf071a17
 
 	public static function selectListeCommandeV($emailCli)
 	{
