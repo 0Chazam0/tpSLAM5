@@ -1,4 +1,5 @@
-<?php //définition du formulaire
+<?php
+//verification des identifiant et mdp pour connexion si validée
 if (isset($_POST['Email']) && isset($_POST['mdp'])) {
   $unUserC = UserDAO::unUserC($_POST['Email']);
   $unUserP = UserDAO::unUserP($_POST['Email']);
@@ -36,6 +37,7 @@ if (isset($_POST['Email']) && isset($_POST['mdp'])) {
         $ident = '';
       }
 
+      //formulaire de connexion
       $formConnexion = new Formulaire('post','index.php','formConnexion','formConnexion');
       $formConnexion->ajouterComposantLigne($formConnexion->creerInputTextePattern('Email', 'Email', '',$ident,1,'saisir votre mail', '[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([_\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z]{2,})' ));
       $formConnexion->ajouterComposantTab();
