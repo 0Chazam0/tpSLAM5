@@ -14,15 +14,12 @@ class Producteurs
     return $this->lesProducteurs;
   }
 
-  public function ajouterProducteur($unProducteur)
+  public function setLesProducteurs($value)
   {
-    $this->lesProducteurs = $unProducteur;
+    $this->lesProducteurs = $value;
   }
 
-  public function afficherProducteur()
-  {
 
-  }
 
   public function chercher($TheEmail)
   {
