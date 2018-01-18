@@ -560,12 +560,12 @@ class ResponsableDAO
 	##############################################################################
 
 	public static function 		updateVente($date, $semaine){
-		$sql = "UPDATE semaine set DATEDEBUTACHAT = '" . date(Y-m-d) . "' WHERE NUMSEMAINE = '". $semaine . "'";
+		$sql = "UPDATE semaine set DATEDEBUTACHAT = '" . date('Y-m-d') . "' WHERE NUMSEMAINE = '". $semaine . "'";
 		DBConnex::getInstance()->exec($sql);
 	}
 
 	public static function 		updateFinVente($date, $semaine){
-		$sql = "UPDATE semaine set DATEFINACHAT = '" . date(Y-m-d) . "' WHERE NUMSEMAINE = '". $semaine . "'";
+		$sql = "UPDATE semaine set DATEFINACHAT = '" . date('Y-m-d') . "' WHERE NUMSEMAINE = '". $semaine . "'";
 		DBConnex::getInstance()->exec($sql);
 	}
 
