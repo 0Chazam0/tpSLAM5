@@ -69,10 +69,10 @@ $menuTypeResponsable = new menu("menuTypeProd");
 $menuTypeResponsable->ajouterComposant($menuTypeResponsable->creerItemLien("Responsable&c=3","Enregistrer une nouvelle categorie de produits"));
 $theMenuTypeResp .= $menuTypeResponsable->creerMenuType("menuPrincipal",$_SESSION['menuPrincipal']);
 $menuTypeResponsable = new menu("menuTypeProd");
-$menuTypeResponsable->ajouterComposant($menuTypeResponsable->creerItemLien("Responsable&c=4","Autoriser/bloquer l'autorisation de saisie des producteurs pour une vente"));
+$menuTypeResponsable->ajouterComposant($menuTypeResponsable->creerItemLien("Responsable&c=4","Démarrer une vente"));
 $theMenuTypeResp .= $menuTypeResponsable->creerMenuType("menuPrincipal",$_SESSION['menuPrincipal']);
 $menuTypeResponsable = new menu("menuTypeProd");
-$menuTypeResponsable->ajouterComposant($menuTypeResponsable->creerItemLien("Responsable&c=5","Autoriser/bloquer l'autorisation de commander"));
+$menuTypeResponsable->ajouterComposant($menuTypeResponsable->creerItemLien("Responsable&c=5","Fermer une vente"));
 $theMenuTypeResp .= $menuTypeResponsable->creerMenuType("menuPrincipal",$_SESSION['menuPrincipal']);
 
 }
