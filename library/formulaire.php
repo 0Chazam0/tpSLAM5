@@ -167,7 +167,7 @@ class Formulaire{
 
 	public function creerInputSubmitOnClick($unNom, $unId, $uneValue,$erreur){
 		$composant = "<input type = 'submit' name = '" . $unNom . "' id = '" . $unId . "' ";
-		$composant .= "onclick='myFunction($erreur)' value = '" . $uneValue . "'/> ";
+		$composant .= "onclick='myFunction(".$erreur.")' value = '" . $uneValue . "'/> ";
 		return $composant;
 	}
 	public function creerInputSubmitPanier($unName,$uneClasse,$uneValue){
