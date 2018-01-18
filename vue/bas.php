@@ -5,12 +5,13 @@
     $_SESSION['ListeProducteur'] = new Producteurs(ProducteurDAO::selectListeProducteur());
 
     $formFooter = new Formulaire("post","index.php?menuPrincipal=Accueil","formFooter","formFooter");
-    $formFooter->ajouterComposantLigne($formFooter->creerLabelFor("Nos Producteurs ","lbltitreFooter"));
+  
 
     foreach ($_SESSION['ListeProducteur']->getLesProducteurs() as $OBJ)
     {
       $tableauProducteur[] = $OBJ->getNom();
     }
+
     if (!isset($_SESSION['typeIdentite']) || $_SESSION['typeIdentite'] == 'C' ){
       $formFooter->ajouterComposantLigne($formFooter->concactComposantsProducteur($formFooter->creerLienP($formFooter->creerLabelFor("Nos Producteurs ","lbltitreFooter")),$tableauProducteur));
     }
