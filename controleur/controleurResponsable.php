@@ -31,8 +31,19 @@ elseif (isset($_POST['codeType'])) {
     echo '<script>alert("Ajout de '. $_POST['libelleType'] . ' non réussi");</script>';
   }
 }
-elseif (isset($_POST) && $_POST == 'Ouvrir') {
-  echo "<script>alert('ok')</script>";
+else{
+  $_SESSION['ListeSemaine'] = new Semaines(ResponsableDAO::selectVente());
+  foreach ($_SESSION['ListeSemaine']->getLesSemaines() as $OBJ){
+    if (isset($_POST[$OBJ->getNumSemaine()])){
+      try {
+        ResponsableDAO::updateVente(date('Y-m-d'), $OBJ->getNumSemaine());
+        echo "<script>alert(' ". $OBJ->getNumSemaine() . "')</script>";
+        break;
+      } catch (Exception $e){
+         echo "<script>alert('Erreur');</script>";
+      }
+    }
+  }
 }
 
 if (!isset($_GET['c']) || $_GET['c'] == 1){
@@ -105,7 +116,7 @@ elseif ($_GET['c'] == 5) {
       // echo '<script>alert("ss");</script>';
   foreach ($_SESSION['ListeSemaine']->getLesSemaines() as $OBJ) {
     $formResp->ajouterComposantLigne($formResp->creerA($OBJ->getNumSemaine()));
-    if ($OBJ->getDateF() < date('Y-m-d')){   //$annee > date('Y') || ($annee == date('Y') && ($mois > date('m') || ($mois == date('m') && $jour > date('d'))))){
+    if (date($OBJ->getDateF()) < date('Y-m-d')){   //$annee > date('Y') || ($annee == date('Y') && ($mois > date('m') || ($mois == date('m') && $jour > date('d'))))){
       $formResp->ajouterComposantLigne($formResp->creerInputSubmit($OBJ->getNumSemaine(), $OBJ->getNumSemaine(), "Fermer"));
     }
     else{

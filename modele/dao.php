@@ -438,15 +438,15 @@ class ProducteurDAO{
 	}
 
 	public static function ajouterVente($email,$OBJ,$numS,$qte,$prix){
-		$sql = "INSERT INTO VENDRE VALUES('".$email."','".$OBJ->getNom()."','".$numS."','".$prix."','".$qte."')";
+		$sql = "INSERT INTO VENDRE VALUES('".$email."','".$OBJ->getCode()."','".$numS."','".$prix."','".$qte."')";
 		DBConnex::getInstance()->exec($sql);
 	}
 	public static function modifVente($email,$OBJ,$numS,$prix,$qte){
-		$sql="UPDATE VENDRE SET numsemaine='".$numS."', prix='".$prix."',quantite='".$qte."' WHERE EMAIL='".$email."' AND CODE='".$OBJ->getNom()."'";
+		$sql="UPDATE VENDRE SET prix='".$prix."',quantite='".$qte."' WHERE numsemaine='".$numS."' AND EMAIL='".$email."' AND CODE='".$OBJ->getCode()."'";
 		DBConnex::getInstance()->exec($sql);
 	}
-	public static function supprimerVente($email,$OBJ){
-		$sql="DELETE FROM VENDRE WHERE EMAIL='".$email."' AND CODE='".$OBJ->getNom()."' ";
+	public static function supprimerVente($email,$OBJ,$nums){
+		$sql="DELETE FROM VENDRE WHERE EMAIL='".$email."' AND CODE='".$OBJ->getCode()."'  AND NUMSEMAINE='".$nums."'";
 		DBConnex::getInstance()->exec($sql);
 	}
 }
@@ -560,12 +560,12 @@ class ResponsableDAO
 	##############################################################################
 
 	public static function 		updateVente($date, $semaine){
-		$sql = "UPDATE semaine set DATEDEBUTACHAT = '" . date(Y-m-d) . "' WHERE NUMSEMAINE = '". $semaine . "'";
+		$sql = "UPDATE semaine set DATEDEBUTACHAT = '" . date('Y-m-d') . "' WHERE NUMSEMAINE = '". $semaine . "'";
 		DBConnex::getInstance()->exec($sql);
 	}
 
 	public static function 		updateFinVente($date, $semaine){
-		$sql = "UPDATE semaine set DATEFINACHAT = '" . date(Y-m-d) . "' WHERE NUMSEMAINE = '". $semaine . "'";
+		$sql = "UPDATE semaine set DATEFINACHAT = '" . date('Y-m-d') . "' WHERE NUMSEMAINE = '". $semaine . "'";
 		DBConnex::getInstance()->exec($sql);
 	}
 
