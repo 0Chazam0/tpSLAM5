@@ -24,7 +24,29 @@ else
 }
 
 
-
+foreach ($_SESSION['ListeProduits']->getLesProduits() as $OBJ) {
+	if(isset($_POST['ajouterProdVente'.$OBJ->getNom()])){
+		if(ProducteurDAO::ajouterVente($_SESSION['identite'][0],$OBJ,ProduitDAO::LeNumSemaine(date("Y-m-d")),$_POST['txtqte'],$_POST['txtPrix'])){
+		$_SESSION['lesFormsProduit'] =  '<div id="prevenirValiderC">
+				Le produit a été correctement ajouté à la vente
+			</div>';
+		}
+	}
+	if(isset($_POST['modifProdVente'.$OBJ->getNom()])){
+		if(ProducteurDAO::modifVente($_SESSION['identite'][0],$OBJ,ProduitDAO::LeNumSemaine(date("Y-m-d")),$_POST['txtPrix'],$_POST['txtqte'])){
+		$_SESSION['lesFormsProduit'] =  '<div id="prevenirValiderC">
+				Le produit a été correctement modifié
+			</div>';
+		}
+	}
+	if(isset($_POST['supprimerProdVente'.$OBJ->getNom()])){
+	if(ProducteurDAO::supprimerVente($_SESSION['identite'][0],$OBJ,ProduitDAO::LeNumSemaine(date("Y-m-d")))){
+		$_SESSION['lesFormsProduit'] =  '<div id="prevenirValiderC">
+				Le produit a été correctement supprimé
+			</div>';
+		}
+	}
+}
 
 if ($_SESSION['menuDetailProducteur']== "profil"){
 
@@ -87,28 +109,6 @@ if ($_SESSION['menuDetailProducteur']== "update"){
 	  $_SESSION['lesFormsProduit'] .= $formProduit->afficherFormulaire();
 	}
 }
-foreach ($_SESSION['ListeProduits']->getLesProduits() as $OBJ) {
-	if(isset($_POST['ajouterProdVente'.$OBJ->getNom()])){
-		if(ProducteurDAO::ajouterVente($email,$OBJ,$nums,$_POST['txtqte'],$_POST['txtPrix'])){
-		$_SESSION['lesFormsProduit'] =  '<div id="prevenirValiderC">
-				Le produit a été correctement ajouté à la vente
-			</div>';
-		}
-	}
-	if(isset($_POST['modifProdVente'.$OBJ->getNom()])){
-		if(ProducteurDAO::modifVente($email,$OBJ,$nums,$_POST['txtPrix'],$_POST['txtqte'])){
-		$_SESSION['lesFormsProduit'] =  '<div id="prevenirValiderC">
-				Le produit a été correctement modifié
-			</div>';
-		}
-	}
-	if(isset($_POST['supprimerProdVente'.$OBJ->getNom()])){
-	if(ProducteurDAO::supprimerVente($email,$OBJ)){
-		$_SESSION['lesFormsProduit'] =  '<div id="prevenirValiderC">
-				Le produit a été correctement supprimé
-			</div>';
-		}
-	}
-}
+
 include "vue/vueProducteur.php";
  ?>
