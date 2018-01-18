@@ -41,7 +41,7 @@ $_SESSION['leformCommande'] = $formCommande->afficherFormulaire();
 /*----------------------------------------------------------*/
 /*--------Ajout des informations dans la bdd (table commande et quantite) + création d'objet -----*/
 /*----------------------------------------------------------*/
-// Condition respectée quand on utilise le btn confirmCommande
+// gestion modif commande (en mode modification panier)
 if (isset($_POST['confirmCommande'])){
   if (isset($_SESSION['EstEnModif'])) {
     CommandeDAO::updateValiderEtatCommande($_SESSION['NumComModif']);
@@ -50,6 +50,7 @@ if (isset($_POST['confirmCommande'])){
     unset($_SESSION['EstEnModif']);
   }
   else{
+    // gestion modif commande (initiale)
     CommandeDAO::updateValiderEtatCommande($_SESSION['compteurCommande']);
     unset($_SESSION['compteurCommande']);
     unset($_SESSION['lePanier']);

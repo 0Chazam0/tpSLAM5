@@ -1,4 +1,7 @@
 <?php
+/*----------------------------------------------------------*/
+/*--------Déclaration variable session----------------------*/
+/*----------------------------------------------------------*/
 $_SESSION['dernierePage'] = "Produit";
 $_SESSION['prixTotal'] = 0;
 $_SESSION['ListeProduits'] = new Produits(ProduitDAO::selectListeProduit($_SESSION['typeProduitSelected']));
@@ -71,6 +74,7 @@ foreach ($_SESSION['ListeProduits']->getLesProduits() as $OBJ){
   $formProduit->ajouterComposantTab();
   $formProduit->ajouterComposantLigne($formProduit->creerLabelFor(ucfirst($OBJ->getNom()),"nomProduit"));
   $formProduit->ajouterComposantTab();
+  //on cherche a savoir si le produit est en vente cette semaine (ou en rupture de stock ou pas disponible)
   if(ProduitDAO::estEnVente($OBJ,date("Y-m-d"))==1){
     $formProduit->ajouterComposantLigne($formProduit->concactComposants($formProduit->creerLabelFor("Prix : ","lblprixProd"),
                                         $formProduit->concactComposants($formProduit->creerLabelFor(ProduitDAO::LePrixProduit($OBJ,date("Y-m-d"))."€",'prixProd'),
@@ -78,7 +82,8 @@ foreach ($_SESSION['ListeProduits']->getLesProduits() as $OBJ){
     $formProduit->ajouterComposantTab();
     $formProduit->ajouterComposantLigne($formProduit->concactComposants($formProduit->creerLabelFor("Quantité : ","lblQteProd"),
                                         $formProduit->creerLabelFor(ProduitDAO::LaQteProduit($OBJ,date("Y-m-d")),'QteProd'),0));
-		if (!isset($_SESSION['typeIdentite']) || $_SESSION['typeIdentite'] == 'C'){
+    //affichage du panier seulement si on est connecté en client
+    if (!isset($_SESSION['typeIdentite']) || $_SESSION['typeIdentite'] == 'C'){
     	$formProduit->ajouterComposantLigne($formProduit->creerInputSubmitPanier($OBJ->getCode(),"ajoutCommande-btn"," Ajouter au panier "));
 		}
   }
@@ -96,7 +101,7 @@ foreach ($_SESSION['ListeProduits']->getLesProduits() as $OBJ){
 
 }
 
-
+//affichage du panier seulement si on est connecté en client
 if (!isset($_SESSION['typeIdentite']) || $_SESSION['typeIdentite'] == 'C'){
 	$formPanier = new Formulaire("POST","index.php","formPanier","panierthis");
 
@@ -127,6 +132,7 @@ if (!isset($_SESSION['typeIdentite']) || $_SESSION['typeIdentite'] == 'C'){
 	$formPanier->ajouterComposantLigne($formPanier->concactComposants($formPanier->creerLabelFor("Total : ","lbltotal"),$formPanier->creerLabelFor($_SESSION['prixTotal']."€","prixTotal"),0));
 	$formPanier->ajouterComposantTab();
 	if (isset($_SESSION['lePanier']) && sizeof($_SESSION['lePanier']->getLesProduits())>0){
+    //on cherche a savoir si on modifie le panier (pour différencier de sa création)
     if(isset($_SESSION['EstEnModif']) && $_SESSION['EstEnModif']){
       $formPanier->ajouterComposantLigne($formPanier->creerInputSubmit('validerModifCommande','validerModifCommande',"Modifier votre commande"));
     }

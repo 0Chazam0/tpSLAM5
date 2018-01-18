@@ -97,10 +97,11 @@ if ($_SESSION['menuProfil'] == "Modifier") {
 }
 
 if ($_SESSION['menuProfil'] == "HistoriqueEC") {
+	//affichage des commandes en cours
 	$_SESSION['comEC']= new commandes(CommandeDAO::selectListeCommandeEC($_SESSION['identite'][0]));
 		if (sizeof($_SESSION['comEC']->getLesCommandes())>0){
 		foreach ($_SESSION['comEC']->getLesCommandes() as $OBJ) {
-
+			//suppression de la commande en cours
 			if(isset($_POST['S'.$OBJ->getNumCommande()])){
 				CommanderDAO::deleteProdCommande($OBJ->getNumCommande());
 				CommandeDAO::deleteCommande($OBJ->getNumCommande());
@@ -139,7 +140,9 @@ if ($_SESSION['menuProfil'] == "HistoriqueEC") {
 	}
 
 }
+
 if ($_SESSION['menuProfil'] == "HistoriqueV") {
+	//affichage commandes validées
 	$_SESSION['comV']= new commandes(CommandeDAO::selectListeCommandeV($_SESSION['identite'][0]));
 	if (sizeof($_SESSION['comV']->getLesCommandes())>0){
 		foreach ($_SESSION['comV']->getLesCommandes() as $OBJ) {
@@ -173,6 +176,7 @@ if ($_SESSION['menuProfil'] == "HistoriqueV") {
 
 }
 if ($_SESSION['menuProfil'] == "HistoriqueD") {
+	//affichage commande distribuée
 	$_SESSION['comD']= new commandes(CommandeDAO::selectListeCommandeD($_SESSION['identite'][0]));
 if (sizeof($_SESSION['comD']->getLesCommandes())>0){
 		foreach ($_SESSION['comD']->getLesCommandes() as $OBJ) {

@@ -30,6 +30,11 @@ require_once 'modele\DTO\semaine.php';
 /*----------------------------------------------------------*/
 /*--------Header-----------------------------------------*/
 /*----------------------------------------------------------*/
+
+
+/*----------------------------------------------------------*/
+/*--------Menu permanent des types de produits-----------------------------------------*/
+/*----------------------------------------------------------*/
 if (!isset($_SESSION['typeIdentite']) || $_SESSION['typeIdentite'] == 'C' ){
 	$_SESSION['TypeProduit']= null;
 	$theMenuType=null;
@@ -57,6 +62,9 @@ if (!isset($_SESSION['typeIdentite']) || $_SESSION['typeIdentite'] == 'C' ){
 	}
 
 }
+/*----------------------------------------------------------*/
+/*--------Menu permanent pour le responsable-----------------------------------------*/
+/*----------------------------------------------------------*/
 if (isset($_SESSION['typeIdentite']) && $_SESSION['typeIdentite'] == 'R' ){
 $theMenuTypeResp = "";
 $menuTypeResponsable = new menu("menuTypeProd");
@@ -237,12 +245,16 @@ if (isset($_POST['validerCommande'])){
 	}
 }
 
-
+/*----------------------------------------------------------*/
+/*--------Récupère le controleur Commande (si la condition est respectée) et si on est connecté----------*/
+/*----------------------------------------------------------*/
+//en mode modification d'un panier (pas en création)
 if (isset($_POST['validerModifCommande'])){
 	if (!isset($_SESSION['identite'])) {
 		$_SESSION['menuPrincipal']= 'Connexion';
 	}
 	else{
+		
 		CommanderDAO::deleteProdCommande($_SESSION['NumComModif']);
 		CommandeDAO::deleteCommande($_SESSION['NumComModif']);
 	  CommandeDAO::ajouterUneCommande($_SESSION['NumComModif'], $_SESSION['identite'][0],date("Y-m-d"),"EC");
