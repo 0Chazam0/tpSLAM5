@@ -8,9 +8,6 @@
 	echo $leMenuP;
 	echo $formLogo->afficherFormulaire();
 
-
-
-
 	?>
 
 </nav>
@@ -19,8 +16,7 @@
 	if ((!isset($_SESSION['typeIdentite']) || $_SESSION['typeIdentite'] == 'C') && (!isset($_GET['menuPrincipal']) || $_GET['menuPrincipal'] != "Responsable")){
 		echo $theMenuType;
 	}
-	elseif (isset($_GET['menuPrincipal']) && $_GET['menuPrincipal'] == "Responsable") {
-		// echo '</nav>';
+	elseif (isset($_SESSION['typeIdentite']) && $_SESSION['typeIdentite'] == "R") {
 		echo '<nav class="choixResponsable">';
 		echo $theMenuTypeResp;
 		echo '</div>';

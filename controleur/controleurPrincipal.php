@@ -211,7 +211,12 @@ if (isset($_POST['ModifierClient'])) {
 if (isset($_POST['redirectionProducteur'])) {
 	$_SESSION['menuPrincipal'] = 'Producteur';
 }
-
+/*----------------------------------------------------------*/
+/*--------Récupère le controleur Responsable (si la condition est respectée)----------*/
+/*----------------------------------------------------------*/
+if (isset($_POST['redirectionResponsable'])) {
+	$_SESSION['menuPrincipal'] = 'Responsable';
+}
 /*----------------------------------------------------------*/
 /*--------Récupère le controleur Commande (si la condition est respectée) et si on est connecté----------*/
 /*----------------------------------------------------------*/
@@ -254,7 +259,7 @@ if (isset($_POST['validerModifCommande'])){
 		$_SESSION['menuPrincipal']= 'Connexion';
 	}
 	else{
-		
+
 		CommanderDAO::deleteProdCommande($_SESSION['NumComModif']);
 		CommandeDAO::deleteCommande($_SESSION['NumComModif']);
 	  CommandeDAO::ajouterUneCommande($_SESSION['NumComModif'], $_SESSION['identite'][0],date("Y-m-d"),"EC");

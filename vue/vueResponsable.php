@@ -6,6 +6,7 @@
 <body>
   <div id='corpsResponsable'>
   <?php
+    
     echo $formResp->afficherFormulaire();
    ?>
  </div>
