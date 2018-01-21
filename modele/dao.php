@@ -545,7 +545,7 @@ class ResponsableDAO
 		DBConnex::getInstance()->queryFetchFirstRow($sql);
 	}
 
-	//		ajouter un nouveau type
+	//		ajouter un nouv type
 	public static function		insertTypeProduit($codeType, $nomType){
 		$sql="INSERT INTO typeproduit(CODE, LIBELLE) VALUES ('";
 		$sql .= $codeType . "','";
